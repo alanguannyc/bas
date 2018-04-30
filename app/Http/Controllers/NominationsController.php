@@ -113,6 +113,6 @@ class NominationsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Nomination::destroy($id);
     }
 }

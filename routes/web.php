@@ -28,6 +28,7 @@ Route::get('/', 'NominationsController@home');
 Route::get('api/v1/nominations', 'NominationsController@index');
 Route::get('api/v1/nominations/{id}/edit', 'NominationsController@edit');
 Route::post('api/v1/nominations/{id}', 'NominationsController@update');
+Route::delete('api/v1/nominations/{id}', 'NominationsController@destroy');
 Route::post('api/v1/nominations', 'NominationsController@store');
 
 

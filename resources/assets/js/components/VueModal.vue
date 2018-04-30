@@ -1,57 +1,37 @@
 <template>
     <div class="container">
-        <H1>Add new nominees</H1>
-<form method="post">
-  <!-- Select category -->
 
- <div class="form-check" >
-  <input v-model="nomination.category" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="Full-Time Concierge" required>
-  <label class="form-check-label" for="exampleRadios1">
-    Full-Time Concierge
-  </label>
-</div>
-<div class="form-check">
-  <input v-model="nomination.category" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Full-Time Door Person" required>
-  <label class="form-check-label" for="exampleRadios2">
-    Full-Time Door Person
-  </label>
-</div>
-<div class="form-check">
-  <input v-model="nomination.category" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Full-Time Hourly With Guest Contact" required>
-  <label class="form-check-label" for="exampleRadios2">
-    Full-Time Hourly With Guest Contact
-  </label>
-</div>
-<div class="form-check">
-  <input v-model="nomination.category" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Full-Time Hourly Without Guest Contact" required>
-  <label class="form-check-label" for="exampleRadios2">
-    Full-Time Hourly Without Guest Contact
-  </label>
-</div>
-<div class="form-check">
-  <input v-model="nomination.category" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Full-Time Room Attendant" required>
-  <label class="form-check-label" for="exampleRadios2">
-    Full-Time Room Attendant
-  </label>
-</div>
-<div class="form-check">
-  <input v-model="nomination.category" class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="Managerial Below General Manager" required>
-  <label class="form-check-label" for="exampleRadios2">
-    Managerial Below General Manager
-  </label>
-</div>
-<div class="form-check disabled">
-  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
-  <label class="form-check-label" for="exampleRadios3">
-    Disabled 
-  </label>
-</div>
-<br>
-<div v-if="nomination.category !== ''">
-<!-- Enter name -->
+     <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" :data-target="'#' + data.id" >
+  <i class="fas fa-eye"></i> 
+</button>
+
+<!-- Modal -->
+<div class="modal fade bd-example-modal-lg" :id="data.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+            <!-- <slot name="title">
+            I'm the default title!
+          </slot> -->
+        {{ data.category }}
+        
+          
+          </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <slot name="body">
+            I'm the default body!
+          </slot> -->
+
+<form >
 <div class="form-group">
-    <label for="exampleInputName">Enter Name</label>
-    <input v-model="nomination.name" name="candidateName" type="text" class="form-control" id="InputName" aria-describedby="nameHelp" placeholder="Enter Name" required="true">
+    <label for="exampleInputName">Name</label>
+    <input v-model="nomination.name" name="candidateName" type="text" class="form-control" id="InputName" aria-describedby="nameHelp" placeholder="Enter Name" required="true" >
   </div>
 
 <!-- Question 1 -->
@@ -93,13 +73,23 @@
         <textarea v-model="nomination.q5" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
   </div>
-
-  <!-- Submit -->
-  <button type="submit" @click="create()" class="btn btn-primary">Submit</button>
-  </div>
+<div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination">Save changes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteNomination">Delete</button>
+      </div>
+  
 </form>
- 
+      </div>
     </div>
+  </div>
+</div>
+ 
+  
+
+
+    </div>
+    
 </template>
 
 <script>
@@ -115,30 +105,51 @@
                   q3:'',
                   q4:'',
                   q5:''
-                  
                   }
             }
     },
-
-        mounted() {
-            console.log('Component mounted.')
-        },
-
-        methods: {
-            create() {
-              event.preventDefault();
-              
+    props: {
+            data: {
+                    type: Object
+                        }
+            },
+    mounted() {
             var app = this;
-            var newNomination = app.nomination;
-            axios.post('/api/v1/nominations',newNomination)
+            var id = this.data.id;
+            axios.get(`/api/v1/nominations/${id}/edit`)
                 .then(function (resp) {
-                    
+                    app.nomination = resp.data;
                 })
                 .catch(function (resp) {
                     console.log(resp);
                     // alert("Could not load nominations");
                 });
-                this.$router.push({name: 'NominationsIndex'});
+        },
+    methods: {
+            updateNomination() {
+            var app = this;
+            var id = app.data.id;
+            var newNomination = app.nomination;
+            axios.post(`/api/v1/nominations/${id}`, newNomination)
+                .then(function (resp) {
+                })
+                .catch(function (resp) {
+                    console.log(resp);
+                });
+            },
+            deleteNomination() {
+                var app = this;
+                var id = app.data.id;
+                axios.delete(`/api/v1/nominations/${id}`)
+                .then(function (resp) {
+                    console.log(resp.data);
+                })
+                .catch(function (resp) {
+                    console.log(resp);
+                });
+                // this is ok too
+                // window.location.reload(true);
+                this.$router.go();
             }
         }
     }

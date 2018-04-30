@@ -31,6 +31,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Nomination');
     }
 
+    public function roles() {
+        return $this->belongsToMany('App\Role');
+    }
+
     public function publish($nomination) {
         $this->nominations()->save($nomination);
 

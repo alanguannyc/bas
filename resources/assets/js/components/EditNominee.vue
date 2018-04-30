@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <H1>Add new nominees</H1>
+        <H1>Edit new nominees</H1>
 <form method="post">
   <!-- Select category -->
 
