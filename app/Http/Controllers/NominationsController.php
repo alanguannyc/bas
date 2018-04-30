@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Nominations;
+use App\Nomination;
+use Illuminate\Support\Facades\DB;
 
 class NominationsController extends Controller
 {
@@ -12,6 +13,12 @@ class NominationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function home()
     {
         return view('nominationHome');
@@ -19,7 +26,11 @@ class NominationsController extends Controller
 
     public function index()
     {
-        return Nominations::all();
+        
+            return $nominations = Nomination::where('user_id','=',auth()->id())->get();
+    
+         
+
     }
 
     /**
@@ -40,7 +51,21 @@ class NominationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'category' => 'required|max:255',
+            'name' => 'required',
+            'publish_at' => 'nullable|date',
+        ]);
+        // $task=Task::create(request(['title','body']));
+        
+
+        auth()->user()->publish(
+            new Nomination(request(['category','name','q1','q2','q3','q4','q5']))
+        );
+
+        session()->flash('message','Your task has been created!');
+
+        return redirect()->home();
     }
 
     /**
@@ -51,7 +76,7 @@ class NominationsController extends Controller
      */
     public function show($id)
     {
-        //
+        return $nomination = Nomination::find($id);
     }
 
     /**
@@ -62,7 +87,7 @@ class NominationsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return $nomination = Nomination::find($id);
     }
 
     /**
@@ -74,7 +99,10 @@ class NominationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $nomination = Nomination::findOrFail($id);
+        $nomination->update($request->all());
+ 
+        return $nomination;
     }
 
     /**

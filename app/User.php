@@ -26,4 +26,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function nominations() {
+        return $this->hasMany('App\Nomination');
+    }
+
+    public function publish($nomination) {
+        $this->nominations()->save($nomination);
+
+    }
 }

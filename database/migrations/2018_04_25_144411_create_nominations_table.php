@@ -16,6 +16,7 @@ class CreateNominationsTable extends Migration
         Schema::create('nominations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
+            $table->string('category');
             $table->string('name');
             $table->text('q1');
             $table->text('q2');
@@ -23,7 +24,9 @@ class CreateNominationsTable extends Migration
             $table->text('q4');
             $table->text('q5');
             $table->timestamps();
+            
         });
+
     }
 
     /**
@@ -34,5 +37,6 @@ class CreateNominationsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('nominations');
+        // $table->dropColumn('paid');
     }
 }

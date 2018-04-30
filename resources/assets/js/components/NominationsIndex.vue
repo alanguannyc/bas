@@ -1,25 +1,24 @@
 <template>
     <div class="container">
 
-    <div class="accordion" id="accordion">
-  <div class="card">
-    <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
-        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-          {{ nominations.category}}
-        </button>
-      </h5>
-    </div>
-
-    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-      <div class="card-body">
-          <h4>{{ nominations.name }}</h4>
-          <p>
-              {{ nominations.q1}}
-          </p>
-    </div>
-    </div>
-  </div>
+    <table class="table table-hover">
+    <thead>
+        <tr>
+        <th scope="col">Category</th>
+        <th scope="col">Name</th>
+        <th scope="col">Submit Date</th>
+        <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr v-for="nomination in nominations" v-bind:key="nomination.id" >
+        <th scope="row">{{ nomination.category}}</th>
+        <td>{{ nomination.name}}</td>
+        <td>{{ nomination.created_at}}</td>
+        <td><i class="fas fa-eye"></i>     <i class="fas fa-edit"></i>   <i class="fas fa-trash-alt"></i></td>
+        </tr>
+    </tbody>
+    </table>
  
   
     
@@ -42,8 +41,9 @@
                 })
                 .catch(function (resp) {
                     console.log(resp);
-                    alert("Could not load nominations");
+                    // alert("Could not load nominations");
                 });
-        },
+            
+        }
     }
 </script>

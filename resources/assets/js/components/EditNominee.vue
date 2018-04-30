@@ -95,7 +95,7 @@
   </div>
 
   <!-- Submit -->
-  <button type="submit" @click="create()" class="btn btn-primary">Submit</button>
+  <button type="submit" @click="update()" class="btn btn-primary">Submit</button>
   </div>
 </form>
  
@@ -121,16 +121,25 @@
     },
 
         mounted() {
-            console.log('Component mounted.')
+            var app = this;
+            var id = app.$route.params.id
+            axios.get(`/api/v1/nominations/${id}/edit`)
+                .then(function (resp) {
+                    app.nomination = resp.data;
+                })
+                .catch(function (resp) {
+                    console.log(resp);
+                    // alert("Could not load nominations");
+                });
         },
 
         methods: {
-            create() {
+            update() {
               event.preventDefault();
-              
             var app = this;
+             var id = app.$route.params.id 
             var newNomination = app.nomination;
-            axios.post('/api/v1/nominations',newNomination)
+            axios.post(`/api/v1/nominations/${id}`, newNomination)
                 .then(function (resp) {
                     console.log(resp.data);
                 })

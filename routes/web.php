@@ -19,11 +19,23 @@ Route::get('/about', function () {
     return view('welcome');
 });
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/logout' , 'Auth\LoginController@logout');
+
 Route::get('/', 'NominationsController@home');
 Route::get('api/v1/nominations', 'NominationsController@index');
+Route::get('api/v1/nominations/{id}/edit', 'NominationsController@edit');
+Route::post('api/v1/nominations/{id}', 'NominationsController@update');
+Route::post('api/v1/nominations', 'NominationsController@store');
 
 
 // Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function () {
 //     Route::resource('nominations', 'NominationsController', ['except' => ['create', 'edit']]);
 // });
 
+
+Route::get('admin', function () {
+    return view('admin');
+    })->middleware('admin','auth');
