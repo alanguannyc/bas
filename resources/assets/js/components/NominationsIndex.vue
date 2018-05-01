@@ -1,7 +1,10 @@
 <template>
     <div class="container">
-
-    <table class="table table-hover">
+        <div v-if="nominations ==''">
+            <h4>Start submitting your nominations</h4>
+            <router-link to="/nominations/add"><button class="btn btn-primary">Start</button></router-link>
+        </div>
+    <table class="table table-hover" v-else>
     <thead>
         <tr>
         <th scope="col">Category</th>
@@ -51,17 +54,7 @@ import VueModal from './VueModal.vue'
             
         },
         methods: {
-            updateNomination() {
-            var app = this;
-            var id = app.data.id;
-            var newNomination = app.nomination;
-            axios.post(`/api/v1/nominations/${id}`, newNomination)
-                .then(function (resp) {
-                })
-                .catch(function (resp) {
-                    console.log(resp);
-                });
-            }
+            
         }
     }
 </script>

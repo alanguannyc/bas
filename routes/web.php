@@ -37,6 +37,6 @@ Route::post('api/v1/nominations', 'NominationsController@store');
 // });
 
 
-Route::get('admin', function () {
+Route::get('/admin', function () {
     return view('admin');
     })->middleware('admin','auth');

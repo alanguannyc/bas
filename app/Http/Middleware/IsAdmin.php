@@ -15,9 +15,13 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if (\Auth::user()->roles()->where('name','==','admin')->exists()) {
+        // if (\Auth::user()->roles()->where('name','==','admin')->exists()) {
+        //     return $next($request);
+        //   }
+        if (\Auth::user()->isAdmin()) {
+            // return redirect('admin');
             return $next($request);
-          }
+        }
           return redirect('home');
     }
 }

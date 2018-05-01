@@ -39,4 +39,17 @@ class User extends Authenticatable
         $this->nominations()->save($nomination);
 
     }
+
+    public function isAdmin()
+    {
+        foreach ($this->roles()->get() as $role)
+        {
+            if ($role->name == 'admin')
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -115,21 +115,21 @@
                   q3:'',
                   q4:'',
                   q5:''
-                  
                   }
             }
     },
 
         mounted() {
             var app = this;
-            var id = app.$route.params.id
+            var id = app.$route.params.id;
+            var route = this.$router;
             axios.get(`/api/v1/nominations/${id}/edit`)
                 .then(function (resp) {
                     app.nomination = resp.data;
                 })
                 .catch(function (resp) {
+                  route.push({name: 'NominationsIndex'});
                     console.log(resp);
-                    // alert("Could not load nominations");
                 });
         },
 

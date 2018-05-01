@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Nomination;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate; 
 
 class NominationsController extends Controller
 {
@@ -63,7 +64,7 @@ class NominationsController extends Controller
             new Nomination(request(['category','name','q1','q2','q3','q4','q5']))
         );
 
-        session()->flash('message','Your task has been created!');
+        session()->flash('message','Your nomination has been created!');
 
         return redirect()->home();
     }
@@ -87,7 +88,12 @@ class NominationsController extends Controller
      */
     public function edit($id)
     {
-        return $nomination = Nomination::find($id);
+        
+        $nomination = Nomination::find($id);
+        if (Gate::denies('update-nomination', $nomination)) {
+            abort(403);
+        }
+        return $nomination;
     }
 
     /**

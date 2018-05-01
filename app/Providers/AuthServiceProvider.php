@@ -25,6 +25,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::before(function ($user, $ability) {
+            if ($user->isAdmin()) {
+                return true;
+            }
+        });
+
+        Gate::define('update-nomination', function ($user, $nomination) {
+            return $user->id === $nomination->user_id;
+        });
     }
 }

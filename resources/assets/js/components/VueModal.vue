@@ -106,36 +106,37 @@
                   q4:'',
                   q5:''
                   }
-            }
-    },
-    props: {
-            data: {
-                    type: Object
-                        }
-            },
-    mounted() {
-            var app = this;
-            var id = this.data.id;
-            axios.get(`/api/v1/nominations/${id}/edit`)
-                .then(function (resp) {
-                    app.nomination = resp.data;
-                })
-                .catch(function (resp) {
-                    console.log(resp);
-                    // alert("Could not load nominations");
-                });
+                }
         },
-    methods: {
+        props: {
+                data: {
+                        type: Object
+                            }
+                },
+        mounted() {
+                var app = this;
+                var id = this.data.id;
+                axios.get(`/api/v1/nominations/${id}/edit`)
+                    .then(function (resp) {
+                        app.nomination = resp.data;
+                    })
+                    .catch(function (resp) {
+                        console.log(resp);
+                        // alert("Could not load nominations");
+                    });
+            },
+        methods: {
             updateNomination() {
-            var app = this;
-            var id = app.data.id;
-            var newNomination = app.nomination;
-            axios.post(`/api/v1/nominations/${id}`, newNomination)
-                .then(function (resp) {
-                })
-                .catch(function (resp) {
-                    console.log(resp);
-                });
+                var app = this;
+                var id = app.data.id;
+                var newNomination = app.nomination;
+                axios.post(`/api/v1/nominations/${id}`, newNomination)
+                    .then(function (resp) {
+                    })
+                    .catch(function (resp) {
+                        console.log(resp);
+                    });
+                    this.$router.go();
             },
             deleteNomination() {
                 var app = this;
