@@ -37,6 +37,26 @@ Route::post('api/v1/nominations', 'NominationsController@store');
 // });
 
 
-Route::get('/admin', function () {
-    return view('admin');
-    })->middleware('admin','auth');
+// Route::get('/admin', function () {
+//     return view('admin');
+//     })->middleware('admin','auth');
+
+// Route::prefix('admin')->middleware('admin','auth')->group(function () {
+
+//     Route::get('', function () {
+//         return view('admin');
+//         });
+//     Route::get('users', function () {
+//             // Matches The "/admin/users" URL
+//         return view('admin');
+//         });
+//     });
+
+    Route::group(['prefix' => 'admin',  'middleware' => 'auth','admin'], function()
+    {
+        Route::get('/', function() {
+            return view('admin');
+        })->name('admin');
+
+        Route::get('/user', 'AdminController@indexUsers')->name('user');
+    });

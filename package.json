@@ -21,6 +21,7 @@
     },
     "dependencies": {
         "admin-lte": "^3.0.0-alpha",
+        "gentelella": "^1.4.0",
         "vue-router": "^3.0.1"
     }
 }
