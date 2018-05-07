@@ -52,11 +52,14 @@ Route::post('api/v1/nominations', 'NominationsController@store');
 //         });
 //     });
 
-    Route::group(['prefix' => 'admin',  'middleware' => 'auth','admin'], function()
+    Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function()
     {
         Route::get('/', function() {
             return view('admin');
         })->name('admin');
 
         Route::get('/user', 'AdminController@indexUsers')->name('user');
+        Route::get('/user/api', function () {
+            return $users=App\User::with(['profile'])->get();
+        });
     });

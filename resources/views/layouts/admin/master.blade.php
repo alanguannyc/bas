@@ -25,8 +25,13 @@
     <!-- bootstrap-daterangepicker -->
     <link href="{{ asset('css/vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
     {{-- datatable jquery --}}
+    
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/b-1.5.1/datatables.min.css"/>
+ 
+    {{-- use axios --}}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css"  rel="stylesheet">
   </head>
@@ -140,9 +145,12 @@
     <script src="../build/js/custom.min.js"></script>
   
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
-
-	<script type="text/javascript">
-        @yield ('scripts')
-    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.16/b-1.5.1/b-colvis-1.5.1/b-flash-1.5.1/b-html5-1.5.1/b-print-1.5.1/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript">
+          @yield ('scripts')
+      </script>
   </body>
 </html>

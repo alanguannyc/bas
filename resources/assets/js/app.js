@@ -31,3 +31,76 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
+function format ( d ) {
+    // `d` is the original data object for the row
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+        '<tr>'+
+            '<td>Full name:</td>'+
+            '<td>'+d.name+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>Email:</td>'+
+            '<td>'+d.email+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>Company:</td>'+
+            '<td>'+d.profile.company+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>Company:</td>'+
+            '<td>'+d.profile.title+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>Company:</td>'+
+            '<td>'+d.profile.phone+'</td>'+
+        '</tr>'+
+        '<tr>'+
+            '<td>Company:</td>'+
+            '<td>'+d.profile.address+'</td>'+
+        '</tr>'+
+    '</table>';
+}
+
+
+
+
+axios.get('/admin/user/api')
+    .then(res=>{
+        var newdata = res.data;
+        var table = $(document).ready( function () {
+            $('#user_table').DataTable(
+                {
+                    data:newdata,
+                    columns: [
+                        {"className": 'details-control'},
+                        { data: 'email' },
+                        { data: 'name' }
+                    ],
+                    dom: 'frtipB',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf'
+                    ]
+
+                }
+            );
+        } );
+    })
+    .catch(function(err){
+        console.log(err);
+    });
+ 
+    $('#user_table tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+ 
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
