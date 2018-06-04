@@ -30,12 +30,12 @@
 
 
 @endsection
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+{{-- <script type='text/javascript' src="{!! url('js/admin.js') !!}"></script> --}}
 @section('scripts')
 
-function format ( d ) {
-if(d.profile=null) {
-    d.profile="" }
+{{-- function format ( d ) {
+
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
             '<tr>'+
                 '<td>Full name:</td>'+
@@ -118,6 +118,6 @@ axios.get('/admin/user/api')
     .catch(function(err){
         console.log(err);
     });
- 
+  --}}
 
 @stop

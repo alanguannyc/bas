@@ -17,13 +17,101 @@ window.Vue = require('vue');
 
 // // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
-const app = new Vue({
-    el: '#app',
+// const app = new Vue({
+//     el: '#app',
     
-    components: { App },
-    template: '<App/>'
-});
+//     components: { App },
+//     template: '<App/>'
+// });
 
 import App from './App.vue';
 
 
+function format ( d ) {
+
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+            '<tr>'+
+                '<td>Full name:</td>'+
+                '<td>'+d.name+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Email:</td>'+
+                '<td>'+d.email+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Company:</td>'+
+                '<td>'+d.profile.company+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Title:</td>'+
+                '<td>'+d.profile.title+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Phone:</td>'+
+                '<td>'+d.profile.phone+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Address:</td>'+
+                '<td>'+d.profile.address+'</td>'+
+            '</tr>'+
+        '</table>';
+
+    
+}
+
+axios.get('/admin/user/api')
+    .then(res=>{
+        var newdata = res.data;
+        $(document).ready( function () {
+            var table = $('#user_table').DataTable(
+                {
+                    data:newdata,
+                    columns: [
+                        {
+                            "className":      'details-control',
+                            "orderable":      false,
+                            "data":           null,
+                            "defaultContent": 'view'
+                        },
+                        { data: 'name' },
+                        { data: 'email' },
+                        { data: 'profile.company',
+                        "defaultContent": "<i>Not set</i>" },
+                        { data: 'profile.title',
+                        "defaultContent": "<i>Not set</i>" },
+                        { data: 'profile.phone',
+                        "defaultContent": "<i>Not set</i>" },
+                    ],
+                    dom: 'frtipB',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf'
+                    ]
+
+                }
+            );
+
+            $('#user_table tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+    
+                var row = table.row( tr );
+    
+                if ( row.child.isShown() ) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child( format(row.data()) ).show();
+                    tr.addClass('shown');
+                }
+            } );
+
+        } );
+
+        
+    })
+    .catch(function(err){
+        console.log(err);
+    });
+ 

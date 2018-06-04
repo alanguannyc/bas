@@ -45,6 +45,11 @@ class User extends Authenticatable
 
     }
 
+    public function addProfile($profile) {
+        $this->profile()->updateOrCreate($profile);
+
+    }
+
     public function isAdmin()
     {
         foreach ($this->roles()->get() as $role)

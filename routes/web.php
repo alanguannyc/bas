@@ -1,19 +1,5 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Route::get('/about', function () {
     return view('welcome');
@@ -32,27 +18,7 @@ Route::delete('api/v1/nominations/{id}', 'NominationsController@destroy');
 Route::post('api/v1/nominations', 'NominationsController@store');
 
 
-// Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function () {
-//     Route::resource('nominations', 'NominationsController', ['except' => ['create', 'edit']]);
-// });
-
-
-// Route::get('/admin', function () {
-//     return view('admin');
-//     })->middleware('admin','auth');
-
-// Route::prefix('admin')->middleware('admin','auth')->group(function () {
-
-//     Route::get('', function () {
-//         return view('admin');
-//         });
-//     Route::get('users', function () {
-//             // Matches The "/admin/users" URL
-//         return view('admin');
-//         });
-//     });
-
-    Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function()
+Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function()
     {
         Route::get('/', function() {
             return view('admin');
@@ -63,3 +29,16 @@ Route::post('api/v1/nominations', 'NominationsController@store');
             return $users=App\User::with(['profile'])->get();
         });
     });
+    
+Route::group(['prefix' => 'dashboard'], function(){
+    Route::get('/', 'HomeController@index');
+    Route::get('profile', function() {
+        return view('layouts.member.updateprofile');
+    });
+});
+
+Route::group(['prefix' => 'api/v1', 'middleware' => ['auth','admin']], function(){
+    Route::post('/profile', 'ProfileController@store');
+    Route::get('/profile', 'ProfileController@show');
+});
+

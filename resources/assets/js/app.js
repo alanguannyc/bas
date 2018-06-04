@@ -5,8 +5,24 @@
 //  * building robust, powerful web applications using Vue and Laravel.
 //  */
 
-require('./bootstrap');
+// require('./bootstrap');
+window.axios = require('axios');
 
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+
+/**
+ * Next we will register the CSRF Token as a common header with Axios so that
+ * all outgoing HTTP requests automatically have it attached. This is just
+ * a simple convenience so we don't have to attach every token manually.
+ */
+
+let token = document.head.querySelector('meta[name="csrf-token"]');
+
+if (token) {
+    window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
+} else {
+    console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
+}
 window.Vue = require('vue');
 
 // /**
@@ -15,92 +31,23 @@ window.Vue = require('vue');
 //  * or customize the JavaScript scaffolding to fit your unique needs.
 //  */
 
-// // Vue.component('example-component', require('./components/ExampleComponent.vue'));
+// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('member-profile', require('./components/member/MemberProfile.vue'));
 
 const app = new Vue({
-    el: '#app',
-    router,
-    components: { App },
-    template: '<App/>'
+    el: '#member',
+    // router,
+    // components: { App },
+    // template: '<App/>'
 });
 
 import App from './App.vue';
 
-import router from './routes.js';
-import VueRouter from 'vue-router';
+// import router from './routes.js';
+// import VueRouter from 'vue-router';
 
-Vue.use(VueRouter);
-
-function format ( d ) {
-    // `d` is the original data object for the row
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
-        '<tr>'+
-            '<td>Full name:</td>'+
-            '<td>'+d.name+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Email:</td>'+
-            '<td>'+d.email+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Company:</td>'+
-            '<td>'+d.profile.company+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Company:</td>'+
-            '<td>'+d.profile.title+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Company:</td>'+
-            '<td>'+d.profile.phone+'</td>'+
-        '</tr>'+
-        '<tr>'+
-            '<td>Company:</td>'+
-            '<td>'+d.profile.address+'</td>'+
-        '</tr>'+
-    '</table>';
-}
+// Vue.use(VueRouter);
 
 
 
 
-axios.get('/admin/user/api')
-    .then(res=>{
-        var newdata = res.data;
-        var table = $(document).ready( function () {
-            $('#user_table').DataTable(
-                {
-                    data:newdata,
-                    columns: [
-                        {"className": 'details-control'},
-                        { data: 'email' },
-                        { data: 'name' }
-                    ],
-                    dom: 'frtipB',
-                    buttons: [
-                        'copy', 'csv', 'excel', 'pdf'
-                    ]
-
-                }
-            );
-        } );
-    })
-    .catch(function(err){
-        console.log(err);
-    });
- 
-    $('#user_table tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
- 
-        if ( row.child.isShown() ) {
-            // This row is already open - close it
-            row.child.hide();
-            tr.removeClass('shown');
-        }
-        else {
-            // Open this row
-            row.child( format(row.data()) ).show();
-            tr.addClass('shown');
-        }
-    } );
