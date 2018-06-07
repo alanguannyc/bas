@@ -2,21 +2,21 @@
     <div class="container">
         <div v-if="nominations ==''">
             <h4>Start submitting your nominations</h4>
-            <router-link to="/nominations/add"><button class="btn btn-primary">Start</button></router-link>
+            <button class="btn btn-primary add">Start</button>
         </div>
     <table class="table table-hover" v-else>
     <thead>
         <tr>
-        <th scope="col">Category</th>
-        <th scope="col">Name</th>
-        <th scope="col">Submit Date</th>
+        <th scope="col"><h5><strong>Category</strong></h5></th>
+        <th scope="col"><h5><strong>Name</strong></h5></th>
+        <th scope="col"><h5><strong>Submit Date</strong></h5></th>
         <th scope="col"></th>
         </tr>
     </thead>
     <tbody>
         <tr v-for="nomination in nominations" v-bind:key="nomination.id" >
-        <th scope="row">{{ nomination.category }}</th>
-        <td>{{ nomination.name}}</td>
+        <th scope="row"><h5>{{ nomination.category }}</h5></th>
+        <td><h5>{{ nomination.name}}</h5></td>
         <td>{{ nomination.created_at}}</td>
         <td>
                 <vue-modal :data="nomination" >  
@@ -38,6 +38,26 @@ import VueModal from './VueModal.vue'
                 nominations: ''
             }
         },
+
+        // props: ['nominations'],
+        watch: {
+                'nominations': {
+                    handler: function (newData, oldData){
+                     var app = this;
+            axios.get('/api/v1/nominations')
+                .then(function (resp) {
+                    app.nominations = resp.data;
+                })
+                .catch(function (resp) {
+                    console.log(resp);
+                    // alert("Could not load nominations");
+                });
+                deep: true
+                    }
+                    
+                    }
+                    
+                    },
         components:{
             'vue-modal':VueModal
         },

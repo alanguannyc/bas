@@ -7,7 +7,7 @@ Route::get('/about', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
 Route::get('/logout' , 'Auth\LoginController@logout');
 
 Route::get('/', 'NominationsController@home');
@@ -30,14 +30,22 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
         });
     });
     
-Route::group(['prefix' => 'dashboard'], function(){
-    Route::get('/', 'HomeController@index');
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
+    Route::group(['middleware' => ['profile']], function(){
+        Route::get('/', 'HomeController@index')->name('home');
+    
+        Route::get('nominations', function() {
+            $count = \App\Nomination::where('user_id','=',auth()->id())->count();
+            return view('layouts.member.nomination')->with('count',$count);
+        });
+    });
+
     Route::get('profile', function() {
         return view('layouts.member.updateprofile');
     });
 });
 
-Route::group(['prefix' => 'api/v1', 'middleware' => ['auth','admin']], function(){
+Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     Route::post('/profile', 'ProfileController@store');
     Route::get('/profile', 'ProfileController@show');
 });

@@ -73,7 +73,6 @@
         demo.initDashboardPageCharts();
 
         demo.initCharts();
-
     });
 </script>
 

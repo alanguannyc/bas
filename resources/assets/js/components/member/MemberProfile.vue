@@ -54,15 +54,18 @@ export default {
     },
     mounted(){
       axios.get('../api/v1/profile').then( res => {
-        console.log(res.data[0])
-          this.profile = res.data[0]
+        if(res.data[0]){
+            this.profile = res.data[0]
+        }
+          
         })
     },
     methods:{
       submitprofile:function(e){
         e.preventDefault()
+        
         axios.post('../api/v1/profile',this.profile).then( res => {
-          this.$router.push( '/dashboard' );
+          console.log(res)
         })
       }
     }

@@ -9,22 +9,22 @@ Tip 2: you can also add an image using data-image tag
           Hotel Association 
       </a>
   </div>
-  <div class="sidebar-wrapper">
-      <ul class="nav">
-          <li class="nav-item active ">
-              <a class="nav-link" href="../dashboard">
+  <div class="sidebar-wrapper" >
+      <ul class="nav" id="sidebarNav"  >
+          <li class="nav-item "  >
+              <a class="nav-link" href="/dashboard">
                   <i class="material-icons">dashboard</i>
                   <p>Dashboard</p>
               </a>
           </li>
           <li class="nav-item ">
-              <a class="nav-link" href="../dashboard/profile">
+              <a class="nav-link" href="/dashboard/profile">
                   <i class="material-icons">person</i>
                   <p>User Profile</p>
               </a>
           </li>
           <li class="nav-item ">
-              <a class="nav-link" href="../examples/table.html">
+              <a class="nav-link" href="/dashboard/nominations">
                   <i class="material-icons">content_paste</i>
                   <p>Nominations</p>
               </a>

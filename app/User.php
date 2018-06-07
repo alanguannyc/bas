@@ -46,7 +46,11 @@ class User extends Authenticatable
     }
 
     public function addProfile($profile) {
-        $this->profile()->updateOrCreate($profile);
+        // $this->profile()->save($profile);
+        // foreach($profile as $key=>$val) {
+        //     array_push($results, $obj);
+        // }
+        $this->profile()->updateOrCreate(['user_id'=>$this->id],['company'=>$profile->company, 'address'=>$profile->address, 'title'=>$profile->title,'phone'=>$profile->phone]);
 
     }
 
@@ -61,5 +65,14 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public function completedProfile()
+    {
+        if(!$this->profile || !$this->profile->company) {
+            // return redirect()->intended('/admin');
+            return false;
+        }
+        return true;
     }
 }

@@ -28,7 +28,7 @@ class NominationsController extends Controller
     public function index()
     {
         
-            return $nominations = Nomination::where('user_id','=',auth()->id())->get();
+        return $nominations = Nomination::where('user_id','=',auth()->id())->get();
     
          
 

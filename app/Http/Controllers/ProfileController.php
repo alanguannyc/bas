@@ -13,7 +13,7 @@ class ProfileController extends Controller
         // return $profile = Profile::find(22);
         return $profile = Profile::where('user_id','=',auth()->id())->get();
     }
-
+ 
     public function store(Request $request)
     {
         $request->validate([
@@ -28,6 +28,8 @@ class ProfileController extends Controller
         $profile = auth()->user()->addProfile(
             new Profile(request(['company','address','title','phone']))
         );
+        $uid = auth()->user()->id;
+        // $profile = \App\Profile::updateOrCreate(['user_id'=>$uid, 'company'=>$request->company, 'address'=>$request->address, 'title'=>$request->title,'phone'=>$request->phone]);
 
 
         return $profile;

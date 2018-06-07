@@ -33,6 +33,8 @@ window.Vue = require('vue');
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('member-profile', require('./components/member/MemberProfile.vue'));
+Vue.component('nominations-index', require('./components/member/NominationsIndex.vue'));
+Vue.component('add-nominee', require('./components/member/AddNominee.vue'));
 
 const app = new Vue({
     el: '#member',
@@ -47,7 +49,35 @@ import App from './App.vue';
 // import VueRouter from 'vue-router';
 
 // Vue.use(VueRouter);
+// $("#sidebarNav li a").click(function() {
+       
+//     $(this).parent().addClass('active').siblings().removeClass('active');
+
+//     });
+$(function(){
+    var current = location.pathname;
+    
+    $('#sidebarNav li a').each(function(){
+
+        if ($(this).attr('href') == current){
+            
+            $(this).parent().addClass('active');
+        }
+        
+        
+    })
+})
+
+$( ":button.add" ).click(function() {
+    
+    $( "#add-more-area" ).toggle( "slow" );
+  });
+  
+
+// $.material.options.autofill = true;
+// $.material.init();
 
 
-
+    
+    
 
