@@ -5,7 +5,10 @@
 //  * building robust, powerful web applications using Vue and Laravel.
 //  */
 
-require('./bootstrap');
+// require('./bootstrap');
+window.axios = require('axios');
+
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.Vue = require('vue');
 
@@ -14,15 +17,16 @@ window.Vue = require('vue');
 //  * the page. Then, you may begin adding components to this application
 //  * or customize the JavaScript scaffolding to fit your unique needs.
 //  */
+$.fn.editable.defaults.mode = 'inline';
 
-// // Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('messenge-vue', require('./components/admin/Messenge.vue'));
 
-// const app = new Vue({
-//     el: '#app',
+const app = new Vue({
+    el: '#admin'
     
-//     components: { App },
-//     template: '<App/>'
-// });
+    // components: { App },
+    // template: '<App/>'
+});
 
 import App from './App.vue';
 
@@ -114,4 +118,11 @@ axios.get('/admin/user/api')
     .catch(function(err){
         console.log(err);
     });
- 
+
+   
+
+    
+
+    $('button').click(function(){
+        alert('yes')
+    })

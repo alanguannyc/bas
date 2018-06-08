@@ -5,6 +5,8 @@
 //  * building robust, powerful web applications using Vue and Laravel.
 //  */
 
+
+
 // require('./bootstrap');
 window.axios = require('axios');
 
@@ -74,8 +76,8 @@ $( ":button.add" ).click(function() {
   });
   
 
-// $.material.options.autofill = true;
-// $.material.init();
+//   $.material.options.autofill = true;
+//   $.material.init();
 
 
     

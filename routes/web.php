@@ -1,7 +1,7 @@
 <?php
 
 
-Route::get('/about', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
@@ -10,7 +10,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/logout' , 'Auth\LoginController@logout');
 
-Route::get('/', 'NominationsController@home');
+// Route::get('/', 'NominationsController@home');
 Route::get('api/v1/nominations', 'NominationsController@index');
 Route::get('api/v1/nominations/{id}/edit', 'NominationsController@edit');
 Route::post('api/v1/nominations/{id}', 'NominationsController@update');
@@ -21,7 +21,7 @@ Route::post('api/v1/nominations', 'NominationsController@store');
 Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function()
     {
         Route::get('/', function() {
-            return view('admin');
+            return view('layouts.admin.index');
         })->name('admin');
 
         Route::get('/user', 'AdminController@indexUsers')->name('user');

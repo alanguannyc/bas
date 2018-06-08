@@ -13701,6 +13701,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //  * building robust, powerful web applications using Vue and Laravel.
 //  */
 
+
 // require('./bootstrap');
 window.axios = __webpack_require__(12);
 
@@ -13767,8 +13768,8 @@ $(":button.add").click(function () {
     $("#add-more-area").toggle("slow");
 });
 
-// $.material.options.autofill = true;
-// $.material.init();
+//   $.material.options.autofill = true;
+//   $.material.init();
 
 /***/ }),
 /* 44 */
