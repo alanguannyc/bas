@@ -11,11 +11,11 @@ Route::get('/home', 'HomeController@index');
 Route::get('/logout' , 'Auth\LoginController@logout');
 
 // Route::get('/', 'NominationsController@home');
-Route::get('api/v1/nominations', 'NominationsController@index');
-Route::get('api/v1/nominations/{id}/edit', 'NominationsController@edit');
-Route::post('api/v1/nominations/{id}', 'NominationsController@update');
-Route::delete('api/v1/nominations/{id}', 'NominationsController@destroy');
-Route::post('api/v1/nominations', 'NominationsController@store');
+// Route::get('nominations', 'NominationsController@index');
+// Route::get('nominations/{id}/edit', 'NominationsController@edit');
+// Route::post('nominations/{id}', 'NominationsController@update');
+// Route::delete('nominations/{id}', 'NominationsController@destroy');
+// Route::post('nominations', 'NominationsController@store');
 
 
 Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function()
@@ -48,5 +48,15 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
 Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     Route::post('/profile', 'ProfileController@store');
     Route::get('/profile', 'ProfileController@show');
+
+
+    Route::get('/nominations', 'NominationsController@index');
+    Route::get('/nominations/{id}/edit', 'NominationsController@edit');
+    Route::post('/nominations/{id}', 'NominationsController@update');
+    Route::delete('/nominations/{id}', 'NominationsController@destroy');
+    Route::post('/nominations', 'NominationsController@store');
+
+    Route::post('/messenge', 'MessengeController@store');
+    Route::get('/messenge', 'MessengeController@show');
 });
 

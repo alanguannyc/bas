@@ -14,11 +14,11 @@
 
 </form> -->
 
-
+<a v-on:click="update()" id="messengebox">{{ messenge }}</a>
 <form class="form-inline editableform">
     <div class="control-group">
-        <a id="messengebox">{{ messenge }}</a>
-         <div><div class="editable-input"></div><div class="editable-buttons"></div></div>
+        
+         <div><div class="editable-input"></div><div class="editable-buttons" ></div></div>
          <!-- <button type="submit" class="editable-submit" :click="update()">ok</button>
 <button type="button" class="editable-cancel">cancel</button> -->
          <div class="editable-error-block"></div>
@@ -33,44 +33,65 @@
     export default {
         data() {
             return {
-              messenge:"Hello",
+              messenge:"Instruction...",
             }
     },
 
         mounted() {
 
-            $('#messengebox').editable({
-                url: '/post' //this url will not be used for creating new user, it is only for update
-            });
-            // var app = this;
-          
-            // axios.get(`/api/v1/messenge`)
-            //     .then(function (resp) {
-            //         app.messenge = resp.data.messenge
-            //     })
-            //     .catch(function (resp) {
-            //         console.log(resp);
-            //         // alert("Could not load nominations");
-            //     });
-            $('.btn').click(function(){
-                alert('yes')
+            
+
             var app = this;
-            var newMessenge = app.messenge;
-            console.log(this.messenge)
-            axios.post(`/api/v1/messenge`, newMessenge)
+          
+            axios.get(`/api/v1/messenge`)
                 .then(function (resp) {
-                    console.log(resp.data);
+                  
+                    if((!!resp.data.text)) {
+                        app.messenge = resp.data.text 
+                    }
+
+                    
+// $('#messengebox').editable('disable',{
+                
+//                 url: '/post' //this url will not be used for creating new user, it is only for update
+//             });
+                    
                 })
                 .catch(function (resp) {
                     console.log(resp);
                     // alert("Could not load nominations");
                 });
-            })
-        },
+            
 
+            $('#messengebox').on('save', function(e, params) {
+                // alert('Saved value: ' + params.newValue);
+                $(this).data('editable').disable();
+                // $('#messengebox').editable('hide')
+                var newMessenge={}
+                newMessenge.text = params.newValue
+                // var text = JSON.parse(params.newValue)
+                
+                axios.post(`/api/v1/messenge`, newMessenge)
+                .then(function (resp) {
+                    
+                    // app.messenge = resp.data.messenge
+                })
+                .catch(function (resp) {
+                    console.log(resp);
+                    // alert("Could not load nominations");
+                });
+            });
+        },
+        updated(){
+        $('#messengebox').editable('disable',{
+                
+                url: '/post' //this url will not be used for creating new user, it is only for update
+            });
+        },
         methods: {
             update() {
- 
+              
+            $('#messengebox').editable('enable')
             // event.preventDefault();
             // var app = this;
           
@@ -84,7 +105,10 @@
             //         console.log(resp);
             //         // alert("Could not load nominations");
             //     });
-            }
+            },
+            // say: function (message) {
+            //     alert(message)
+            //     }
         }
     }
 </script>

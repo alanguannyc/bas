@@ -20,7 +20,7 @@
                   </div>
                   <div class="card-footer">
                       <div class="stats">
-                          <h5>Please follow the instructions</h5>
+                          <h5>{{ $messenge->text }}</h5>
                       </div>
                   </div>
               </div>

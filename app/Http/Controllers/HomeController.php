@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $profile = Profile::where('user_id','=',auth()->id())->get();
-        
-        return view('layouts.member.index')->with('profile',$profile[0]);
+        $msg = \App\Messenge::latest()->first();
+        return view('layouts.member.index')->with('profile',$profile[0])->with('messenge', $msg);
     }
 }
