@@ -4,18 +4,7 @@
 <form method="post">
   <!-- Select category -->
 
- <div class="form-check" >
-  <input v-model="nomination.category"  type="radio" name="exampleRadios" id="exampleRadios1" value="Full-Time Concierge" required >
-  <label class="form-check-label" for="exampleRadios1">
-    Full-Time Concierge
-  </label>
-</div>
-<div class="form-check">
-  <input v-model="nomination.category"  type="radio" name="exampleRadios" id="exampleRadios2" value="Full-Time Door Person" required>
-  <label class="form-check-label" for="exampleRadios2">
-    Full-Time Door Person
-  </label>
-</div>
+
 <div class="form-check">
   <input v-model="nomination.category"  type="radio" name="exampleRadios" id="exampleRadios2" value="Full-Time Hourly With Guest Contact" required>
   <label class="form-check-label" for="exampleRadios2">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Profile;
+use App\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -32,6 +33,23 @@ class ProfileController extends Controller
         // $profile = \App\Profile::updateOrCreate(['user_id'=>$uid, 'company'=>$request->company, 'address'=>$request->address, 'title'=>$request->title,'phone'=>$request->phone]);
 
 
+        return $profile;
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'company' => 'required|max:255',
+            'address' => 'nullable',
+            'title' => 'required',
+            'phone' => 'nullable',
+        ]);        
+
+        $user = User::find($id);
+        $profile = $user->addProfile(
+            new Profile(request(['company','address','title','phone']))
+        );
+ 
         return $profile;
     }
 }

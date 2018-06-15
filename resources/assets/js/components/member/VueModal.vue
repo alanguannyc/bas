@@ -34,7 +34,7 @@ pageview
     <div class="col-md-6 pr-1">
     
     <label> Name</label>
-    <input v-model="nomination.name" type="text" class="form-control" placeholder="Company" >
+    <input v-model="nomination.name" type="text" class="form-control" placeholder="Name" >
     
 </div>
 

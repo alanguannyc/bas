@@ -13762,6 +13762,9 @@ $(function () {
 });
 
 $(":button.add").click(function () {
+    if (window.location.pathname !== "/dashboard/nominations") {
+        window.location.pathname = "/dashboard/nominations";
+    }
 
     $("#add-more-area").toggle("slow");
 });
@@ -14557,7 +14560,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "Company" },
+                      attrs: { type: "text", placeholder: "Name" },
                       domProps: { value: _vm.nomination.name },
                       on: {
                         input: function($event) {
@@ -15072,17 +15075,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -15178,80 +15170,6 @@ var render = function() {
       _c("H3", [_vm._v("Add new nominees")]),
       _vm._v(" "),
       _c("form", { attrs: { method: "post" } }, [
-        _c("div", { staticClass: "form-check" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.nomination.category,
-                expression: "nomination.category"
-              }
-            ],
-            attrs: {
-              type: "radio",
-              name: "exampleRadios",
-              id: "exampleRadios1",
-              value: "Full-Time Concierge",
-              required: ""
-            },
-            domProps: {
-              checked: _vm._q(_vm.nomination.category, "Full-Time Concierge")
-            },
-            on: {
-              change: function($event) {
-                _vm.$set(_vm.nomination, "category", "Full-Time Concierge")
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            {
-              staticClass: "form-check-label",
-              attrs: { for: "exampleRadios1" }
-            },
-            [_vm._v("\n    Full-Time Concierge\n  ")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "form-check" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.nomination.category,
-                expression: "nomination.category"
-              }
-            ],
-            attrs: {
-              type: "radio",
-              name: "exampleRadios",
-              id: "exampleRadios2",
-              value: "Full-Time Door Person",
-              required: ""
-            },
-            domProps: {
-              checked: _vm._q(_vm.nomination.category, "Full-Time Door Person")
-            },
-            on: {
-              change: function($event) {
-                _vm.$set(_vm.nomination, "category", "Full-Time Door Person")
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            {
-              staticClass: "form-check-label",
-              attrs: { for: "exampleRadios2" }
-            },
-            [_vm._v("\n    Full-Time Door Person\n  ")]
-          )
-        ]),
-        _vm._v(" "),
         _c("div", { staticClass: "form-check" }, [
           _c("input", {
             directives: [

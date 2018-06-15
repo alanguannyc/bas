@@ -71,6 +71,9 @@ $(function(){
 })
 
 $( ":button.add" ).click(function() {
+    if(window.location.pathname !== "/dashboard/nominations") {
+        window.location.pathname = "/dashboard/nominations";
+    }
     
     $( "#add-more-area" ).toggle( "slow" );
   });

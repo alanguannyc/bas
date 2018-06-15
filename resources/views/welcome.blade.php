@@ -9,14 +9,19 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
 
         <!-- Styles -->
         <style>
             html, body {
+                background: url("images/bas.jpg");
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
                 background-color: #fff;
-                color: #636b6f;
+                color: white;
                 font-family: 'Raleway', sans-serif;
-                font-weight: 100;
+                font-weight: 500;
                 height: 100vh;
                 margin: 0;
             }
@@ -62,6 +67,11 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            .btn{
+                font-weight: 500;
+            }
+
+            
         </style>
     </head>
     <body>
@@ -81,6 +91,7 @@
                 <div class="title m-b-md">
                         {{ config('app.name', 'Big Apple Star Awards') }}
                 </div>
+                <a href="/dashboard"><button type="button" id="start" class="btn btn-primary btn-lg btn-block">START</button></a>
 
             </div>
         </div>

@@ -20,7 +20,9 @@ window.Vue = require('vue');
 $.fn.editable.defaults.mode = 'inline';
 
 Vue.component('messenge-vue', require('./components/admin/Messenge.vue'));
-
+Vue.component('member-nomination', require('./components/admin/MemberNomination.vue'));
+Vue.component('nomination-detail', require('./components/admin/NominationDetail.vue'));
+Vue.component('nomination-show', require('./components/admin/NominationShow.vue'));
 const app = new Vue({
     el: '#admin'
     
@@ -40,89 +42,144 @@ function format ( d ) {
             '</tr>'+
             '<tr>'+
                 '<td>Email:</td>'+
-                '<td>'+d.email+'</td>'+
+                '<td>'+d.user.profile.company+'</td>'+
             '</tr>'+
             '<tr>'+
                 '<td>Company:</td>'+
-                '<td>'+d.profile.company+'</td>'+
+                '<td>'+d.q1+'</td>'+
             '</tr>'+
             '<tr>'+
                 '<td>Title:</td>'+
-                '<td>'+d.profile.title+'</td>'+
+                '<td>'+d.q2+'</td>'+
             '</tr>'+
             '<tr>'+
                 '<td>Phone:</td>'+
-                '<td>'+d.profile.phone+'</td>'+
+                '<td>'+d.q3+'</td>'+
             '</tr>'+
             '<tr>'+
                 '<td>Address:</td>'+
-                '<td>'+d.profile.address+'</td>'+
+                '<td>'+d.q4+'</td>'+
             '</tr>'+
         '</table>';
 
     
 }
 
-axios.get('/admin/user/api')
-    .then(res=>{
-        var newdata = res.data;
-        $(document).ready( function () {
-            var table = $('#user_table').DataTable(
+
+/* Members Table */
+$(document).ready(function(){
+    
+    var member_table = $('#member_table').DataTable(
+        {
+            "ajax":{"url":"/api/v1/member","dataSrc":""},
+            "columnDefs": [ {
+                "targets": 0,
+                "render": function ( data, type, row, meta ) {
+                    return '<a href="'+'/admin/member/'+data.id+'">View</a>';
+                  }
+
+                }
+              ],
+            columns: [
                 {
-                    data:newdata,
-                    columns: [
-                        {
-                            "className":      'details-control',
-                            "orderable":      false,
-                            "data":           null,
-                            "defaultContent": 'view'
-                        },
-                        { data: 'name' },
-                        { data: 'email' },
-                        { data: 'profile.company',
-                        "defaultContent": "<i>Not set</i>" },
-                        { data: 'profile.title',
-                        "defaultContent": "<i>Not set</i>" },
-                        { data: 'profile.phone',
-                        "defaultContent": "<i>Not set</i>" },
-                    ],
-                    dom: 'frtipB',
-                    buttons: [
-                        'copy', 'csv', 'excel', 'pdf'
-                    ]
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": 'view'
+                },
+                { data: 'name' },
+                { data: 'email' },
+                { data: 'profile.company',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'profile.title',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'profile.phone',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'created_at' },
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf'
+            ]
 
-                }
-            );
+        }
+    );
 
-            $('#user_table tbody').on('click', 'td.details-control', function () {
-                var tr = $(this).closest('tr');
+    // $('#member_table tbody').on('click', 'td.details-control', function () {
+    //     var tr = $(this).closest('tr');
+
+    //     var row = table.row( tr );
+
+    //     if ( row.child.isShown() ) {
+    //         // This row is already open - close it
+    //         row.child.hide();
+    //         tr.removeClass('shown');
+    //     }
+    //     else {
+    //         // Open this row
+    //         row.child( format(row.data()) ).show();
+    //         tr.addClass('shown');
+    //     }
+    // } );
+    var nomination_table = $('#nomination_table').DataTable(
+        {
+            "ajax":{"url":"/api/v1/member/nominations","dataSrc":""},
+            "columnDefs": [ {
+                "targets": 4,
+                "render": function ( data, type, row, meta ) {
+                    
+                    return '<a href="'+'/admin/member/'+data.id+'">'+data.name+'</a>'
+                  }
+
+                },
+                {
+                    "targets": 0,
+                    "render": function ( data, type, row, meta ) {
+                        
+                        return '<a href="'+'/nomination/'+data.id+'">view</a>'
+                      }
     
-                var row = table.row( tr );
+                    }
+              ],
+            columns: [
+                {
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": 'view'
+                },
+                { data: 'category' },
+                { data: 'name' },
+                { data: 'user.profile.company',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'user'},
+                { data: 'created_at' },
+            ],
+            dom: 'Bfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf'
+            ]
+
+        }
+    );
+
+    $('#nomination_table tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+
+        var row = nomination_table.row( tr );
+
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
+})
+            
+
     
-                if ( row.child.isShown() ) {
-                    // This row is already open - close it
-                    row.child.hide();
-                    tr.removeClass('shown');
-                }
-                else {
-                    // Open this row
-                    row.child( format(row.data()) ).show();
-                    tr.addClass('shown');
-                }
-            } );
-
-        } );
-
-        
-    })
-    .catch(function(err){
-        console.log(err);
-    });
-
-   
-
-    
-
-    $('button').click(function(){
-        alert('yes')
-    })

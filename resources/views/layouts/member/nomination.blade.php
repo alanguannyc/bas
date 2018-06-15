@@ -24,7 +24,7 @@
           </div>
           
       </div>
-      @if($count< 6 && $count >0)
+      @if($count< 4 && $count >0)
       <div class="row" >
           <div class="col-lg-2 col-sm-12">
             <button class="btn btn-primary add" id="add-more">

@@ -28,7 +28,7 @@ class NominationsController extends Controller
     public function index()
     {
         
-        return $nominations = Nomination::where('user_id','=',auth()->id())->get();
+        return $nominations = Nomination::with(['user.profile'])->get();
     
          
 
@@ -75,11 +75,15 @@ class NominationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        return $nomination = Nomination::find($id);
+        return $nomination = Nomination::where('user_id','=',auth()->id())->get();
     }
-
+    public function showforadmin($id)
+    {
+        $nominations = Nomination::where('user_id','=',$id)->get();
+        return view('layouts.admin.show-nomination');
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -89,11 +93,12 @@ class NominationsController extends Controller
     public function edit($id)
     {
         
-        $nomination = Nomination::find($id);
+        $nomination = Nomination::with(['user.profile'])->find($id);
         if (Gate::denies('update-nomination', $nomination)) {
             abort(403);
         }
         return $nomination;
+        
     }
 
     /**
