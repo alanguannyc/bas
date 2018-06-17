@@ -63,8 +63,9 @@ class NominationsController extends Controller
         auth()->user()->publish(
             new Nomination(request(['category','name','q1','q2','q3','q4','q5']))
         );
+        
 
-        session()->flash('message','Your nomination has been created!');
+        // session()->flash('message','Your nomination has been created!');
 
         return redirect()->home();
     }

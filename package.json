@@ -11,6 +11,7 @@
     },
     "devDependencies": {
         "axios": "^0.18.0",
+        "babel-preset-stage-2": "^6.24.1",
         "bootstrap": "^4.1.1",
         "cross-env": "^5.1",
         "jquery": "^3.2",
@@ -22,6 +23,8 @@
     "dependencies": {
         "admin-lte": "^3.0.0-alpha",
         "gentelella": "^1.4.0",
-        "vue-router": "^3.0.1"
+        "vue-events": "^3.1.0",
+        "vue-router": "^3.0.1",
+        "vuetable-2": "^1.7.5"
     }
 }

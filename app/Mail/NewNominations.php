@@ -1,24 +1,24 @@
 <?php
 
 namespace App\Mail;
-use App\User;
+use App\Nomination;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NewUser extends Mailable
+class NewNominations extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user;
+    public $nomination;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(Nomination $nomination)
     {
-        $this->user = $user;
+        $this->nomination = $nomination;
     }
 
     /**
@@ -28,6 +28,6 @@ class NewUser extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.users.new');
+        return $this->markdown('emails.nomination.new');
     }
 }

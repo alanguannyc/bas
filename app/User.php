@@ -1,7 +1,8 @@
 <?php
 
 namespace App;
-
+use App\Mail\NewNominations;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -35,6 +36,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role');
     }
 
+    // public function role() {
+    //     return $this->hasOne('App\Role');
+    // }
+
     public function profile()
     {
         return $this->hasOne('App\Profile');
@@ -42,7 +47,8 @@ class User extends Authenticatable
 
     public function publish($nomination) {
         $this->nominations()->save($nomination);
-
+        
+        Mail::to(auth()->user())->send(new NewNominations($nomination));
     }
 
     public function addProfile($profile) {

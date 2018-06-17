@@ -90,6 +90,13 @@
             <div class="form-group"> 
             <input  type="phone" class="form-control"  v-model="profile.phone" placeholder="phone">
             </div>
+            <div class="form-group"> 
+            <select class="form-control"  v-model="role.name">
+                <option>member</option>
+                <option>judge</option>
+                <option>admin</option>
+                </select>
+                </div>
             <button class="btn " v-on:click="cancelUpdate()">Cancel</button>
             <button class="btn btn-primary" v-on:click="saveProfile()">SAVE</button>
         </form>
@@ -136,7 +143,8 @@ var _ = require('lodash');
                 profile:{
 
                     },
-                detail:''
+                detail:'',
+                role:''
 
             }
         },
@@ -166,6 +174,9 @@ var _ = require('lodash');
                     app.nominations = resp.data.nomination;
                     app.member = resp.data.member;
                     app.profile = resp.data.member.profile;
+                    
+                    app.role = resp.data.member.roles[0];
+                    console.log(app.role)
                     
                 })
                 .catch(function (resp) {
@@ -206,7 +217,8 @@ var _ = require('lodash');
                 
                 var newMember = {
                     name : app.member.name,
-                    email: app.member.email
+                    email: app.member.email,
+                    role: app.role.name
                     }
                 var newProfile = app.profile
                 
@@ -216,8 +228,12 @@ var _ = require('lodash');
                         axios.post(`/api/v1/profile/`+uid, newProfile)
                         .then(function (resp) {
                             //alert success
+                            axios.patch(`/api/v1/role/`+uid, newMember )
+                            .then(function (resp) {
+                            //alert success
                             $('.profilePanel').show();
                             $('.updatePanel').hide();
+                        })
                         })
                     })
             }

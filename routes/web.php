@@ -16,7 +16,7 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
             return view('layouts.admin.index');
         })->name('admin');
 
-        Route::get('/user', 'AdminController@indexUsers')->name('user');
+        Route::get('/user', 'AdminController@indexUsers');
         Route::get('/user/api', function () {
             return $users=App\User::with(['profile'])->get();
         });
@@ -65,22 +65,40 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     Route::get('/messenge', 'MessengeController@show');
 
     Route::get('/member', function(){
-        return $members=\App\User::with(['profile'])->get();
+        return $members=\App\User::with(['profile','roles'])->get();
     });
     Route::get('/member/nominations', 'NominationsController@index');
     Route::get('/member/{id}', function($id){
         
         $data['nomination']=\App\Nomination::where('user_id','=', $id)->get();
-        $data['member']=\App\User::with(['profile'])->get()->find($id);
+        $data['member']=\App\User::with(['profile','roles'])->get()->find($id);
         
         return $data;
     });
     Route::post('/member/{id}', 'UserController@update');
 
+    Route::post('/user/{id}', 'AdminController@update');
+    Route::get('/user', function(){
+         $members=\App\User::with(['profile','roles'])->get()->find(6);
+        $users = \App\User::whereHas('roles', function ($query) {
+            $query->where('name', 'admin');
+        })->with(['profile','roles'])->get();
+       
+        return $users;
+        
+    });
+
+    Route::patch('/role/{id}', 'RoleController@update');
 });
 
 Route::group(['prefix' => 'nomination', 'middleware' => ['auth','admin']], function(){
     
     Route::get('/{id}', 'NominationsController@showforadmin');
     
+});
+
+Route::get('/mailable', function () {
+    $nomination = \App\Nomination::find(1);
+
+    return new App\Mail\NewNominations($nomination);
 });

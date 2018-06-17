@@ -23,6 +23,7 @@ Vue.component('messenge-vue', require('./components/admin/Messenge.vue'));
 Vue.component('member-nomination', require('./components/admin/MemberNomination.vue'));
 Vue.component('nomination-detail', require('./components/admin/NominationDetail.vue'));
 Vue.component('nomination-show', require('./components/admin/NominationShow.vue'));
+Vue.component('user-index', require('./components/admin/UserIndex.vue'));
 const app = new Vue({
     el: '#admin'
     
@@ -163,22 +164,49 @@ $(document).ready(function(){
         }
     );
 
-    $('#nomination_table tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
+    // $('#nomination_table tbody').on('click', 'td.details-control', function () {
+    //     var tr = $(this).closest('tr');
 
-        var row = nomination_table.row( tr );
+    //     var row = nomination_table.row( tr );
 
-        if ( row.child.isShown() ) {
-            // This row is already open - close it
-            row.child.hide();
-            tr.removeClass('shown');
+    //     if ( row.child.isShown() ) {
+    //         // This row is already open - close it
+    //         row.child.hide();
+    //         tr.removeClass('shown');
+    //     }
+    //     else {
+    //         // Open this row
+    //         row.child( format(row.data()) ).show();
+    //         tr.addClass('shown');
+    //     }
+    // } );
+
+
+    var user_table = $('#user_table').DataTable(
+        {
+            "ajax":{"url":"/api/v1/member","dataSrc":""},
+            
+            columns: [
+                {
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": 'view'
+                },
+                { data: 'name' },
+                { data: 'email' },
+                { data: 'profile.company',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'roles[0].name'},
+                { data: 'created_at' },
+            ],
+            // dom: 'Bfrtip'
+            // ,buttons: [
+            //     'copy', 'csv', 'excel', 'pdf'
+            // ]
+
         }
-        else {
-            // Open this row
-            row.child( format(row.data()) ).show();
-            tr.addClass('shown');
-        }
-    } );
+    );
 })
             
 

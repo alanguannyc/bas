@@ -19,7 +19,7 @@
           
         </li>
         
-        <li><a href="/admin/users"><i class="fa fa-clone"></i> Users </span></a>
+        <li><a href="/admin/user"><i class="fa fa-clone"></i> Users </span></a>
           
         </li>
       </ul>
