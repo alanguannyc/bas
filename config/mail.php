@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER', 'mailgun'),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'info@hanyc.org'),
+        'address' => env('MAIL_FROM_ADDRESS', 'info@bas.hanyc.org'),
         'name' => env('MAIL_FROM_NAME', 'Big Apple Stars Awards'),
     ],
 

@@ -83,6 +83,15 @@ $( ":button.add" ).click(function() {
 //   $.material.init();
 
 
+export function showSucess(msg){
+    jQuery('.alert-success').html('<p>'+msg+'</p>').show();
+    jQuery('.alert-success').fadeOut(3000,null);
+    disableBtn()
+
+    function disableBtn(){
     
-    
+        $(':button').prop('disabled', true);
+        setTimeout(function(){$(':button').prop('disabled', false);},2500);
+    }
+}   
 

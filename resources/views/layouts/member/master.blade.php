@@ -23,15 +23,18 @@
 
 <body class="" >
     <div class="wrapper">
+        
         @include('layouts.member.sidebar')
         <div class="main-panel" >
             <!-- Navbar -->
-            
+              
             @include('layouts.member.nav')
             <!-- End Navbar -->
             <div class="content" id="member">
+                    <div class="alert alert-success" style="display:none"></div>          
             @yield('content')
-        </div>
+            </div>
+            
             @include('layouts.member.footer')
         </div>
     </div>

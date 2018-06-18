@@ -91,8 +91,12 @@
                 <div class="title m-b-md">
                         {{ config('app.name', 'Big Apple Star Awards') }}
                 </div>
-                <a href="/dashboard"><button type="button" id="start" class="btn btn-primary btn-lg btn-block">START</button></a>
+                @if (Auth::user() && Auth::user()->isAdmin())
+                    <a href="/admin"><button type="button" id="start" class="btn btn-primary btn-lg btn-block">START</button></a>
 
+                @else
+                    <a href="/dashboard"><button type="button" id="start" class="btn btn-primary btn-lg btn-block">START</button></a>
+                @endif
             </div>
         </div>
     </body>

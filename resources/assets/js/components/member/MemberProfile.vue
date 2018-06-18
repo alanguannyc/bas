@@ -46,6 +46,7 @@
 </template>
 
 <script>
+import { showSucess } from '../../app.js'
 export default {
     data() {
       return {
@@ -67,6 +68,7 @@ export default {
         
         axios.post('../api/v1/profile',this.profile)
         .then( res => {
+          showSucess('Your profile has been updated')
           console.log(res)
         })
       }

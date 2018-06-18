@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import { showSucess } from '../../app.js'
     export default {
         data() {
             return {
@@ -156,7 +157,7 @@
             var newNomination = app.nomination;
             axios.post('/api/v1/nominations',newNomination)
                 .then(function (resp) {
-                  console.log(app.nomination.category)
+                  showSucess('Your nomination has been added.')
                   $("input[value='"+app.nomination.category+"']").attr("disabled", true);
 
                   for (var pro in app.nomination) {

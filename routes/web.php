@@ -102,3 +102,13 @@ Route::get('/mailable', function () {
 
     return new App\Mail\NewNominations($nomination);
 });
+
+
+Route::get('send', function(){
+	Mail::raw('Sending emails with Mailgun and Laravel is easy!', function($message)
+	{
+		$message->subject('Mailgun and Laravel are awesome!');
+		$message->from('no-reply@bas.hanyc.org', 'HANYC');
+		$message->to('alanseau@gmail.com');
+	});
+});
