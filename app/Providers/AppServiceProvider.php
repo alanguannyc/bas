@@ -15,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \App\Role::firstOrCreate(['name'=>'admin']);
+    Schema::defaultStringLength(191);
+         \App\Role::firstOrCreate(['name'=>'admin']);
         \App\Role::firstOrCreate(['name'=>'member']);
         \App\Role::firstOrCreate(['name'=>'judge']);
 
@@ -33,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         ->count();
 
         View::share(['members'=>$members,'hotels'=>$hotels,'nominations'=>$nominations, 'memberIncrease'=>$memberIncrease, 'hotelIncrease'=>$hotelIncrease, 'nominationIncrease'=>$nominationIncrease]);
-   
+       
     }
 
     /**
