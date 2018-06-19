@@ -32,10 +32,15 @@
     <div class="col-md-6 pr-1">
     
     <label> Name</label>
-    <input v-model="nomination.name" type="text" class="form-control" placeholder="Name" >
+    <input v-model="nomination.name" type="text" class="form-control" placeholder="Name" required>
     
 </div>
-
+<div class="col-md-6 pr-1">
+    
+    <label> Title</label>
+    <input v-model="nomination.title" type="text" class="form-control" placeholder="title" required>
+    
+</div>
 <!-- Question 1 -->
 <div class="col-md-12">
 

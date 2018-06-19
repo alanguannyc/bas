@@ -37,7 +37,11 @@
     <label for="exampleInputName">Candidate Name</label>
     <input v-model="nomination.name"  name="candidateName" type="text"  id="InputName" aria-describedby="nameHelp" placeholder="Enter Name" required="true">
   </div>
-
+<!-- Enter Title -->
+<div class="form-group">
+    <label for="candidateTitle">Title</label>
+    <input v-model="nomination.title"  name="candidateTitle" type="text"  id="InputTitle" aria-describedby="nameHelp" placeholder="Enter Title" required="true">
+  </div>
 <!-- Question 1 -->
 <div class="col-md-12">
     <label  for="exampleFormControlTextarea1">1.    Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example.</label>
@@ -95,6 +99,7 @@ import { showSucess } from '../../app.js'
                 {
                   category:'',
                   name:'',
+                  title:'',
                   q1:'',
                   q2:'',
                   q3:'',

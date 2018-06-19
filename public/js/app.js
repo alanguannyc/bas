@@ -14462,6 +14462,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -14469,6 +14474,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             nomination: {
                 category: '',
                 name: '',
+                title: '',
                 q1: '',
                 q2: '',
                 q3: '',
@@ -14607,6 +14613,36 @@ var render = function() {
                             return
                           }
                           _vm.$set(_vm.nomination, "name", $event.target.value)
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-md-6 pr-1" }, [
+                    _c("label", [_vm._v(" Title ")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.nomination.title,
+                          expression: "nomination.title"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Title",
+                        required: "true"
+                      },
+                      domProps: { value: _vm.nomination.title },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.nomination, "title", $event.target.value)
                         }
                       }
                     })
@@ -15115,6 +15151,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -15123,6 +15163,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             nomination: {
                 category: '',
                 name: '',
+                title: '',
                 q1: '',
                 q2: '',
                 q3: '',
@@ -15416,6 +15457,40 @@ var render = function() {
                         return
                       }
                       _vm.$set(_vm.nomination, "name", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c("label", { attrs: { for: "candidateTitle" } }, [
+                  _vm._v("Title")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.nomination.title,
+                      expression: "nomination.title"
+                    }
+                  ],
+                  attrs: {
+                    name: "candidateTitle",
+                    type: "text",
+                    id: "InputTitle",
+                    "aria-describedby": "nameHelp",
+                    placeholder: "Enter Title",
+                    required: "true"
+                  },
+                  domProps: { value: _vm.nomination.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.nomination, "title", $event.target.value)
                     }
                   }
                 })

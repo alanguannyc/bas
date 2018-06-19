@@ -28,6 +28,7 @@ class NewNominations extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.nomination.new');
+        return $this->subject('Confirmation of Receipt of Nomination')
+                    ->markdown('emails.nomination.new');
     }
 }

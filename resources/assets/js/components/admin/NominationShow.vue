@@ -32,7 +32,12 @@
     <input v-model="nomination.name" type="text" class="form-control" placeholder="Name" >
         
     </div>
-
+<div class="form-group ">
+              
+    <label> Title</label>
+    <input v-model="nomination.title" type="text" class="form-control" placeholder="title" >
+        
+    </div>
     <!-- Question 1 -->
         <div class="form-group ">
 
@@ -129,6 +134,7 @@
               nomination:
                 {
                   category:'',
+                  title:'',
                   name:'',
                   q1:'',
                   q2:'',

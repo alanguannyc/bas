@@ -31,7 +31,6 @@ const app = new Vue({
     // template: '<App/>'
 });
 
-import App from './App.vue';
 
 
 function format ( d ) {

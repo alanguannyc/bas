@@ -109,6 +109,6 @@ Route::get('send', function(){
 	{
 		$message->subject('Mailgun and Laravel are awesome!');
 		$message->from('no-reply@bas.hanyc.org', 'HANYC');
-		$message->to('alanseau@gmail.com');
+		$message->to(['alan@hanyc.org','hanycalan@gmail.com']);
 	});
 });

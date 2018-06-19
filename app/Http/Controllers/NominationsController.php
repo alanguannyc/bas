@@ -61,7 +61,7 @@ class NominationsController extends Controller
         
 
         auth()->user()->publish(
-            new Nomination(request(['category','name','q1','q2','q3','q4','q5']))
+            new Nomination(request(['category','title','name','q1','q2','q3','q4','q5']))
         );
         
 
