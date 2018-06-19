@@ -16,11 +16,11 @@
                       <div class="tab-content">
                           <form>
                           <div class="form-group"> <!-- left unspecified, .bmd-form-group will be automatically added (inspect the code) -->
-                            <label for="ProfileCompany" class="bmd-label-floating">Company</label>
+                            <label for="ProfileCompany" class="bmd-label-floating">Hotel</label>
                             <input type="text" class="form-control" id="ProfileCompany" v-model="profile.company">
                           </div>
                           <div class="form-group bmd-form-group"> <!-- manually specified --> 
-                            <label for="ProfileAddress" class="bmd-label-floating">Company Address</label>
+                            <label for="ProfileAddress" class="bmd-label-floating">Hotel Address</label>
                             <input type="text" class="form-control" id="ProfileAddress" v-model="profile.address">
                           </div>
                           <div class="form-group bmd-form-group"> <!-- manually specified --> 

@@ -13963,7 +13963,7 @@ var render = function() {
                     staticClass: "bmd-label-floating",
                     attrs: { for: "ProfileCompany" }
                   },
-                  [_vm._v("Company")]
+                  [_vm._v("Hotel")]
                 ),
                 _vm._v(" "),
                 _c("input", {
@@ -13996,7 +13996,7 @@ var render = function() {
                     staticClass: "bmd-label-floating",
                     attrs: { for: "ProfileAddress" }
                   },
-                  [_vm._v("Company Address")]
+                  [_vm._v("Hotel Address")]
                 ),
                 _vm._v(" "),
                 _c("input", {
