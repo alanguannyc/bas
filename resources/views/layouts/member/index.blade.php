@@ -20,7 +20,8 @@
                   </div>
                   <div class="card-footer">
                       <div class="stats">
-                          <h5>{{ $messenge->text }}</h5>
+                          
+                          <h5 style="white-space: pre-wrap;color:black">{!! $messenge->text !!}</h5>
                       </div>
                   </div>
               </div>

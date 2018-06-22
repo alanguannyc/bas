@@ -17,6 +17,7 @@
               <th>Hotel</th>
               <th>Title</th>
               <th>Phone</th>
+              <th>Role</th>
               <th>Registered on</th>
           </tr>
       </thead>

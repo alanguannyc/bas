@@ -29,20 +29,22 @@
           </slot> -->
 
 <form >
-    <div class="col-md-6 pr-1">
-    
-    <label> Name</label>
-    <input v-model="nomination.name" type="text" class="form-control" placeholder="Name" required>
-    
-</div>
-<div class="col-md-6 pr-1">
-    
-    <label> Title</label>
-    <input v-model="nomination.title" type="text" class="form-control" placeholder="title" required>
-    
-</div>
+    <div class="form-group ">
+        <div class="col-md-6 ">
+        
+        <label> Name</label>
+        <input v-model="nomination.name" type="text" class="form-control" placeholder="Name" required>
+        
+        </div>
+        <div class="col-md-6 ">
+            
+            <label> Title</label>
+            <input v-model="nomination.title" type="text" class="form-control" placeholder="title" required>
+            
+        </div>
+    </div>
 <!-- Question 1 -->
-<div class="col-md-12">
+<div class="form-group">
 
     <label  for="exampleFormControlTextarea1">1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example.</label>
     
@@ -50,38 +52,58 @@
     
 
   </div>
+        <div >
+            <span style="display: inline-block;"><h5>Score:</h5></span>
+            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+        </div>
   <br>
 <!-- Question 2 -->
-<div class="col-md-12">
+<div class="form-group">
     <label for="exampleFormControlTextarea1">2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples.</label>
     
     <textarea v-model="nomination.q2" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
     
   </div>
+  <div >
+            <span style="display: inline-block;"><h5>Score:</h5></span>
+            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+        </div>
   <br>
 <!-- Question 3 -->
-<div class="col-md-12">
+<div class="form-group">
     <label for="exampleFormControlTextarea1">3.    Describe the interaction of the employee with guests. Please cite specific examples of the employee’s positive impact on the guest experience at your hotel.</label>
     
         <textarea v-model="nomination.q3" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
      
   </div>
+  <div >
+            <span style="display: inline-block;"><h5>Score:</h5></span>
+            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+        </div>
   <br>
 <!-- Question 4 -->
-<div class="col-md-12">
+<div class="form-group">
     <label for="exampleFormControlTextarea1">4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers.</label>
    
         <textarea v-model="nomination.q4" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
   
   </div>
+  <div >
+            <span style="display: inline-block;"><h5>Score:</h5></span>
+            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+        </div>
   <br>
   <!-- Question 5 -->
-<div class="col-md-12">
+<div class="form-group">
     <label  for="exampleFormControlTextarea1">5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards.</label>
    
         <textarea v-model="nomination.q5" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
     
   </div>
+  <div >
+            <span style="display: inline-block;"><h5>Score:</h5></span>
+            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+        </div>
 <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination">Save changes</button>
@@ -114,7 +136,8 @@
                   q3:'',
                   q4:'',
                   q5:''
-                  }
+                  },
+                  score:''
                 }
         },
         

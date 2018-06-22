@@ -24,6 +24,8 @@ Vue.component('member-nomination', require('./components/admin/MemberNomination.
 Vue.component('nomination-detail', require('./components/admin/NominationDetail.vue'));
 Vue.component('nomination-show', require('./components/admin/NominationShow.vue'));
 Vue.component('user-index', require('./components/admin/UserIndex.vue'));
+Vue.component('judge-nomination', require('./components/admin/JudgeNomination.vue'));
+
 const app = new Vue({
     el: '#admin'
     
@@ -71,6 +73,7 @@ $(document).ready(function(){
     
     var member_table = $('#member_table').DataTable(
         {
+            "order": [[ 7, "desc" ]],
             "ajax":{"url":"/api/v1/member","dataSrc":""},
             "columnDefs": [ {
                 "targets": 0,
@@ -95,6 +98,7 @@ $(document).ready(function(){
                 "defaultContent": "<i>Not set</i>" },
                 { data: 'profile.phone',
                 "defaultContent": "<i>Not set</i>" },
+                { data: 'roles[0].name'},
                 { data: 'created_at' },
             ],
             dom: 'Bfrtip',
@@ -122,10 +126,11 @@ $(document).ready(function(){
     //     }
     // } );
     var nomination_table = $('#nomination_table').DataTable(
-        {
+        {   
             "ajax":{"url":"/api/v1/member/nominations","dataSrc":""},
             "columnDefs": [ {
-                "targets": 4,
+                
+                "targets": 10,
                 "render": function ( data, type, row, meta ) {
                     
                     return '<a href="'+'/admin/member/'+data.id+'">'+data.name+'</a>'
@@ -139,7 +144,8 @@ $(document).ready(function(){
                         return '<a href="'+'/nomination/'+data.id+'">view</a>'
                       }
     
-                    }
+                    },
+                    { "width": "20%", "targets":4 }
               ],
             columns: [
                 {
@@ -150,6 +156,17 @@ $(document).ready(function(){
                 },
                 { data: 'category' },
                 { data: 'name' },
+                { data: 'title'},
+                { data: 'q1',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'q2',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'q3',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'q4',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'q5',
+                "defaultContent": "<i>Not set</i>" },
                 { data: 'user.profile.company',
                 "defaultContent": "<i>Not set</i>" },
                 { data: 'user'},
@@ -204,6 +221,39 @@ $(document).ready(function(){
             //     'copy', 'csv', 'excel', 'pdf'
             // ]
 
+        }
+    );
+
+    var judge = $('#judge').DataTable(
+        {
+            // "order": [[ 7, "desc" ]],
+            "ajax":{"url":"/api/v1/judge","dataSrc":""},
+            "columnDefs": [ {
+                "targets": 0,
+                "render": function ( data, type, row, meta ) {
+                    return '<a href="'+'/admin/judge/'+data.id+'">View</a>';
+                  }
+
+                }
+              ],
+            columns: [
+                {
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": 'view'
+                },
+                { data: 'name' },
+                { data: 'email' },
+                { data: 'profile.company',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'profile.title',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'profile.phone',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'roles[0].name'},
+                { data: 'created_at' },
+            ]
         }
     );
 })

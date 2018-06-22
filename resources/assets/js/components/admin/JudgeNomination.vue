@@ -49,13 +49,13 @@
         </div>
         <div class="x_content">
 
-          <ul class="list-group">             
+          <!-- <ul class="list-group">             
             <li class="list-group-item">{{ member.email }}</li>
             <li v-if="member.profile" class="list-group-item">{{ member.profile.company }}</li>
             <li v-if="member.profile" class="list-group-item">{{ member.profile.address }}</li>
             <li v-if="member.profile" class="list-group-item">{{ member.profile.title }}</li>
             <li v-if="member.profile" class="list-group-item">{{ member.profile.phone }}</li>
-          </ul>
+          </ul> -->
 
         <button class="btn btn-primary" v-on:click="updateProfile()">Update</button>
         
@@ -107,23 +107,7 @@
       </div>
     </div> 
 
-<transition name="fade">
-      <div class="row" v-show="detail">
-  <div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="x_panel tile ">
-      <div class="x_title">
-        <h2>Notification and instruction</h2>
-        
-        <div class="clearfix"></div>
-      </div>
-      <div class="x_content" >
-        
-            
-            </div>
-        </div>
-        </div>
-    </div>
-</transition>
+
 
 
 </div>

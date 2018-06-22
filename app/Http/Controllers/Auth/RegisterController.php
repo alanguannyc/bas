@@ -72,7 +72,7 @@ class RegisterController extends Controller
         ]);
         $user->roles()->attach(2);
 //         Mail::to(\App\User::find(1))->send(new NewUser($user));
-		Mail::to(['alan@hanyc.org','hanycalan@gmail.com'])->send(new NewUser($user));
+		Mail::to(['alan@hanyc.org'])->send(new NewUser($user));
         return $user;
     }
 }

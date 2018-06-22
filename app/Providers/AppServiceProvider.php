@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Schema;
+// use Illuminate\Support\Facades\DB;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,7 +25,8 @@ class AppServiceProvider extends ServiceProvider
         $memberIncrease = \DB::table('users')->where('created_at', '>', Carbon::now()->startOfWeek())
         ->where('created_at', '<', Carbon::now()->endOfWeek())
         ->count();
-        $hotels = \DB::table('profiles')->groupBy('company')->count();
+        $hotels = \DB::table('profiles')->select('company', \DB::raw('count(*) as total'))
+        ->groupBy('company')->get()->count();
         $hotelIncrease = \DB::table('profiles')->where('created_at', '>', Carbon::now()->startOfWeek())
         ->where('created_at', '<', Carbon::now()->endOfWeek())
         ->count();

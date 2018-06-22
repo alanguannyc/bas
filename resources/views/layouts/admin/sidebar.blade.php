@@ -12,7 +12,7 @@
           
         </li>
         
-        <li><a><i class="fa fa-desktop"></i> Judges </span></a>
+        <li><a href="/admin/judge"><i class="fa fa-desktop"></i> Judges </span></a>
           
         </li>
         <li><a><i class="fa fa-table"></i> Hotels </span></a>

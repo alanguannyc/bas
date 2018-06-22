@@ -48,7 +48,11 @@
             
 
         </div>
-        
+        <div >
+            <span style="display: inline-block;"><h5>Score:</h5></span>
+            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+        </div>
+        <br>
         <!-- Question 2 -->
         <div class="form-group ">
 
@@ -58,7 +62,11 @@
             
         
         </div>
-      
+      <div >
+            <span style="display: inline-block;"><h5>Score:</h5></span>
+            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+        </div>
+        <br>
         <!-- Question 3 -->
         <div class="form-group ">
 
@@ -68,7 +76,11 @@
             
         
         </div>
-      
+      <div >
+            <span style="display: inline-block;"><h5>Score:</h5></span>
+            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+        </div>
+        <br>
         <!-- Question 4 -->
         <div class="form-group ">
 
@@ -77,7 +89,11 @@
                 <textarea v-model="nomination.q4" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
         
         </div>
-   
+   <div >
+            <span style="display: inline-block;"><h5>Score:</h5></span>
+            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+        </div>
+        <br>
         <!-- Question 5 -->
         <div class="form-group ">
         
@@ -87,6 +103,11 @@
                 
         
         </div>
+        <div >
+            <span style="display: inline-block;"><h5>Score:</h5></span>
+            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+        </div>
+        <br>
         <br/>
         <div >
                 <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination">Save changes</button>
@@ -121,6 +142,28 @@
   
         </div>
       </div>
+
+      <div class="x_panel tile fixed_height_320">
+        <div class="x_title">
+          <h2>Judged By</h2>
+          
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            
+            <!-- <a :href="'/admin/member/'+nomination.user.id"><h4>{{ nomination.user.name }}</h4></a>
+          <ul class="list-group" >
+                      
+            <li class="list-group-item">{{ nomination.user.email }}</li>
+            <li v-if="nomination.user.profile" class="list-group-item">{{ nomination.user.profile.company }}</li>
+            <li v-if="nomination.user.profile" class="list-group-item">{{ nomination.user.profile.address }}</li>
+            <li v-if="nomination.user.profile" class="list-group-item">{{ nomination.user.profile.title }}</li>
+            <li v-if="nomination.user.profile" class="list-group-item">{{ nomination.user.profile.phone }}</li>
+
+          </ul> -->
+  
+        </div>
+      </div>
     </div>     
  </div>
 </div>
@@ -143,6 +186,7 @@
                   q5:'',
                   user:''
                   },
+                  score:''
               
                 }
         },

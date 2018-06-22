@@ -2,13 +2,13 @@
 <template>
 
 <div class="row">
+  <div class="card alert alert-danger" v-show = "profile.company ==''"><h3>Please complete your profile to proceed</h3></div>
           <div class="col-lg-12 col-md-12">
               <div class="card">
                   <div class="card-header card-header-tabs card-header-success">
                       <div class="nav-tabs-navigation">
                           <div class="nav-tabs-wrapper">
-                              <span class="nav-tabs-title">Profile</span>
-                              
+                              <span class="nav-tabs-title">Profile</span>                           
                           </div>
                       </div>
                   </div>

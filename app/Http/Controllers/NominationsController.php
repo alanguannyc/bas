@@ -80,6 +80,7 @@ class NominationsController extends Controller
     {
         return $nomination = Nomination::where('user_id','=',auth()->id())->get();
     }
+    
     public function showforadmin($id)
     {
         $nominations = Nomination::where('user_id','=',$id)->get();
@@ -94,7 +95,7 @@ class NominationsController extends Controller
     public function edit($id)
     {
         
-        $nomination = Nomination::with(['user.profile'])->find($id);
+        $nomination = Nomination::with(['user.profile','score'])->find($id);
         if (Gate::denies('update-nomination', $nomination)) {
             abort(403);
         }

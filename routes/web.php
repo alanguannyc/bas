@@ -22,7 +22,6 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
         });
 
         Route::get('/member', function () {
-             
             return view('layouts.admin.index-member');
         });
         Route::get('/member/{id}', 'UserController@index');
@@ -31,6 +30,12 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
            return view('layouts.admin.index-nomination');
        });
 
+        Route::get('/judge/{id}', function () {
+            return view('layouts.admin.show-judge');
+        });
+        Route::get('/judge', function () {
+        return view('layouts.admin.index-judge');
+    });
     });
     
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
@@ -49,6 +54,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
 });
 
 Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
+    Route::post('/score', 'ScoreController@store');
+    
+
     Route::post('/profile', 'ProfileController@store');
     Route::get('/profile', 'ProfileController@show');
     Route::post('/profile/{id}', 'ProfileController@update');
@@ -87,7 +95,29 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         return $users;
         
     });
+    
+    Route::get('/judge', function(){
+        // $users = \App\User::whereHas('roles', function ($query) {
+        //     $query->where('name', 'judge');
+        // })->with(['profile','roles'])->get();
+       $users = \App\User::all();
+        return $users;
+    });
+    Route::get('/judge/{id}', function($id){
+        
+            if ($id == 0) {
+                $nominations = DB::table('nominations')
+                ->whereBetween('id', array(0, $id*10+10))->get();
+                return $nominations;
+            } else if ($id >= 1) {
+                $nominations = DB::table('nominations')
+                ->whereBetween('id', array($id*10, $id*10+10))->get();
+                return $nominations;
+            }
 
+    });
+
+    
     Route::patch('/role/{id}', 'RoleController@update');
 });
 
@@ -97,18 +127,46 @@ Route::group(['prefix' => 'nomination', 'middleware' => ['auth','admin']], funct
     
 });
 
-Route::get('/mailable', function () {
-    $nomination = \App\Nomination::find(1);
+// Route::get('/mailable', function () {
+//     $nomination = \App\Nomination::find(1);
 
-    return new App\Mail\NewNominations($nomination);
-});
+//     return new App\Mail\NewNominations($nomination);
+// });
 
 
-Route::get('send', function(){
-	Mail::raw('Sending emails with Mailgun and Laravel is easy!', function($message)
-	{
-		$message->subject('Mailgun and Laravel are awesome!');
-		$message->from('no-reply@bas.hanyc.org', 'HANYC');
-		$message->to(['alan@hanyc.org','hanycalan@gmail.com']);
-	});
-});
+// Route::get('send', function(){
+// 	Mail::raw('Sending emails with Mailgun and Laravel is easy!', function($message)
+// 	{
+// 		$message->subject('Mailgun and Laravel are awesome!');
+// 		$message->from('no-reply@bas.hanyc.org', 'HANYC');
+// 		$message->to(['alan@hanyc.org','hanycalan@gmail.com']);
+// 	});
+// });
+
+Route::get('/judge/{id}',function () {
+    // $users = \App\User::whereHas('roles', function ($query) {
+    //         $query->where('name', 'judge');
+    //     })->orderBy('created_at', 'desc')->get();
+    //     foreach ($users as $key => $value) {
+    //         echo $value['id'] . '<br>';
+    //      }
+    
+    // return view('layouts.judge.index');
+    $array;
+        foreach ($users as $key => $value) {
+            
+            $array.push($value['id']);
+            // if ( auth()->user()->id == $value['id'] ) {
+            //     // dd($value['id'] . '' .$key);
+            //     // return redirect('/judge' . '/' . $key);
+            //     return $next($request);
+            // } else {
+            //     return redirect('/judge' . '/' . $key);
+            // }
+
+         }
+         return $array;
+    // return $current_params;
+})->middleware('judge');
+
+

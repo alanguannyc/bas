@@ -10417,14 +10417,11 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
-.alert-success {
+div .alert-success {
   bottom: 20px;
   position: absolute;
   right: 20px;
   z-index: 10;
-}
-
-div .alert-success {
   width: auto;
 }
 

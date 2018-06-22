@@ -7,22 +7,18 @@
 
 <div class="row">
   <div class="col-md-12 col-sm-12 col-xs-12">
-    <table id="nomination_table" class="display">
+    <table id="judge_table" class="display">
         
       <thead>
           <tr>
                   <th></th>
-              <th>Category</th>
               <th>Name</th>
+              <th>Email</th>
+              <th>Company</th>
               <th>Title</th>
-              <th>Q1</th>
-              <th>Q2</th>
-              <th>Q3</th>
-              <th>Q4</th>
-              <th>Q5</th>
-              <th>Hotel</th>
-              <th>Nominated by</th>
-              <th>Nominated on</th>
+              <th>Phone</th>
+              <th>Role</th>
+              <th>Registered on</th>
           </tr>
       </thead>
       

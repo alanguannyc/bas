@@ -69,7 +69,18 @@ class User extends Authenticatable
                 return true;
             }
         }
+        return false;
+    }
 
+    public function isJudge()
+    {
+        foreach ($this->roles()->get() as $role)
+        {
+            if ($role->name == 'judge')
+            {
+                return true;
+            }
+        }
         return false;
     }
 
