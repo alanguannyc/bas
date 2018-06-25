@@ -60,7 +60,7 @@
         </div>
   <br>
 <!-- Question 2 -->
-<div class="form-group" v-html="highlight()">
+<div class="form-group">
     <label for="exampleFormControlTextarea1">2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples.</label>
     
     <textarea v-model="nomination.q2" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -166,11 +166,7 @@
                         // alert("Could not load nominations");
                     });
             },
-          filters: {
-                    highlight: function(value){
-                        return value.replace(this.nomination.name, '<span class="highlightText">' + this.nomination.name + '</span>')
-                    },
-                },   
+            
                 
            
         methods: {
@@ -203,9 +199,3 @@
     }
     </script>
 
-
-<style>
-.highlightText {
-    background: yellow;
-}
-</style>

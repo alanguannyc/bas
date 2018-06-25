@@ -172,15 +172,25 @@ var _ = require('lodash');
 
             axios.get(`/api/v1/member/`+$uid)
                 .then(function (resp) {
+                    console.log(resp.data)
+                    if (resp.data.nomination){
+                        app.nominations = resp.data.nomination;
+
+                    }
                     
-                    app.nominations = resp.data.nomination;
-                    app.member = resp.data.member;
+                    if(resp.data.member) {
+                        app.member = resp.data.member
+
+                    }
+                    
                     if (resp.data.member.profile) {
                         app.profile = resp.data.member.profile;
                     }
                     
+                    if (resp.data.member.roles[0]) {
+                        app.role = resp.data.member.roles[0];
+                    }
                     
-                    app.role = resp.data.member.roles[0];
                     console.log(app.role)
                     
                 })
