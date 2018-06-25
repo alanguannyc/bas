@@ -222,7 +222,10 @@
                 axios.get(`/api/v1/judge/`)
                     .then(function (resp) {
                         // console.log(resp.data[key])
-                        app.judge = resp.data[key]
+                        if( resp.data[key]) {
+                            app.judge = resp.data[key]
+                        }
+                        
                         
                     })
                     .catch(function (resp) {

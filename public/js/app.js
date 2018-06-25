@@ -13766,7 +13766,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       axios.post('../api/v1/profile', this.profile).then(function (res) {
         Object(__WEBPACK_IMPORTED_MODULE_0__app_js__["showSucess"])('Your profile has been updated');
-        window.location.href = '/dashboard';
+        setTimeout(function () {
+          window.location.href = '/dashboard';
+        }, 3000);
       }).catch(function (error) {
         console.log(error.data);
       });

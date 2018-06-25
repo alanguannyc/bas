@@ -69,7 +69,8 @@ export default {
         axios.post('../api/v1/profile',this.profile)
         .then( res => {
           showSucess('Your profile has been updated')
-          window.location.href='/dashboard'
+          setTimeout(function(){ window.location.href='/dashboard' }, 3000)
+          
         })
         .catch(function (error) {
     console.log(error.data);

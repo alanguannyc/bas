@@ -32933,7 +32933,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
         axios.get('/api/v1/judge/').then(function (resp) {
             // console.log(resp.data[key])
-            app.judge = resp.data[key];
+            if (resp.data[key]) {
+                app.judge = resp.data[key];
+            }
         }).catch(function (resp) {
             console.log(resp);
         });
