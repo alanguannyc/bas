@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 54);
+/******/ 	return __webpack_require__(__webpack_require__.s = 37);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -511,88 +511,6 @@ module.exports = g;
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -694,6 +612,88 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
 
 /***/ }),
 /* 5 */
@@ -12363,7 +12363,7 @@ module.exports = __webpack_require__(14);
 var utils = __webpack_require__(0);
 var bind = __webpack_require__(6);
 var Axios = __webpack_require__(16);
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(3);
 
 /**
  * Create an instance of Axios
@@ -12446,7 +12446,7 @@ function isSlowBuffer (obj) {
 "use strict";
 
 
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(3);
 var utils = __webpack_require__(0);
 var InterceptorManager = __webpack_require__(25);
 var dispatchRequest = __webpack_require__(26);
@@ -12985,7 +12985,7 @@ module.exports = InterceptorManager;
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(27);
 var isCancel = __webpack_require__(10);
-var defaults = __webpack_require__(4);
+var defaults = __webpack_require__(3);
 var isAbsoluteURL = __webpack_require__(28);
 var combineURLs = __webpack_require__(29);
 
@@ -13532,8 +13532,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 35 */,
-/* 36 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13574,9 +13573,9 @@ window.Vue = __webpack_require__(12);
 //  */
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('member-profile', __webpack_require__(55));
-Vue.component('nominations-index', __webpack_require__(58));
-Vue.component('add-nominee', __webpack_require__(66));
+Vue.component('member-profile', __webpack_require__(38));
+Vue.component('nominations-index', __webpack_require__(41));
+Vue.component('add-nominee', __webpack_require__(49));
 
 var app = new Vue({
     el: '#member'
@@ -13633,41 +13632,25 @@ function showSucess(msg) {
 }
 
 /***/ }),
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */
+/* 36 */,
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(36);
-__webpack_require__(71);
-module.exports = __webpack_require__(72);
+__webpack_require__(35);
+__webpack_require__(54);
+module.exports = __webpack_require__(57);
 
 
 /***/ }),
-/* 55 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(56)
+var __vue_script__ = __webpack_require__(39)
 /* template */
-var __vue_template__ = __webpack_require__(57)
+var __vue_template__ = __webpack_require__(40)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -13706,12 +13689,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 56 */
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_js__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_js__ = __webpack_require__(35);
 //
 //
 //
@@ -13783,7 +13766,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       axios.post('../api/v1/profile', this.profile).then(function (res) {
         Object(__WEBPACK_IMPORTED_MODULE_0__app_js__["showSucess"])('Your profile has been updated');
-        console.log(res);
+        window.location.href = '/dashboard';
+      }).catch(function (error) {
+        console.log(error.data);
       });
     }
   }
@@ -13791,7 +13776,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 57 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -13800,7 +13785,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "row" }, [
     _c(
-      "div",
+      "span",
       {
         directives: [
           {
@@ -13812,7 +13797,7 @@ var render = function() {
         ],
         staticClass: "card alert alert-danger"
       },
-      [_c("h3", [_vm._v("Please complete your profile to proceed")])]
+      [_c("p", [_vm._v("Please complete your profile to proceed")])]
     ),
     _vm._v(" "),
     _c("div", { staticClass: "col-lg-12 col-md-12" }, [
@@ -13842,7 +13827,11 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text", id: "ProfileCompany" },
+                  attrs: {
+                    type: "text",
+                    id: "ProfileCompany",
+                    required: "true"
+                  },
                   domProps: { value: _vm.profile.company },
                   on: {
                     input: function($event) {
@@ -13875,7 +13864,11 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text", id: "ProfileAddress" },
+                  attrs: {
+                    type: "text",
+                    id: "ProfileAddress",
+                    required: "true"
+                  },
                   domProps: { value: _vm.profile.address },
                   on: {
                     input: function($event) {
@@ -13908,7 +13901,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "text", id: "ProfileTitle" },
+                  attrs: { type: "text", id: "ProfileTitle", required: "true" },
                   domProps: { value: _vm.profile.title },
                   on: {
                     input: function($event) {
@@ -13941,7 +13934,11 @@ var render = function() {
                     }
                   ],
                   staticClass: "form-control",
-                  attrs: { type: "phone", id: "ProfilePhone" },
+                  attrs: {
+                    type: "phone",
+                    id: "ProfilePhone",
+                    required: "true"
+                  },
                   domProps: { value: _vm.profile.phone },
                   on: {
                     input: function($event) {
@@ -14002,15 +13999,15 @@ if (false) {
 }
 
 /***/ }),
-/* 58 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(59)
+var __vue_script__ = __webpack_require__(42)
 /* template */
-var __vue_template__ = __webpack_require__(65)
+var __vue_template__ = __webpack_require__(48)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -14049,12 +14046,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 59 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__VueModal_vue__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__VueModal_vue__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__VueModal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__VueModal_vue__);
 //
 //
@@ -14132,19 +14129,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 60 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(61)
+  __webpack_require__(44)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(63)
+var __vue_script__ = __webpack_require__(46)
 /* template */
-var __vue_template__ = __webpack_require__(64)
+var __vue_template__ = __webpack_require__(47)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -14183,13 +14180,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 61 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(62);
+var content = __webpack_require__(45);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -14209,10 +14206,10 @@ if(false) {
 }
 
 /***/ }),
-/* 62 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(4)(false);
 // imports
 
 
@@ -14223,7 +14220,7 @@ exports.push([module.i, "\n*, ::after, ::before {\n    -webkit-box-sizing: borde
 
 
 /***/ }),
-/* 63 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -14389,7 +14386,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 64 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -14760,7 +14757,7 @@ if (false) {
 }
 
 /***/ }),
-/* 65 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -14832,19 +14829,19 @@ if (false) {
 }
 
 /***/ }),
-/* 66 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 function injectStyle (ssrContext) {
   if (disposed) return
-  __webpack_require__(67)
+  __webpack_require__(50)
 }
 var normalizeComponent = __webpack_require__(1)
 /* script */
-var __vue_script__ = __webpack_require__(69)
+var __vue_script__ = __webpack_require__(52)
 /* template */
-var __vue_template__ = __webpack_require__(70)
+var __vue_template__ = __webpack_require__(53)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -14883,13 +14880,13 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 67 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(68);
+var content = __webpack_require__(51);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -14909,26 +14906,26 @@ if(false) {
 }
 
 /***/ }),
-/* 68 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)(false);
+exports = module.exports = __webpack_require__(4)(false);
 // imports
 
 
 // module
-exports.push([module.i, "\n*, ::after, ::before {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n}\n.row {\n    display: -ms-flexbox;\n    display: -webkit-box;\n    display: flex;\n    -ms-flex-wrap: wrap;\n    flex-wrap: wrap;\n    margin-right: -15px;\n    margin-left: -15px;\n}\n@media (min-width: 768px){\n.col-md-12 {\n    -ms-flex: 0 0 100%;\n    -webkit-box-flex: 0;\n            flex: 0 0 100%;\n    max-width: 100%;\n}\n}\n.pr-1, .px-1 {\n    padding-right: .25rem!important;\n}\n.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {\n    position: relative;\n    width: 100%;\n    min-height: 1px;\n    padding-right: 15px;\n    padding-left: 15px;\n}\n*, ::after, ::before {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n}\n.form-group, .input-group {\n    margin-bottom: 10px;\n    position: relative;\n}\nlabel {\n    margin-top: 10px;\n    font-size: .9571em;\n    margin-bottom: 10px;\n    color: #020202;\n}\nlabel {\n    cursor: default;\n}\nlabel {\n    display: inline-block;\n    margin-bottom: .5rem;\n}\n.form-group .form-control, .input-group .form-control {\n    padding: 10px;\n}\ntextarea.form-control {\n    max-width: 100%;\n    max-height: 80px;\n    padding: 10px 10px 0 0;\n    resize: none;\n    border: none;\n    border: 1px solid #e3e3e3;\n    border-radius: 4px;\n    line-height: 2;\n}\n.form-control {\n    background-color: #fff;\n    border: 1px solid #ddd;\n    border-radius: 4px;\n    color: #66615b;\n    line-height: normal;\n    font-size: 14px;\n    -webkit-transition: color .3s ease-in-out,border-color .3s ease-in-out,background-color .3s ease-in-out;\n    transition: color .3s ease-in-out,border-color .3s ease-in-out,background-color .3s ease-in-out;\n    -webkit-box-shadow: none;\n            box-shadow: none;\n}\n.form-control {\n    display: block;\n    width: 100%;\n    padding: .375rem .75rem;\n    font-size: 1rem;\n    line-height: 1.5;\n    color: #495057;\n    background-color: #fff;\n    background-clip: padding-box;\n    border: 1px solid #ced4da;\n    border-radius: .25rem;\n    -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;\n    transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;\n    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;\n    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;\n}\nbutton, input, optgroup, select, textarea {\n    font-family: Montserrat,Helvetica Neue,Arial,sans-serif;\n}\ntextarea {\n    overflow: auto;\n    resize: vertical;\n}\nbutton, input, optgroup, select, textarea {\n    margin: 0;\n    font-family: inherit;\n    font-size: inherit;\n    line-height: inherit;\n}\n*, ::after, ::before {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n}\n\n\n\n\n", ""]);
+exports.push([module.i, "\n*, ::after, ::before {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n}\n.row {\n    display: -ms-flexbox;\n    display: -webkit-box;\n    display: flex;\n    -ms-flex-wrap: wrap;\n    flex-wrap: wrap;\n    margin-right: -15px;\n    margin-left: -15px;\n}\n@media (min-width: 768px){\n.col-md-12 {\n    -ms-flex: 0 0 100%;\n    -webkit-box-flex: 0;\n            flex: 0 0 100%;\n    max-width: 100%;\n}\n}\n.pr-1, .px-1 {\n    padding-right: .25rem!important;\n}\n.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {\n    position: relative;\n    width: 100%;\n    min-height: 1px;\n    padding-right: 15px;\n    padding-left: 15px;\n}\n*, ::after, ::before {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n}\n.form-group, .input-group {\n    margin-bottom: 10px;\n    position: relative;\n}\nlabel {\n    margin-top: 10px;\n    font-size: .9571em;\n    margin-bottom: 10px;\n    color: #020202;\n}\nlabel {\n    cursor: default;\n}\nlabel {\n    display: inline-block;\n    margin-bottom: .5rem;\n}\n.form-group .form-control, .input-group .form-control {\n    padding: 10px;\n}\ntextarea.form-control {\n    max-width: 100%;\n    max-height: 80px;\n    padding: 10px 10px 0 0;\n    resize: none;\n    border: none;\n    border: 1px solid #e3e3e3;\n    border-radius: 4px;\n    line-height: 2;\n}\n.form-control {\n    background-color: #fff;\n    border: 1px solid #ddd;\n    border-radius: 4px;\n    color: #66615b;\n    line-height: normal;\n    font-size: 14px;\n    -webkit-transition: color .3s ease-in-out,border-color .3s ease-in-out,background-color .3s ease-in-out;\n    transition: color .3s ease-in-out,border-color .3s ease-in-out,background-color .3s ease-in-out;\n    -webkit-box-shadow: none;\n            box-shadow: none;\n}\n.form-control {\n    display: block;\n    width: 100%;\n    padding: .375rem .75rem;\n    font-size: 1rem;\n    line-height: 1.5;\n    color: #495057;\n    background-color: #fff;\n    background-clip: padding-box;\n    border: 1px solid #ced4da;\n    border-radius: .25rem;\n    -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;\n    transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;\n    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;\n    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;\n}\nbutton, input, optgroup, select, textarea {\n    font-family: Montserrat,Helvetica Neue,Arial,sans-serif;\n}\ntextarea {\n    overflow: auto;\n    resize: vertical;\n}\nbutton, input, optgroup, select, textarea {\n    margin: 0;\n    font-family: inherit;\n    font-size: inherit;\n    line-height: inherit;\n}\n*, ::after, ::before {\n    -webkit-box-sizing: border-box;\n            box-sizing: border-box;\n}\n.highlightText {\n    background: yellow;\n}\n\n\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 69 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_js__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_js__ = __webpack_require__(35);
 //
 //
 //
@@ -15087,6 +15084,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             event.preventDefault();
 
             var app = this;
+            app.nomination.q1.replace(this.nomination.name, '<span class="highlightText">' + 'xxx' + '</span>');
+
             var newNomination = app.nomination;
             axios.post('/api/v1/nominations', newNomination).then(function (resp) {
                 Object(__WEBPACK_IMPORTED_MODULE_0__app_js__["showSucess"])('Your nomination has been added.');
@@ -15104,7 +15103,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 70 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -15551,13 +15550,15 @@ if (false) {
 }
 
 /***/ }),
-/* 71 */
+/* 54 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 72 */
+/* 55 */,
+/* 56 */,
+/* 57 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin

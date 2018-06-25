@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" >
 
      <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-toggle="modal" :data-target="'#' + data.id" >
@@ -16,9 +16,11 @@
             I'm the default title!
           </slot> -->
         {{ data.category }}
+         <h5 >Total Score: {{ score.q5 + score.q4 + score.q3 + score.q2 + score.q1 }}</h5>
         
           
           </h5>
+          
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -48,17 +50,17 @@
 
     <label  for="exampleFormControlTextarea1">1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example.</label>
     
-    <textarea v-model="nomination.q1" class="form-control textarea"  id="exampleFormControlTextarea1" rows="3"></textarea>
+    <textarea  v-model="nomination.q1" class="form-control textarea"  id="exampleFormControlTextarea1" rows="3"></textarea>
     
 
   </div>
         <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+            <span style="display: inline-block;" v-if="score.q1"><h5 >Score: {{ score.q1 }}</h5></span>
         </div>
   <br>
 <!-- Question 2 -->
-<div class="form-group">
+<div class="form-group" v-html="highlight()">
     <label for="exampleFormControlTextarea1">2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples.</label>
     
     <textarea v-model="nomination.q2" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
@@ -66,7 +68,7 @@
   </div>
   <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+            <span style="display: inline-block;" v-if="score.q2"><h5 >Score: {{ score.q2 }}</h5></span>
         </div>
   <br>
 <!-- Question 3 -->
@@ -78,7 +80,7 @@
   </div>
   <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+            <span style="display: inline-block;" v-if="score.q3"><h5 >Score: {{ score.q3 }}</h5></span>
         </div>
   <br>
 <!-- Question 4 -->
@@ -90,7 +92,7 @@
   </div>
   <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+            <span style="display: inline-block;" v-if="score.q4"><h5 >Score: {{ score.q4 }}</h5></span>
         </div>
   <br>
   <!-- Question 5 -->
@@ -102,7 +104,7 @@
   </div>
   <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+            <span style="display: inline-block;" v-if="score.q5"><h5 >Score: {{ score.q5 }}</h5></span>
         </div>
 <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -148,18 +150,31 @@
                             }
                 },
         mounted() {
+                        
+
                 var app = this;
                 var id = this.data.id;
                 axios.get(`/api/v1/nominations/${id}/edit`)
                     .then(function (resp) {
                         app.nomination = resp.data;
+                        if (resp.data.score) {
+                            app.score = resp.data.score
+                        }
                     })
                     .catch(function (resp) {
                         console.log(resp);
                         // alert("Could not load nominations");
                     });
             },
+          filters: {
+                    highlight: function(value){
+                        return value.replace(this.nomination.name, '<span class="highlightText">' + this.nomination.name + '</span>')
+                    },
+                },   
+                
+           
         methods: {
+            
             updateNomination() {
                 var app = this;
                 var id = app.data.id;
@@ -189,3 +204,8 @@
     </script>
 
 
+<style>
+.highlightText {
+    background: yellow;
+}
+</style>

@@ -5,7 +5,7 @@
   
  <div class="row">
   <div class="col-md-9 col-sm-12 col-xs-12">
-    <div class="x_panel tile fixed_height_320">
+    <div class="x_panel tile ">
       <div class="x_title">
         <h2>Nominations</h2>
         
@@ -175,7 +175,10 @@ var _ = require('lodash');
                     
                     app.nominations = resp.data.nomination;
                     app.member = resp.data.member;
-                    app.profile = resp.data.member.profile;
+                    if (resp.data.member.profile) {
+                        app.profile = resp.data.member.profile;
+                    }
+                    
                     
                     app.role = resp.data.member.roles[0];
                     console.log(app.role)

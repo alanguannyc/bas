@@ -159,6 +159,8 @@ import { showSucess } from '../../app.js'
               event.preventDefault();
               
             var app = this;
+            app.nomination.q1.replace(this.nomination.name, '<span class="highlightText">' + 'xxx' + '</span>')
+
             var newNomination = app.nomination;
             axios.post('/api/v1/nominations',newNomination)
                 .then(function (resp) {
@@ -285,7 +287,9 @@ button, input, optgroup, select, textarea {
     box-sizing: border-box;
 }
 
-
+.highlightText {
+    background: yellow;
+}
 
 
 </style>

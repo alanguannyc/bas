@@ -28,14 +28,15 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
 
         Route::get('/nominations', function () {
            return view('layouts.admin.index-nomination');
-       });
+        });
 
         Route::get('/judge/{id}', function () {
             return view('layouts.admin.show-judge');
         });
         Route::get('/judge', function () {
-        return view('layouts.admin.index-judge');
-    });
+        return view('layouts.admin.index-judge');   
+        });
+        
     });
     
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
@@ -100,14 +101,16 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         // $users = \App\User::whereHas('roles', function ($query) {
         //     $query->where('name', 'judge');
         // })->with(['profile','roles'])->get();
-       $users = \App\User::all();
+        $users = \App\User::whereHas('roles', function ($query) {
+            $query->where('name', 'judge');
+        })->orderBy('created_at', 'desc')->get();
         return $users;
     });
     Route::get('/judge/{id}', function($id){
         
             if ($id == 0) {
                 $nominations = DB::table('nominations')
-                ->whereBetween('id', array(0, $id*10+10))->get();
+                ->whereBetween('id', array(0, $id*10+9))->get();
                 return $nominations;
             } else if ($id >= 1) {
                 $nominations = DB::table('nominations')
@@ -151,22 +154,8 @@ Route::get('/judge/{id}',function () {
     //         echo $value['id'] . '<br>';
     //      }
     
-    // return view('layouts.judge.index');
-    $array;
-        foreach ($users as $key => $value) {
-            
-            $array.push($value['id']);
-            // if ( auth()->user()->id == $value['id'] ) {
-            //     // dd($value['id'] . '' .$key);
-            //     // return redirect('/judge' . '/' . $key);
-            //     return $next($request);
-            // } else {
-            //     return redirect('/judge' . '/' . $key);
-            // }
-
-         }
-         return $array;
-    // return $current_params;
+    return view('layouts.judge.index');
+    
 })->middleware('judge');
 
 

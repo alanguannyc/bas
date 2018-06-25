@@ -10,7 +10,11 @@
     <div class="x_panel tile ">
       <div class="x_title">
         <h2>Nomination</h2>
-        
+        <ul class="nav navbar-right panel_toolbox">
+          <li>        <h5 >Total Score: {{ score.q5 + score.q4 + score.q3 + score.q2 + score.q1 }}</h5>
+          </li>
+
+        </ul>
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
@@ -50,7 +54,7 @@
         </div>
         <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+            <span style="display: inline-block;" v-if="score.q1"><h5 >Score: {{ score.q1 }}</h5></span>
         </div>
         <br>
         <!-- Question 2 -->
@@ -64,7 +68,7 @@
         </div>
       <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+            <span style="display: inline-block;" v-if="score.q2"><h5 >Score: {{ score.q2 }}</h5></span>
         </div>
         <br>
         <!-- Question 3 -->
@@ -78,7 +82,7 @@
         </div>
       <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+            <span style="display: inline-block;" v-if="score.q3"><h5 >Score: {{ score.q3 }}</h5></span>
         </div>
         <br>
         <!-- Question 4 -->
@@ -91,7 +95,7 @@
         </div>
    <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+            <span style="display: inline-block;" v-if="score.q4"><h5 >Score: {{ score.q4 }}</h5></span>
         </div>
         <br>
         <!-- Question 5 -->
@@ -105,7 +109,7 @@
         </div>
         <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q1"><h4>5</h4></span>
+            <span style="display: inline-block;" v-if="score.q5"><h5 >Score: {{ score.q5 }}</h5></span>
         </div>
         <br>
         <br/>
@@ -121,7 +125,7 @@
   </div>
         
     <div class="col-md-3 col-sm-12 col-xs-12">
-      <div class="x_panel tile fixed_height_320">
+      <div class="x_panel tile">
         <div class="x_title">
           <h2>Nominated By</h2>
           
@@ -151,16 +155,13 @@
         </div>
         <div class="x_content">
             
-            <!-- <a :href="'/admin/member/'+nomination.user.id"><h4>{{ nomination.user.name }}</h4></a>
+            <!-- <a :href="'/admin/member/'+nomination.user.id"><h4>{{ nomination.user.name }}</h4></a> -->
           <ul class="list-group" >
-                      
-            <li class="list-group-item">{{ nomination.user.email }}</li>
-            <li v-if="nomination.user.profile" class="list-group-item">{{ nomination.user.profile.company }}</li>
-            <li v-if="nomination.user.profile" class="list-group-item">{{ nomination.user.profile.address }}</li>
-            <li v-if="nomination.user.profile" class="list-group-item">{{ nomination.user.profile.title }}</li>
-            <li v-if="nomination.user.profile" class="list-group-item">{{ nomination.user.profile.phone }}</li>
+             <li class="list-group-item">{{ judge.name }}</li>         
+            <li class="list-group-item">{{ judge.email }}</li>
+            
 
-          </ul> -->
+          </ul>
   
         </div>
       </div>
@@ -186,7 +187,8 @@
                   q5:'',
                   user:''
                   },
-                  score:''
+                  score:'',
+                  judge:''
               
                 }
         },
@@ -201,13 +203,32 @@
                 var app = this;
                 var url = purl(window.location.href)
                 var uid=url.segment(-1)
+
+                var key = Math.floor(uid/10)
+                
                 axios.get(`/api/v1/nominations/`+uid+`/edit`)
                     .then(function (resp) {
                         app.nomination = resp.data;
+                        
+                        if (resp.data.score) {
+                            app.score = resp.data.score
+                        }
+
+                        
                     })
                     .catch(function (resp) {
                         console.log(resp);
                     });
+                axios.get(`/api/v1/judge/`)
+                    .then(function (resp) {
+                        // console.log(resp.data[key])
+                        app.judge = resp.data[key]
+                        
+                    })
+                    .catch(function (resp) {
+                        console.log(resp);
+                    });
+
             },
         methods: {
             updateNomination() {

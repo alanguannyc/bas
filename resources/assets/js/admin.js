@@ -36,7 +36,11 @@ const app = new Vue({
 
 
 function format ( d ) {
-
+    for (var question in d) {
+        if(d.question==null) {
+            d.question="Not set" }
+    }
+    
     return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
             '<tr>'+
                 '<td>Full name:</td>'+
@@ -47,20 +51,24 @@ function format ( d ) {
                 '<td>'+d.user.profile.company+'</td>'+
             '</tr>'+
             '<tr>'+
-                '<td>Company:</td>'+
+                '<td>Q1:</td>'+
                 '<td>'+d.q1+'</td>'+
             '</tr>'+
             '<tr>'+
-                '<td>Title:</td>'+
+                '<td>Q2:</td>'+
                 '<td>'+d.q2+'</td>'+
             '</tr>'+
             '<tr>'+
-                '<td>Phone:</td>'+
+                '<td>Q3:</td>'+
                 '<td>'+d.q3+'</td>'+
             '</tr>'+
             '<tr>'+
-                '<td>Address:</td>'+
+                '<td>Q4:</td>'+
                 '<td>'+d.q4+'</td>'+
+            '</tr>'+
+            '<tr>'+
+                '<td>Q5:</td>'+
+                '<td>'+d.q5+'</td>'+
             '</tr>'+
         '</table>';
 
@@ -130,18 +138,38 @@ $(document).ready(function(){
             "ajax":{"url":"/api/v1/member/nominations","dataSrc":""},
             "columnDefs": [ {
                 
-                "targets": 10,
-                "render": function ( data, type, row, meta ) {
-                    
-                    return '<a href="'+'/admin/member/'+data.id+'">'+data.name+'</a>'
-                  }
+                    "targets": 6,
+                    "render": function ( data, type, row, meta ) {
+                        
+                        return '<a href="'+'/admin/member/'+data.id+'">'+data.name+'</a>'
+                    }
 
                 },
                 {
-                    "targets": 0,
+                
+                    "targets": 4,
                     "render": function ( data, type, row, meta ) {
                         
-                        return '<a href="'+'/nomination/'+data.id+'">view</a>'
+                        
+                        if (data == null) {
+                            // data=0;
+                            return 0;
+                            for (var question in data) {
+                                data[question] = 0
+                            }
+                        } else {
+                            return data.q1 + data.q2 + data.q3 + data.q4 + data.q5
+                        }
+                        console.log(data)
+                        
+                      }
+    
+                    },
+                {
+                    "targets": 2,
+                    "render": function ( data, type, row, meta ) {
+                        
+                        return '<a href="'+'/nomination/'+row.id+'">'+data+'</a>'
                       }
     
                     },
@@ -157,16 +185,17 @@ $(document).ready(function(){
                 { data: 'category' },
                 { data: 'name' },
                 { data: 'title'},
-                { data: 'q1',
-                "defaultContent": "<i>Not set</i>" },
-                { data: 'q2',
-                "defaultContent": "<i>Not set</i>" },
-                { data: 'q3',
-                "defaultContent": "<i>Not set</i>" },
-                { data: 'q4',
-                "defaultContent": "<i>Not set</i>" },
-                { data: 'q5',
-                "defaultContent": "<i>Not set</i>" },
+                { data: 'score' },
+                // { data: 'q1',
+                // "defaultContent": "<i>Not set</i>" },
+                // { data: 'q2',
+                // "defaultContent": "<i>Not set</i>" },
+                // { data: 'q3',
+                // "defaultContent": "<i>Not set</i>" },
+                // { data: 'q4',
+                // "defaultContent": "<i>Not set</i>" },
+                // { data: 'q5',
+                // "defaultContent": "<i>Not set</i>" },
                 { data: 'user.profile.company',
                 "defaultContent": "<i>Not set</i>" },
                 { data: 'user'},
@@ -180,22 +209,22 @@ $(document).ready(function(){
         }
     );
 
-    // $('#nomination_table tbody').on('click', 'td.details-control', function () {
-    //     var tr = $(this).closest('tr');
+    $('#nomination_table tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
 
-    //     var row = nomination_table.row( tr );
+        var row = nomination_table.row( tr );
 
-    //     if ( row.child.isShown() ) {
-    //         // This row is already open - close it
-    //         row.child.hide();
-    //         tr.removeClass('shown');
-    //     }
-    //     else {
-    //         // Open this row
-    //         row.child( format(row.data()) ).show();
-    //         tr.addClass('shown');
-    //     }
-    // } );
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
 
 
     var user_table = $('#user_table').DataTable(
@@ -224,18 +253,31 @@ $(document).ready(function(){
         }
     );
 
-    var judge = $('#judge').DataTable(
+    var judge = $('#judge_table').DataTable(
         {
             // "order": [[ 7, "desc" ]],
             "ajax":{"url":"/api/v1/judge","dataSrc":""},
             "columnDefs": [ {
                 "targets": 0,
                 "render": function ( data, type, row, meta ) {
-                    return '<a href="'+'/admin/judge/'+data.id+'">View</a>';
+                    // console.log(meta)
+                    return '<a href="'+'/admin/judge/'+meta.row+'">View</a>';
                   }
 
-                }
+                },
+                {
+                    "targets": 3,
+                    "render": function ( data, type, row, meta ) {
+                        if (meta.row == 0) {
+                            return '0~9'
+                        } else if (meta.row >= 1) {
+                            return meta.row*10 + '~' + (meta.row*10 + 10)
+                        }
+                        }
+        
+                    }
               ],
+            
             columns: [
                 {
                     "className":      'details-control',
@@ -245,17 +287,15 @@ $(document).ready(function(){
                 },
                 { data: 'name' },
                 { data: 'email' },
-                { data: 'profile.company',
+                { data: 'id',
                 "defaultContent": "<i>Not set</i>" },
-                { data: 'profile.title',
-                "defaultContent": "<i>Not set</i>" },
-                { data: 'profile.phone',
-                "defaultContent": "<i>Not set</i>" },
-                { data: 'roles[0].name'},
-                { data: 'created_at' },
+                
+                { data: 'updated_at' },
             ]
         }
     );
+
+    
 })
             
 

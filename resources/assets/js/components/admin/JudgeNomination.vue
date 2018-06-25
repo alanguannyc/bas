@@ -5,7 +5,7 @@
   
  <div class="row">
   <div class="col-md-9 col-sm-12 col-xs-12">
-    <div class="x_panel tile fixed_height_320">
+    <div class="x_panel tile">
       <div class="x_title">
         <h2>Nominations</h2>
         
@@ -43,7 +43,7 @@
     <div class="col-md-3 col-sm-12 col-xs-12 profilePanel" >
       <div class="x_panel tile ">
         <div class="x_title">
-          <h2>{{ member.name }}</h2>
+          <h2>{{ profile.name }}</h2>
           
           <div class="clearfix"></div>
         </div>
@@ -57,7 +57,6 @@
             <li v-if="member.profile" class="list-group-item">{{ member.profile.phone }}</li>
           </ul> -->
 
-        <button class="btn btn-primary" v-on:click="updateProfile()">Update</button>
         
         </div>
       </div>
@@ -65,47 +64,7 @@
       
     </div> 
 
-<div class="col-md-3 col-sm-12 col-xs-12 updatePanel " style="display:none" >
-      <div class="x_panel tile ">
-        <div class="x_title">
-          
-          <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-        
-        <form>
-            <div class="form-group"> 
-            <input type="text" class="form-control"   v-model="member.name" placeholder="name">
-            </div>
-            <div class="form-group"> 
-            <input type="text" class="form-control"  v-model="member.email" placeholder="email">
-            </div>
-            <div class="form-group"> 
-            <input  type="text" class="form-control"  v-model="profile.company" placeholder="company">
-            </div>
-            <div class="form-group"> 
-            <input  type="text" class="form-control" v-model="profile.address" placeholder="address">
-            </div>
-            <div class="form-group"> 
-            <input  type="text" class="form-control"  v-model="profile.title" placeholder="title">
-            </div>
-            <div class="form-group"> 
-            <input  type="phone" class="form-control"  v-model="profile.phone" placeholder="phone">
-            </div>
-            <div class="form-group"> 
-            <select class="form-control"  v-model="role.name">
-                <option>member</option>
-                <option>judge</option>
-                <option>admin</option>
-                </select>
-                </div>
-            <button class="btn " v-on:click="cancelUpdate()">Cancel</button>
-            <button class="btn btn-primary" v-on:click="saveProfile()">SAVE</button>
-        </form>
-          
-        </div>
-      </div>
-    </div> 
+
 
 
 
@@ -134,14 +93,14 @@ var _ = require('lodash');
 
             }
         },
-     watch: {
-        nominations: function (){
-                        this.debouncedGetAnswer()
+    //  watch: {
+    //     nominations: function (){
+    //                     this.debouncedGetAnswer()
                         
-                        }
+    //                     }
                         
 
-                    },
+    //                 },
     created: function () {
     
     this.debouncedGetAnswer = _.debounce(this.getUpdate, 1500)
@@ -150,24 +109,28 @@ var _ = require('lodash');
     mounted() {
             var app = this;
             var url = purl(window.location.href)
-            var $uid=url.segment(-1)
+            var uid=url.segment(-1)
             
             
 
-            axios.get(`/api/v1/member/`+$uid)
+            axios.get(`/api/v1/judge/`+uid)
                 .then(function (resp) {
-                    
-                    app.nominations = resp.data.nomination;
-                    app.member = resp.data.member;
-                    app.profile = resp.data.member.profile;
-                    
-                    app.role = resp.data.member.roles[0];
-                    console.log(app.role)
+                    app.nominations = resp.data;
                     
                 })
                 .catch(function (resp) {
                     console.log(resp);
                     // alert("Could not load nominations");
+                });
+
+            axios.get(`/api/v1/judge/`)
+                .then(function (resp) {
+                    // console.log(resp.data[key])
+                    app.profile = resp.data[uid]
+                    
+                })
+                .catch(function (resp) {
+                    console.log(resp);
                 });
             
         },
@@ -186,43 +149,8 @@ var _ = require('lodash');
                         app.nominations = resp.data.nomination;
                     })
             },
-            updateProfile(){
-                $('.profilePanel').hide();
-                $('.updatePanel').show();
-            },
-            cancelUpdate(){
-                 event.preventDefault();
-                $('.profilePanel').show();
-                $('.updatePanel').hide();
-            },
-            saveProfile(){
-                 event.preventDefault();
-                var app = this;
-                var url = purl(window.location.href)
-                var uid=url.segment(-1)
-                
-                var newMember = {
-                    name : app.member.name,
-                    email: app.member.email,
-                    role: app.role.name
-                    }
-                var newProfile = app.profile
-                
-                axios.post(`/api/v1/member/`+uid, newMember)
-                    .then(function (resp) {
-                        //alert success
-                        axios.post(`/api/v1/profile/`+uid, newProfile)
-                        .then(function (resp) {
-                            //alert success
-                            axios.patch(`/api/v1/role/`+uid, newMember )
-                            .then(function (resp) {
-                            //alert success
-                            $('.profilePanel').show();
-                            $('.updatePanel').hide();
-                        })
-                        })
-                    })
-            }
+            
+            
 
         }
     }

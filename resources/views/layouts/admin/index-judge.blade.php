@@ -14,11 +14,9 @@
                   <th></th>
               <th>Name</th>
               <th>Email</th>
-              <th>Company</th>
-              <th>Title</th>
-              <th>Phone</th>
-              <th>Role</th>
-              <th>Registered on</th>
+              <th>Judge Nominations</th>
+              
+              <th>Last Activity</th>
           </tr>
       </thead>
       

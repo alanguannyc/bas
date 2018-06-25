@@ -15,11 +15,11 @@
               <th>Category</th>
               <th>Name</th>
               <th>Title</th>
-              <th>Q1</th>
-              <th>Q2</th>
+              <th>Total Score</th>
+              {{-- <th>Q2</th>
               <th>Q3</th>
               <th>Q4</th>
-              <th>Q5</th>
+              <th>Q5</th> --}}
               <th>Hotel</th>
               <th>Nominated by</th>
               <th>Nominated on</th>

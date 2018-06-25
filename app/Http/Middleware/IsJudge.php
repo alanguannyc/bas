@@ -41,8 +41,14 @@ class IsJudge
             // }
 
          }
-         $params = array_search(auth()->user()->id, $array);
-         return redirect('/judge' . '/' . $params);
+         $key = array_search(auth()->user()->id, $array);
+
+         
+         if ($current_params == $key) {
+            return $next($request);
+         }
+        //  $params = array_search(auth()->user()->id, $array);
+         return redirect('/judge' . '/' . $key);
         //  return $next($request);
     }
 }

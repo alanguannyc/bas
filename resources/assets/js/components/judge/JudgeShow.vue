@@ -122,6 +122,7 @@
                 {
                   category:'',
                   title:'',
+                  name:'',
                   q1:'',
                   q2:'',
                   q3:'',
@@ -151,7 +152,7 @@
                 
                 axios.get(`/api/v1/nominations/${id}/edit`)
                     .then(function (resp) {
-                        
+                    
                         app.nomination = resp.data;
                         if (resp.data.score) {
                             app.score = resp.data.score
@@ -260,5 +261,9 @@
     margin-right: auto;
     width: 50%;
 }
+
+
+
+
     </style>
     

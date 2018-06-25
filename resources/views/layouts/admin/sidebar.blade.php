@@ -15,13 +15,13 @@
         <li><a href="/admin/judge"><i class="fa fa-desktop"></i> Judges </span></a>
           
         </li>
-        <li><a><i class="fa fa-table"></i> Hotels </span></a>
+        {{-- <li><a><i class="fa fa-table"></i> Hotels </span></a>
           
         </li>
         
         <li><a href="/admin/user"><i class="fa fa-clone"></i> Users </span></a>
           
-        </li>
+        </li> --}}
       </ul>
     </div>
 

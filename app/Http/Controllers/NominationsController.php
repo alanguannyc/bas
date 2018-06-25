@@ -28,7 +28,7 @@ class NominationsController extends Controller
     public function index()
     {
         
-        return $nominations = Nomination::with(['user.profile'])->get();
+        return $nominations = Nomination::with(['user.profile','score'])->get();
     
          
 
