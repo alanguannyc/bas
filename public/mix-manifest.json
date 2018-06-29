@@ -1,8 +1,9 @@
 {
+    "/js/judge.js": "/js/judge.js",
+    "/js/admin.js": "/js/admin.js",
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/css/judge.css": "/css/judge.css",
-    "/js/judge.js": "/js/judge.js",
-    "/js/admin.js": "/js/admin.js",
+    "/css/admin.css": "/css/admin.css",
     "/js/adminlte.js": "/js/adminlte.js"
 }

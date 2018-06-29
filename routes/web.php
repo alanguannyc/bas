@@ -63,10 +63,8 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     Route::post('/profile/{id}', 'ProfileController@update');
 
     Route::get('/nominations', 'NominationsController@show');
-    
     Route::get('/nominations/{id}/edit', 'NominationsController@edit');
     Route::post('/nominations/{id}', 'NominationsController@update');
-    
     Route::delete('/nominations/{id}', 'NominationsController@destroy');
     Route::post('/nominations', 'NominationsController@store');
 
@@ -159,3 +157,6 @@ Route::get('/judge/{id}',function () {
 })->middleware('judge');
 
 
+Route::get('/final', function (){
+    return view('about');
+})->middleware('pwd');

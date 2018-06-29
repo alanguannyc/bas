@@ -39,7 +39,7 @@
     <link href="../../assets/jqueryui-editable/css/jqueryui-editable.css" rel="stylesheet">
     
   </head>
-
+  
   <body class="nav-md">
     <div class="container body">
       <div class="main_container" id="admin">
@@ -66,7 +66,7 @@
         <!-- top navigation -->
         @include('layouts.admin.nav')
         <!-- /top navigation -->
-
+        
         <!-- page content -->
         <div class="right_col" role="main" >
           <!-- top tiles -->
@@ -77,9 +77,13 @@
         <!-- /page content -->
 
         <!-- footer content -->
+        
         @include('layouts.admin.footer')
+        
+
         <!-- /footer content -->
       </div>
+      
     </div>
 
     

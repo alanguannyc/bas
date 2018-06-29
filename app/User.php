@@ -46,6 +46,21 @@ class User extends Authenticatable
     }
 
     public function publish($nomination) {
+
+        $name = explode(" ", strtolower($nomination->name));
+        $checklist = [];
+
+        array_push($checklist, $name[0], end($name), ucfirst($name[0]),ucfirst(end($name)), lcfirst(end($name)), lcfirst($name[0]), strtolower($name[0]),strtolower(end($name)),strtoupper($name[0]),strtoupper(end($name)) );
+
+        foreach ($nomination->attributes as $key => $value) {
+            if ($key == 'name') continue;
+            
+            $nomination->$key = str_replace($checklist, 'xxx', $value);
+            
+            
+        }
+        // dd($nomination);
+        
         $this->nominations()->save($nomination);
         
         Mail::to(auth()->user())->send(new NewNominations($nomination));

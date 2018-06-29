@@ -54,7 +54,7 @@
         </div>
         <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q1"><h5 >Score: {{ score.q1 }}</h5></span>
+            <span style="display: inline-block;" v-if="score.q1"><h5 >{{ score.q1 }}</h5></span>
         </div>
         <br>
         <!-- Question 2 -->
@@ -68,7 +68,7 @@
         </div>
       <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q2"><h5 >Score: {{ score.q2 }}</h5></span>
+            <span style="display: inline-block;" v-if="score.q2"><h5 >{{ score.q2 }}</h5></span>
         </div>
         <br>
         <!-- Question 3 -->
@@ -82,7 +82,7 @@
         </div>
       <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q3"><h5 >Score: {{ score.q3 }}</h5></span>
+            <span style="display: inline-block;" v-if="score.q3"><h5 >{{ score.q3 }}</h5></span>
         </div>
         <br>
         <!-- Question 4 -->
@@ -95,7 +95,7 @@
         </div>
    <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q4"><h5 >Score: {{ score.q4 }}</h5></span>
+            <span style="display: inline-block;" v-if="score.q4"><h5 >{{ score.q4 }}</h5></span>
         </div>
         <br>
         <!-- Question 5 -->
@@ -109,7 +109,7 @@
         </div>
         <div >
             <span style="display: inline-block;"><h5>Score:</h5></span>
-            <span style="display: inline-block;" v-if="score.q5"><h5 >Score: {{ score.q5 }}</h5></span>
+            <span style="display: inline-block;" v-if="score.q5"><h5 >{{ score.q5 }}</h5></span>
         </div>
         <br>
         <br/>
@@ -172,6 +172,7 @@
 </template>
 
 <script>
+    import { showSucess } from '../../admin.js'
     export default {
         data() {
             return {
@@ -230,9 +231,9 @@
                     })
                     .catch(function (resp) {
                         console.log(resp);
-                    });
-
-            },
+                    })
+        
+        },
         methods: {
             updateNomination() {
                 var app = this;
@@ -241,11 +242,13 @@
                 var newNomination = app.nomination;
                 axios.post(`/api/v1/nominations/${id}`, newNomination)
                     .then(function (resp) {
+                        showSucess('The nomination has been udpated.')
                     })
                     .catch(function (resp) {
                         console.log(resp);
                     });
-                 
+                 $("div textarea").text(function () {
+    return $(this).text().replace("123", "hello everyone"); })
             },
             deleteNomination() {
                 var app = this;

@@ -300,3 +300,14 @@ $(document).ready(function(){
             
 
     
+export function showSucess(msg){
+    jQuery('.alert-success').html('<p>'+msg+'</p>').show();
+    jQuery('.alert-success').fadeOut(3500,null);
+    disableBtn()
+
+    function disableBtn(){
+    
+        $(':button').prop('disabled', true);
+        setTimeout(function(){$(':button').prop('disabled', false);},2500);
+    }
+}   

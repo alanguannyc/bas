@@ -155,13 +155,16 @@ pageview
             deleteNomination() {
                 var app = this;
                 var id = app.data.id;
+                if(confirm('Are you sure?')){
                 axios.delete(`/api/v1/nominations/${id}`)
-                .then(function (resp) {
-                    console.log(resp.data);
-                })
-                .catch(function (resp) {
-                    console.log(resp);
+                                .then(function (resp) {
+                                    console.log(resp.data);
+                                })
+                                .catch(function (resp) {
+                                    console.log(resp);
                 });
+                }
+                
                
             }
         }

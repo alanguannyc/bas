@@ -60,6 +60,7 @@ class NominationsController extends Controller
         // $task=Task::create(request(['title','body']));
         
 
+
         auth()->user()->publish(
             new Nomination(request(['category','title','name','q1','q2','q3','q4','q5']))
         );
@@ -78,7 +79,10 @@ class NominationsController extends Controller
      */
     public function show()
     {
-        return $nomination = Nomination::where('user_id','=',auth()->id())->get();
+        
+        $nomination = Nomination::where('user_id','=',auth()->id())->get();
+        
+        return $nomination;
     }
     
     public function showforadmin($id)
@@ -96,6 +100,7 @@ class NominationsController extends Controller
     {
         
         $nomination = Nomination::with(['user.profile','score'])->find($id);
+        $nomination->q1 = str_replace($nomination->name, 'xxx', $nomination->q1);
         if (Gate::denies('update-nomination', $nomination)) {
             abort(403);
         }
@@ -112,9 +117,30 @@ class NominationsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $input = $request->all();
+        $name = explode(" ", strtolower($input['name']));
+        $checklist = [];
+
+        array_push($checklist, $name[0], end($name), ucfirst($name[0]),ucfirst(end($name)), lcfirst(end($name)), lcfirst($name[0]), strtolower($name[0]),strtolower(end($name)),strtoupper($name[0]),strtoupper(end($name)) );
+
+        foreach ($input as $key => $value) {
+            if ($key == 'name') continue;
+            if ($key == 'user') continue;
+            
+            $input[$key] = str_replace($checklist, 'xxx', $value);
+            
+            // echo "{$key} => {$value} ";
+            
+        }
+        // for ($key in $request) {
+        //     return $key;
+        //   }
+       
+        
         $nomination = Nomination::findOrFail($id);
-        $nomination->update($request->all());
- 
+        
+        // $nomination->update($request->all());
+        $nomination->update($input);
         return $nomination;
     }
 

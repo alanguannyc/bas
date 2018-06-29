@@ -62,5 +62,6 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\IsAdmin::class,
         'profile' => \App\Http\Middleware\CompleteProfile::class,
         'judge' => \App\Http\Middleware\IsJudge::class,
+        'pwd' => \App\Http\Middleware\SimplePassword::class,
     ];
 }
