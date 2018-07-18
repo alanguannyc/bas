@@ -17,14 +17,17 @@ class IsJudge
     public function handle($request, Closure $next)
     {
         
-          $users = \App\User::whereHas('roles', function ($query) {
+        $users = \App\User::whereHas('roles', function ($query) {
             $query->where('name', 'judge');
         })->orderBy('created_at', 'desc')->get();
 
-        $current_params = app()->router->getCurrentRoute()->parameters['id'];
-        // dd($current_params);
-
-        
+        if (app()->router->getCurrentRoute()->parameters) {
+            $current_params = app()->router->getCurrentRoute()->parameters['id'];
+        } else {
+            $current_params = null;
+        }
+            
+   
 
         // $key = array_search(auth()->user()->id, $users);
         
@@ -48,7 +51,10 @@ class IsJudge
             return $next($request);
          }
         //  $params = array_search(auth()->user()->id, $array);
-         return redirect('/judge' . '/' . $key);
-        //  return $next($request);
+        
+            return redirect('/judge' . '/' . $key);
+        
+         
+         return $next($request);
     }
 }

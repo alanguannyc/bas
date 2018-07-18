@@ -39,7 +39,7 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
         
     });
     
-Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','judge']], function(){
     Route::group(['middleware' => ['profile']], function(){
         Route::get('/', 'HomeController@index')->name('home');
     

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <H3>Add new nominees</H3>
-<form method="post">
+<form >
   <!-- Select category -->
 
 
@@ -83,7 +83,7 @@
   </div>
 
   <!-- Submit -->
-  <button type="submit" @click="create()" class="btn btn-primary">Submit</button>
+  <button type="submit" @click.prevent="create()" class="btn btn-primary">Submit</button>
   </div>
 </form>
  
@@ -156,7 +156,7 @@ import { showSucess } from '../../app.js'
         methods: {
             create() {
               $( "#add-more-area" ).hide( "slow" );
-              event.preventDefault();
+            //   event.preventDefault(e);
               
             var app = this;
 

@@ -67,7 +67,7 @@ class NominationsController extends Controller
         
 
         // session()->flash('message','Your nomination has been created!');
-
+        // return true;
         return redirect()->home();
     }
 

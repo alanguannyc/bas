@@ -15149,7 +15149,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         create: function create() {
             $("#add-more-area").hide("slow");
-            event.preventDefault();
+            //   event.preventDefault(e);
 
             var app = this;
 
@@ -15183,7 +15183,7 @@ var render = function() {
     [
       _c("H3", [_vm._v("Add new nominees")]),
       _vm._v(" "),
-      _c("form", { attrs: { method: "post" } }, [
+      _c("form", [
         _c("div", { staticClass: "form-check" }, [
           _c("input", {
             directives: [
@@ -15593,6 +15593,7 @@ var render = function() {
                   attrs: { type: "submit" },
                   on: {
                     click: function($event) {
+                      $event.preventDefault()
                       _vm.create()
                     }
                   }

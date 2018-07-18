@@ -135,6 +135,7 @@ $(document).ready(function(){
     // } );
     var nomination_table = $('#nomination_table').DataTable(
         {   
+            "order": [[ 7, "desc" ]],
             "ajax":{"url":"/api/v1/member/nominations","dataSrc":""},
             "columnDefs": [ {
                 
