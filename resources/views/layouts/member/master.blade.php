@@ -72,7 +72,7 @@
 <script src="../assets/js/material-dashboard.js?v=2.0.0"></script>
 <!-- demo init -->
 
-<script src="{{ asset('js/app.js?v=1.4') }}" ></script>
+<script src="{{ asset('js/app.js?v=1.5') }}" ></script>
 <script src="../assets/js/plugins/demo.js"></script>
 
 <script type="text/javascript">
