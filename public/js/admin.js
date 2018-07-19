@@ -30726,7 +30726,7 @@ function format(d) {
         }
     }
 
-    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' + '<tr>' + '<td>Full name:</td>' + '<td>' + d.name + '</td>' + '</tr>' + '<tr>' + '<td>Email:</td>' + '<td>' + d.user.profile.company + '</td>' + '</tr>' + '<tr>' + '<td>Q1:</td>' + '<td>' + d.q1 + '</td>' + '</tr>' + '<tr>' + '<td>Q2:</td>' + '<td>' + d.q2 + '</td>' + '</tr>' + '<tr>' + '<td>Q3:</td>' + '<td>' + d.q3 + '</td>' + '</tr>' + '<tr>' + '<td>Q4:</td>' + '<td>' + d.q4 + '</td>' + '</tr>' + '<tr>' + '<td>Q5:</td>' + '<td>' + d.q5 + '</td>' + '</tr>' + '</table>';
+    return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">' + '<tr>' + '<td>Full name:</td>' + '<td>' + d.name + '</td>' + '</tr>' + '<tr>' + '<td>Hotel:</td>' + '<td>' + d.user.profile.company + '</td>' + '</tr>' + '<tr>' + '<td>Q1:</td>' + '<td>' + d.q1 + '</td>' + '</tr>' + '<tr>' + '<td>Q2:</td>' + '<td>' + d.q2 + '</td>' + '</tr>' + '<tr>' + '<td>Q3:</td>' + '<td>' + d.q3 + '</td>' + '</tr>' + '<tr>' + '<td>Q4:</td>' + '<td>' + d.q4 + '</td>' + '</tr>' + '<tr>' + '<td>Q5:</td>' + '<td>' + d.q5 + '</td>' + '</tr>' + '</table>';
 }
 
 /* Members Table */

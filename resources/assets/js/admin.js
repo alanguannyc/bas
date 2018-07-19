@@ -47,7 +47,7 @@ function format ( d ) {
                 '<td>'+d.name+'</td>'+
             '</tr>'+
             '<tr>'+
-                '<td>Email:</td>'+
+                '<td>Hotel:</td>'+
                 '<td>'+d.user.profile.company+'</td>'+
             '</tr>'+
             '<tr>'+
