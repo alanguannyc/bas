@@ -12,7 +12,9 @@
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             
             <ul class="navbar-nav ">
-                
+                <li class="nav-item" style="color:#CD5C5C">
+                    Need Help? Please Contact sandy@hanyc.org
+                </li>
                 <li class="nav-item dropdown ">
                     <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="material-icons">person</i>{{auth()->user()->name}}

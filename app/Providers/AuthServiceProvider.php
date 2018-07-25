@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('update-nomination', function ($user, $nomination) {
-            return $user->id === $nomination->user_id;
+            return $user->id == $nomination->user_id;
         });
     }
 }
