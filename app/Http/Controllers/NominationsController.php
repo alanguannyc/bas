@@ -26,11 +26,8 @@ class NominationsController extends Controller
     }
 
     public function index()
-    {
-        
+    {        
         return $nominations = Nomination::with(['user.profile','score'])->get();
-    
-         
 
     }
 
@@ -99,8 +96,10 @@ class NominationsController extends Controller
     public function edit($id)
     {
         
-        $nomination = Nomination::with(['user.profile','score'])->find($id);
-        $nomination->q1 = str_replace($nomination->name, 'xxx', $nomination->q1);
+        // $nomination = Nomination::with(['user.profile','score', 'final_score'])->find($id);
+        $nomination = Nomination::with(['user.profile','score','final_score' => function ($query) {
+            $query->where('user_id', '=', auth()->id());
+        }])->find($id);
         if (Gate::denies('update-nomination', $nomination)) {
             abort(403);
         }

@@ -36,6 +36,10 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
         Route::get('/judge', function () {
         return view('layouts.admin.index-judge');   
         });
+
+        Route::get('/final', function () {
+            return view('layouts.admin.index-final-list');   
+        });
         
     });
     
@@ -57,7 +61,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','judge']], functi
 Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     Route::post('/score', 'ScoreController@store');
     
-
+    Route::post('/finalScore', 'FinalScoreController@store');
+ 
     Route::post('/profile', 'ProfileController@store');
     Route::get('/profile', 'ProfileController@show');
     Route::post('/profile/{id}', 'ProfileController@update');
@@ -118,7 +123,97 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
 
     });
 
-    
+    Route::get('/final', function(){
+        
+        $countOfWith= DB::table('nominations')
+        ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->count();
+        $the10thnumber_1 = DB::table('nominations')
+        ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+        ->orderBy('totalscore', 'desc')
+        ->skip($countOfWith - 1)
+        ->limit(1)
+        ->get();
+        $nominations_1 = DB::table('nominations')
+        ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
+        ->select('nominations.*', 'profiles.company', DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+        ->orderBy('totalscore', 'desc')
+        ->havingRaw('totalscore >= ?', [$the10thnumber_1[0]->totalscore]);
+        
+        $countOfRoom= DB::table('nominations')
+        ->where('category', '=', 'Full-Time Room Attendant')
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->count();
+        $the10thnumber_2 = DB::table('nominations')
+        ->where('category', '=', 'Full-Time Room Attendant')
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+        ->orderBy('totalscore', 'desc')
+        ->skip($countOfRoom - 1)
+        ->limit(1)
+        ->get();
+        $nominations_2 = DB::table('nominations')
+        ->where('category', '=', 'Full-Time Room Attendant')
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
+        ->select('nominations.*','profiles.company', DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+        ->havingRaw('totalscore >= ?', [$the10thnumber_2[0]->totalscore]);
+        
+        
+        $countOfWithout = DB::table('nominations')
+        ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->count();
+        $the10thnumber_3 = DB::table('nominations')
+        ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+        ->orderBy('totalscore', 'desc')
+        ->skip($countOfWithout - 1)
+        ->limit(1)
+        ->get();
+        $nominations_3 = DB::table('nominations')
+        ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
+        ->select('nominations.*', 'profiles.company', DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+        ->orderBy('totalscore', 'desc')
+        ->havingRaw('totalscore >= ?', [$the10thnumber_3[0]->totalscore]);
+        
+ 
+        $countOfManagerial = DB::table('nominations')
+        ->where('category', '=', 'Managerial Below General Manager') 
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->count() ;
+        $the10thnumber_4 = DB::table('nominations')
+        ->where('category', '=', 'Managerial Below General Manager')
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+        ->orderBy('totalscore', 'desc')
+        ->skip( $countOfManagerial - 1 )
+        ->limit(1)
+        ->get();
+        $nominations_4 = DB::table('nominations')
+        ->where('category', '=', 'Managerial Below General Manager')
+        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+        ->leftJoin('profiles', 'nominations.user_id', '=', 'profiles.user_id')
+        ->select('nominations.*', 'profiles.company',  DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+        ->orderBy('totalscore', 'desc')
+        ->havingRaw('totalscore >= ?', [$the10thnumber_4[0]->totalscore])
+        ->union($nominations_1)
+        ->union($nominations_2)
+        ->union($nominations_3)
+        ->get();
+
+        return $nominations_4;
+        
+    });
+
     Route::patch('/role/{id}', 'RoleController@update');
 });
 
@@ -158,5 +253,6 @@ Route::get('/judge/{id}',function () {
 
 
 Route::get('/final', function (){
-    return view('about');
-})->middleware('pwd');
+    
+    return view('layouts.judge.final');
+});

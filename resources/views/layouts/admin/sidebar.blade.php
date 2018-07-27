@@ -17,11 +17,11 @@
         </li>
         {{-- <li><a><i class="fa fa-table"></i> Hotels </span></a>
           
-        </li>
+        </li>--}}
         
-        <li><a href="/admin/user"><i class="fa fa-clone"></i> Users </span></a>
+        <li><a href="/admin/final"><i class="fa fa-clone"></i> Final List </span></a>
           
-        </li> --}}
+        </li> 
       </ul>
     </div>
 

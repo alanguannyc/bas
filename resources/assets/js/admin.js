@@ -296,7 +296,94 @@ $(document).ready(function(){
         }
     );
 
+    function format_2 ( d ) {
+        for (var question in d) {
+            if(d.question==null) {
+                d.question="Not set" }
+        }
+        
+        return '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;">'+
+                '<tr>'+
+                    '<td>Full name:</td>'+
+                    '<td>'+d.name+'</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td>Hotel:</td>'+
+                    '<td>'+d.company+'</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td>Q1:</td>'+
+                    '<td>'+d.q1+'</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td>Q2:</td>'+
+                    '<td>'+d.q2+'</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td>Q3:</td>'+
+                    '<td>'+d.q3+'</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td>Q4:</td>'+
+                    '<td>'+d.q4+'</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td>Q5:</td>'+
+                    '<td>'+d.q5+'</td>'+
+                '</tr>'+
+            '</table>';
     
+        
+    }
+
+    var final_list_table = $('#final_list_table').DataTable(
+        {
+            "pagingType": "full_numbers",
+            "order": [[ 1, "desc" ]],
+            "ajax":{"url":"/api/v1/final","dataSrc":""},
+            "columnDefs": [ {
+                "targets": 2,
+                "render": function ( data, type, row, meta ) {
+                    return '<a href="'+'/nomination/'+row.id+'">'+data+'</a>'
+                  }
+
+                },
+                
+              ],
+            
+            columns: [
+                {
+                    "className":      'details-control',
+                    "orderable":      false,
+                    "data":           null,
+                    "defaultContent": 'view'
+                },
+                { data: 'category' },
+                { data: 'name' },
+                { data: 'title' },
+                { data: 'company' },
+                { data: 'totalscore' },
+                { data: 'updated_at' },
+            ]
+        }
+    );
+
+    $('#final_list_table tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+
+        var row = final_list_table.row( tr );
+
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format_2(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
 })
             
 

@@ -37,6 +37,8 @@ window.Vue = require('vue');
 
 Vue.component('judge-view', require('./components/judge/JudgeView.vue'));
 Vue.component('judge-show', require('./components/judge/JudgeShow.vue'));
+Vue.component('final-view', require('./components/judge/FinalView.vue'));
+Vue.component('final-show', require('./components/judge/FinalShow.vue'));
 const app = new Vue({
     el: '#judge',
     // router,

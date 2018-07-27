@@ -154,8 +154,10 @@
                     .then(function (resp) {
                     
                         app.nomination = resp.data;
-                        if (resp.data.score) {
-                            app.score = resp.data.score
+                        
+                        if (resp.data.final_score[0]) {
+                            app.score = resp.data.final_score[0]
+                            
                         }
                     })
                     .catch(function (resp) {
@@ -163,12 +165,14 @@
                         // alert("Could not load nominations");
                     });
                 
+                
             },
         computed:{
                 completed(){
+                    var app = this;
                     for (var key in this.score) {
                         
-                        if (this.score[key] == '') {
+                        if (app.score[key] == '') {
                             
                             return false;
                         } 
@@ -183,10 +187,10 @@
                 var app = this;
                 var newScore = app.score;
                 newScore.id = app.data.id
-                
-                axios.post(`/api/v1/score`, newScore)
+                console.log(newScore)
+                axios.post(`/api/v1/finalScore`, newScore)
                 .then(function (resp) {
-                    console.log(resp.data);
+                    
                 })
                 .catch(function (resp) {
                     console.log(resp);
