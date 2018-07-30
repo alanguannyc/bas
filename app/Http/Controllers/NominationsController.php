@@ -100,9 +100,11 @@ class NominationsController extends Controller
         $nomination = Nomination::with(['user.profile','score','final_score' => function ($query) {
             $query->where('user_id', '=', auth()->id());
         }])->find($id);
+
         if (Gate::denies('update-nomination', $nomination)) {
             abort(403);
         }
+        
         return $nomination;
         
     }

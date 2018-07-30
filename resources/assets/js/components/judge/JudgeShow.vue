@@ -154,6 +154,7 @@
                     .then(function (resp) {
                     
                         app.nomination = resp.data;
+                        
                         if (resp.data.score) {
                             app.score = resp.data.score
                         }

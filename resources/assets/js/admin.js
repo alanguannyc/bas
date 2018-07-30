@@ -141,8 +141,9 @@ $(document).ready(function(){
                 
                     "targets": 6,
                     "render": function ( data, type, row, meta ) {
-                        
-                        return '<a href="'+'/admin/member/'+data.id+'">'+data.name+'</a>'
+                        if(data != null){
+                            return '<a href="'+'/admin/member/'+data.id+'">'+data.name+'</a>'
+                        }
                     }
 
                 },
@@ -154,7 +155,7 @@ $(document).ready(function(){
                         
                         if (data == null) {
                             // data=0;
-                            return 0;
+                            // return 0;
                             for (var question in data) {
                                 data[question] = 0
                             }
