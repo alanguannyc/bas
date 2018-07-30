@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="../assets/img/apple-icon.png">
-    <link rel="icon" href="../assets/img/favicon.png">
+    <link rel="icon" href="../assets/img/BIG-APPLE.png">
     <title>
         Big Apple Star Awards Nominations
     </title>
@@ -72,7 +72,7 @@
 <script src="../assets/js/material-dashboard.js?v=2.0.0"></script>
 <!-- demo init -->
 
-<script src="{{ asset('js/app.js?v=1.5') }}" ></script>
+<script src="{{ asset('js/app.js?v=1.6') }}" ></script>
 <script src="../assets/js/plugins/demo.js"></script>
 
 <script type="text/javascript">

@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="../assets/img/BIG-APPLE.png">
 
     <title>Big Apple Star Awards</title>
 
@@ -131,7 +132,7 @@
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
    
     <!-- Scripts -->
-    <script src="{{ asset('js/admin.js?v=1.6') }}"></script>
+    <script src="{{ asset('js/admin.js?v=1.7') }}"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../build/js/custom.min.js"></script>
     

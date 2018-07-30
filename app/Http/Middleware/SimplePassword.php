@@ -17,9 +17,9 @@ class SimplePassword
     {
         $uid = auth()->user()->id;
         if(auth()->user()->id == '1') {
+            return $next($request);
             
-            return redirect('/final' . '/' . $uid);
         }
-        return $next($request);
+        return redirect('/final' );
     }
 }

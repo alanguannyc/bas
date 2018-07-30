@@ -2,7 +2,7 @@
     <div class="container">
         <div v-if="nominations ==''">
             <h4>Start submitting your nominations</h4>
-            <button class="btn btn-primary add">Start</button>
+            <button class="btn btn-primary add disabled" disabled>Start</button>
         </div>
     <table class="table table-hover" v-else>
     <thead>

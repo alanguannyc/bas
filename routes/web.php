@@ -14,24 +14,24 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
     {
         Route::get('/', function() {
             $countOfWith= DB::table('nominations')
-        ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-        ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-        ->count();
-        $the10thnumber_1 = DB::table('nominations')
-        ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-        ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-        ->select(DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-        ->orderBy('total_final_score', 'desc')
-        ->groupby('nominations.id')
-        ->limit(1)
-        ->get();
-        $nominations_1 = DB::table('nominations')
-        ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-        ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-        ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-        ->select('nominations.*',  DB::raw('ANY_VALUE(profiles.company) as hotel'),  DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-        ->groupby('nominations.id')
-        ->havingRaw('total_final_score >= ?', [$the10thnumber_1[0]->total_final_score]);
+            ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
+            ->count();
+            $the10thnumber_1 = DB::table('nominations')
+            ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
+            ->select(DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
+            ->orderBy('total_final_score', 'desc')
+            ->groupby('nominations.id')
+            ->limit(1)
+            ->get();
+            $nominations_1 = DB::table('nominations')
+            ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
+            ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
+            ->select('nominations.*',  DB::raw('ANY_VALUE(profiles.company) as hotel'),  DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
+            ->groupby('nominations.id')
+            ->havingRaw('total_final_score >= ?', [$the10thnumber_1[0]->total_final_score]);
         
 
         $countOfRoom= DB::table('nominations')
@@ -107,14 +107,14 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
         Route::get('/member/{id}', 'UserController@index');
 
         Route::get('/nominations', function () {
-           return view('layouts.admin.index-nomination');
+            return view('layouts.admin.index-nomination');
         });
 
         Route::get('/judge/{id}', function () {
             return view('layouts.admin.show-judge');
         });
         Route::get('/judge', function () {
-        return view('layouts.admin.index-judge');   
+            return view('layouts.admin.index-judge');   
         });
 
         Route::get('/final', function () {
@@ -193,11 +193,11 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         
             if ($id == 0) {
                 $nominations = DB::table('nominations')
-                ->whereBetween('id', array(0, $id*10+9))->get();
+                ->whereBetween('id', array(0, 10))->get();
                 return $nominations;
             } else if ($id >= 1) {
                 $nominations = DB::table('nominations')
-                ->whereBetween('id', array($id*10, $id*10+10))->get();
+                ->whereBetween('id', array($id*10+1, $id*10+10))->get();
                 return $nominations;
             }
 
@@ -418,5 +418,9 @@ Route::get('/judge/{id}',function () {
 
 Route::get('/final', function (){
     
+    
     return view('layouts.judge.final');
-});
+
+})->middleware('pwd');
+
+

@@ -122,6 +122,19 @@ class NominationsController extends Controller
         $name = explode(" ", strtolower($input['name']));
         $checklist = [];
 
+        $hotellist = ['hilton','marriott','london', 'grand hyatt', 'hyatt', 'arlo',
+        'Baccarat','Cassa','Conrad','Courtyard','Doubletree','even','Denihan','Fitzpatrick',
+        'Gardens','seasons','Hilton Garden','Hilton Fashion','Indigo','NYMA','mela','Plaza Athenee','Athenee',
+        'Hudson','wales','ink48','InterContinental','Kimpton','eventi','Kitano','muse','LOTTE','Mandarin Oriental',
+        'Paramount','Berkshire','Omni','Park Lane','Peninsula','Ritz Carlton','Ritz-Carlton','Renaissance',
+        'Shelburne','Sheraton','Stewart','Rosewood','Carlyle','Dominick','Benjamin','James','Maxwell','Michelangelo','Pierre','taj','Wyndham',
+        'St. Regis','Quin','Redbury','Surrey','Sherry-Netherland','Westin','TRUMP','Viceroy','Warwick','WestHouse','warwick','Yotel'];
+        $hotellist_upper = array_map('strtoupper', $hotellist); 
+        $hotellist_lower = array_map('strtolower', $hotellist);
+        $hotellist_ucfirst = array_map('ucfirst', $hotellist); 
+        $hotellist = array_merge($hotellist, $hotellist_upper, $hotellist_ucfirst, $hotellist_lower);
+   
+
         array_push($checklist, $name[0], end($name), ucfirst($name[0]),ucfirst(end($name)), lcfirst(end($name)), lcfirst($name[0]), strtolower($name[0]),strtolower(end($name)),strtoupper($name[0]),strtoupper(end($name)) );
 
         foreach ($input as $key => $value) {
@@ -129,7 +142,7 @@ class NominationsController extends Controller
             if ($key == 'user') continue;
             
             $input[$key] = str_replace($checklist, 'xxx', $value);
-            
+            $input[$key] = str_replace($hotellist, 'xxx hotel', $value);
             // echo "{$key} => {$value} ";
             
         }
