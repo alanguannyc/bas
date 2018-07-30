@@ -153,9 +153,9 @@ $(document).ready(function(){
                     "render": function ( data, type, row, meta ) {
                         
                         
-                        if (data == null) {
+                        if (!data ) {
                             // data=0;
-                            // return 0;
+                            return 0;
                             for (var question in data) {
                                 data[question] = 0
                             }

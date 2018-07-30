@@ -30789,9 +30789,9 @@ $(document).ready(function () {
             "targets": 4,
             "render": function render(data, type, row, meta) {
 
-                if (data == null) {
+                if (!data) {
                     // data=0;
-                    // return 0;
+                    return 0;
                     for (var question in data) {
                         data[question] = 0;
                     }
