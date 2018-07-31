@@ -93,8 +93,8 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
         // ->get();
 
         
-        //     return view('layouts.admin.index')->with('winners', $nominations_4);
-            return view('layouts.admin.index');
+            // return view('layouts.admin.index')->with('winners', $nominations_4);
+            return view('layouts.admin.index')->with('winners');
         })->name('admin');
 
         Route::get('/user', 'AdminController@indexUsers');
@@ -106,6 +106,10 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
             return view('layouts.admin.index-member');
         });
         Route::get('/member/{id}', 'UserController@index');
+
+        Route::get('/add', function () {
+            return view('layouts.admin.add-nomination');
+        });
 
         Route::get('/nominations', function () {
             return view('layouts.admin.index-nomination');
@@ -153,6 +157,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     Route::post('/nominations/{id}', 'NominationsController@update');
     Route::delete('/nominations/{id}', 'NominationsController@destroy');
     Route::post('/nominations', 'NominationsController@store');
+    Route::post('/admin-nominations', 'NominationsController@addByAdmin');
 
     Route::post('/messenge', 'MessengeController@store');
     Route::get('/messenge', 'MessengeController@show');

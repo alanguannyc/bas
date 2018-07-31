@@ -25,6 +25,16 @@ class NominationsController extends Controller
         return view('nominationHome');
     }
 
+    public function addByAdmin(Request $request)
+    {     
+        $user = \App\User::where('name','=',$request->user)->get();
+        
+        $user[0]->publish(
+            new Nomination(request(['category','title','name','q1','q2','q3','q4','q5']))
+        );
+
+    }
+
     public function index()
     {        
         return $nominations = Nomination::with(['user.profile','score'])->get();
