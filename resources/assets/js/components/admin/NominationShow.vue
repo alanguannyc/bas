@@ -9,6 +9,7 @@
   <div class="col-md-9 col-sm-12 col-xs-12">
     <div class="x_panel tile ">
       <div class="x_title">
+          <p>#{{nomination.id}}</p>
         <h2>Nomination</h2>
         <ul class="nav navbar-right panel_toolbox">
           <li>        <h5 >Total Score: {{ score.q5 + score.q4 + score.q3 + score.q2 + score.q1 }}</h5>
@@ -119,7 +120,10 @@
             </div>
   
 </form>
-    
+    <div >
+  <button class="btn btn-default pull-left" :disabled="firstPage == true" v-on:click.prevent="previousPage()">Previous</button>
+  <button class="btn btn-default pull-right" :disabled="lastPage == true" v-on:click.prevent="nextPage()">Next</button>
+</div>
       </div>
     </div>
   </div>
@@ -178,6 +182,7 @@
             return {
               nomination:
                 {
+                    id:'',
                   category:'',
                   title:'',
                   name:'',
@@ -189,11 +194,29 @@
                   user:''
                   },
                   score:'',
-                  judge:''
+                  judge:'',
+                  pageIndex:'',
+                  totalRecord:'',
+                  
               
                 }
         },
-        
+        computed: {
+            lastPage: function () {
+                
+                if (this.pageIndex == 0) {
+                        return true
+                    } 
+                return false
+                    
+            },
+            firstPage: function () {
+                if (this.pageIndex == this.totalRecord - 1) {
+                        return true
+                    } 
+                return false
+            }
+        },
 
         // props: {
         //         data: {
@@ -201,11 +224,24 @@
         //                     }
         //         },
         mounted() {
+            
                 var app = this;
                 var url = purl(window.location.href)
                 var uid=url.segment(-1)
 
                 var key = Math.floor(uid/10)
+                
+                var id = parseInt(url.segment(-1))
+                
+                axios.get(`/api/v1/member/nominations/`)
+                .then(function (resp) {
+                app.totalRecord = resp.data.length
+                app.pageIndex = resp.data.findIndex(function(e) {
+                                return e.id == id;
+                                })
+                                
+                })
+                
                 
                 axios.get(`/api/v1/nominations/`+uid+`/edit`)
                     .then(function (resp) {
@@ -247,21 +283,62 @@
                     .catch(function (resp) {
                         console.log(resp);
                     });
-                 $("div textarea").text(function () {
-    return $(this).text().replace("123", "hello everyone"); })
             },
             deleteNomination() {
                 var app = this;
                 var url = purl(window.location.href)
                 var id = url.segment(-1)
+                if (confirm("Are you sure?")) {
                 axios.delete(`/api/v1/nominations/${id}`)
-                .then(function (resp) {
-                    console.log(resp.data);
-                })
-                .catch(function (resp) {
-                    console.log(resp);
-                });
+                                .then(function (resp) {
+                                    console.log(resp.data);
+                                })
+                                .catch(function (resp) {
+                                    console.log(resp);
+                                });
+                }
+                
                
+            },
+            nextPage() {
+                
+                var url = purl(window.location.href)
+                var id = parseInt(url.segment(-1))
+                var uid= parseInt(url.segment(-1)) + 1
+                axios.get(`/api/v1/member/nominations/`)
+                .then(function (resp) {
+                   var index = resp.data.findIndex(function(e) {
+                                return e.id == id;
+                                })
+                    if (index == resp.data.length) {
+                        this.lastPage = true
+                    }
+                   
+                    var index = index - 1
+                    var uid = resp.data[index].id
+                    
+                    window.location.href = uid
+                })
+                
+                
+            },
+            previousPage() {
+                var url = purl(window.location.href)
+                var id = parseInt(url.segment(-1))
+                axios.get(`/api/v1/member/nominations/`)
+                .then(function (resp) {
+                   var index = resp.data.findIndex(function(e) {
+                                return e.id == id;
+                                })
+                    if (index == resp.data.length) {
+                        this.lastPage = true
+                    }
+                   
+                    var index = index + 1
+                    var uid = resp.data[index].id
+                    
+                    window.location.href = uid
+                })
             }
         }
     }

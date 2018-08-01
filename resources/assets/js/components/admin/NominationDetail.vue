@@ -110,9 +110,11 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination">Save changes</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteNomination">Delete</button>
-      </div>
+</div>
+  
   
 </form>
+
       </div>
     </div>
   </div>
@@ -139,7 +141,7 @@
                   q4:'',
                   q5:''
                   },
-                  score:''
+            score:''
                 }
         },
         

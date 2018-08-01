@@ -176,7 +176,7 @@ $(document).ready(function(){
                       }
     
                     },
-                    { "width": "20%", "targets":4 }
+                    { "width": "20%", "targets": 4 }
               ],
             columns: [
                 {
@@ -185,6 +185,7 @@ $(document).ready(function(){
                     "data":           null,
                     "defaultContent": 'view'
                 },
+                // {data: 'id'},
                 { data: 'category' },
                 { data: 'name' },
                 { data: 'title'},

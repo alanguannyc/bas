@@ -16,10 +16,11 @@ class SimplePassword
     public function handle($request, Closure $next)
     {
         $uid = auth()->user()->id;
+
         if(auth()->user()->id == '1') {
             return $next($request);
-            
         }
-        return redirect('/final' );
+
+        return redirect('/' );
     }
 }

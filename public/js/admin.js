@@ -1597,6 +1597,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -2373,12 +2375,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             nomination: {
+                id: '',
                 category: '',
                 title: '',
                 name: '',
@@ -2390,11 +2397,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 user: ''
             },
             score: '',
-            judge: ''
+            judge: '',
+            pageIndex: '',
+            totalRecord: ''
 
         };
     },
 
+    computed: {
+        lastPage: function lastPage() {
+
+            if (this.pageIndex == 0) {
+                return true;
+            }
+            return false;
+        },
+        firstPage: function firstPage() {
+            if (this.pageIndex == this.totalRecord - 1) {
+                return true;
+            }
+            return false;
+        }
+    },
 
     // props: {
     //         data: {
@@ -2402,11 +2426,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     //                     }
     //         },
     mounted: function mounted() {
+
         var app = this;
         var url = purl(window.location.href);
         var uid = url.segment(-1);
 
         var key = Math.floor(uid / 10);
+
+        var id = parseInt(url.segment(-1));
+
+        axios.get('/api/v1/member/nominations/').then(function (resp) {
+            app.totalRecord = resp.data.length;
+            app.pageIndex = resp.data.findIndex(function (e) {
+                return e.id == id;
+            });
+        });
 
         axios.get('/api/v1/nominations/' + uid + '/edit').then(function (resp) {
             app.nomination = resp.data;
@@ -2438,18 +2472,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (resp) {
                 console.log(resp);
             });
-            $("div textarea").text(function () {
-                return $(this).text().replace("123", "hello everyone");
-            });
         },
         deleteNomination: function deleteNomination() {
             var app = this;
             var url = purl(window.location.href);
             var id = url.segment(-1);
-            axios.delete('/api/v1/nominations/' + id).then(function (resp) {
-                console.log(resp.data);
-            }).catch(function (resp) {
-                console.log(resp);
+            if (confirm("Are you sure?")) {
+                axios.delete('/api/v1/nominations/' + id).then(function (resp) {
+                    console.log(resp.data);
+                }).catch(function (resp) {
+                    console.log(resp);
+                });
+            }
+        },
+        nextPage: function nextPage() {
+
+            var url = purl(window.location.href);
+            var id = parseInt(url.segment(-1));
+            var uid = parseInt(url.segment(-1)) + 1;
+            axios.get('/api/v1/member/nominations/').then(function (resp) {
+                var index = resp.data.findIndex(function (e) {
+                    return e.id == id;
+                });
+                if (index == resp.data.length) {
+                    this.lastPage = true;
+                }
+
+                var index = index - 1;
+                var uid = resp.data[index].id;
+
+                window.location.href = uid;
+            });
+        },
+        previousPage: function previousPage() {
+            var url = purl(window.location.href);
+            var id = parseInt(url.segment(-1));
+            axios.get('/api/v1/member/nominations/').then(function (resp) {
+                var index = resp.data.findIndex(function (e) {
+                    return e.id == id;
+                });
+                if (index == resp.data.length) {
+                    this.lastPage = true;
+                }
+
+                var index = index + 1;
+                var uid = resp.data[index].id;
+
+                window.location.href = uid;
             });
         }
     }
@@ -2469,6 +2538,8 @@ var render = function() {
       _c("div", { staticClass: "col-md-9 col-sm-12 col-xs-12" }, [
         _c("div", { staticClass: "x_panel tile " }, [
           _c("div", { staticClass: "x_title" }, [
+            _c("p", [_vm._v("#" + _vm._s(_vm.nomination.id))]),
+            _vm._v(" "),
             _c("h2", [_vm._v("Nomination")]),
             _vm._v(" "),
             _c("ul", { staticClass: "nav navbar-right panel_toolbox" }, [
@@ -2832,6 +2903,38 @@ var render = function() {
                   [_vm._v("Delete")]
                 )
               ])
+            ]),
+            _vm._v(" "),
+            _c("div", [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default pull-left",
+                  attrs: { disabled: _vm.firstPage == true },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.previousPage()
+                    }
+                  }
+                },
+                [_vm._v("Previous")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-default pull-right",
+                  attrs: { disabled: _vm.lastPage == true },
+                  on: {
+                    click: function($event) {
+                      $event.preventDefault()
+                      _vm.nextPage()
+                    }
+                  }
+                },
+                [_vm._v("Next")]
+              )
             ])
           ])
         ])
@@ -34744,7 +34847,9 @@ $(document).ready(function () {
             "orderable": false,
             "data": null,
             "defaultContent": 'view'
-        }, { data: 'category' }, { data: 'name' }, { data: 'title' }, { data: 'score' },
+        },
+        // {data: 'id'},
+        { data: 'category' }, { data: 'name' }, { data: 'title' }, { data: 'score' },
         // { data: 'q1',
         // "defaultContent": "<i>Not set</i>" },
         // { data: 'q2',

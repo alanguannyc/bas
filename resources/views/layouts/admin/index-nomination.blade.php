@@ -12,6 +12,7 @@
       <thead>
           <tr>
                   <th></th>
+                  {{-- <th>Id</th> --}}
               <th>Category</th>
               <th>Name</th>
               <th>Title</th>
