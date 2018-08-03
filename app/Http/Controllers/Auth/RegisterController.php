@@ -30,7 +30,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/dashboard';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -70,7 +70,10 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        $user->roles()->attach(2);
+        $user->roles()->attach(3);
+        if (auth()->id() > 75) {
+            $user->roles()->sync([2]);
+        }
 //         Mail::to(\App\User::find(1))->send(new NewUser($user));
 		Mail::to(['alan@hanyc.org'])->send(new NewUser($user));
         return $user;

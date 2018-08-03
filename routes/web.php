@@ -199,11 +199,17 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         
             if ($id == 0) {
                 $nominations = DB::table('nominations')
-                ->whereBetween('id', array(0, 10))->get();
+                ->whereBetween('nominations.id', array(0, 10))
+                ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
+                ->select('nominations.*', 'profiles.company', 'profiles.id as profile_id')
+                ->get();
                 return $nominations;
             } else if ($id >= 1) {
                 $nominations = DB::table('nominations')
-                ->whereBetween('id', array($id*10+1, $id*10+10))->get();
+                ->whereBetween('nominations.id', array($id*10+1, $id*10+10))
+                ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
+                ->select('nominations.*', 'profiles.company', 'profiles.id as profile_id')
+                ->get();
                 return $nominations;
             }
 

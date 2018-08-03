@@ -49,12 +49,14 @@ class IsJudge
          
          if ($current_params == $key) {
             return $next($request);
-         }
+         } 
+            return redirect('/judge' . '/' . $key);
+         
         //  $params = array_search(auth()->user()->id, $array);
         
-            return redirect('/judge' . '/' . $key);
+            
         
          
-         return $next($request);
+        //  return $next($request);
     }
 }

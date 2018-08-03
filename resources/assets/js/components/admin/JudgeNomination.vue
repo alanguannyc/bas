@@ -22,6 +22,7 @@
         <th scope="col"><h5><strong></strong></h5></th>
         <th scope="col"><h5><strong>Category</strong></h5></th>
         <th scope="col"><h5><strong>Name</strong></h5></th>
+        <th scope="col"><h5><strong>Hotel</strong></h5></th>
         <th scope="col"><h5><strong>Submit Date</strong></h5></th>
         
         </tr>
@@ -32,6 +33,7 @@
 </nomination-detail></td>
         <td ><h5>{{ nomination.category }}</h5></td>
         <td><h5>{{ nomination.name}}</h5></td>
+        <td><h5>{{ nomination.company}}</h5></td>
         <td>{{ nomination.created_at}}</td>
         </tr>
     </tbody>

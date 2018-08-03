@@ -3629,6 +3629,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 var _ = __webpack_require__(57);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3736,6 +3738,10 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_c("h5", [_vm._v(_vm._s(nomination.name))])]),
                         _vm._v(" "),
+                        _c("td", [
+                          _c("h5", [_vm._v(_vm._s(nomination.company))])
+                        ]),
+                        _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(nomination.created_at))])
                       ])
                     })
@@ -3784,6 +3790,10 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [
           _c("h5", [_c("strong", [_vm._v("Name")])])
+        ]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [
+          _c("h5", [_c("strong", [_vm._v("Hotel")])])
         ]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [
