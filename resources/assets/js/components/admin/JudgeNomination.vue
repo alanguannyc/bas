@@ -41,7 +41,10 @@
       </div>
     </div>
   </div>
-        
+     <div >
+  <button class="btn btn-default pull-left" :disabled="firstPage == true" v-on:click.prevent="previousPage()">Previous</button>
+  <button class="btn btn-default pull-right" :disabled="lastPage == true" v-on:click.prevent="nextPage()">Next</button>
+</div>      
     <div class="col-md-3 col-sm-12 col-xs-12 profilePanel" >
       <div class="x_panel tile ">
         <div class="x_title">
@@ -82,6 +85,8 @@ var _ = require('lodash');
     export default {
      data(){
             return{
+                pageIndex:'',
+                  totalRecord:'',
                 nominations: '',
                 member:{
                     name:'',
@@ -93,6 +98,22 @@ var _ = require('lodash');
                 detail:'',
                 role:''
 
+            }
+        },
+        computed: {
+            firstPage: function () {
+                
+                if (this.pageIndex == 0) {
+                        return true
+                    } 
+                return false
+                    
+            },
+            lastPage: function () {
+                if (this.pageIndex == this.totalRecord - 1) {
+                        return true
+                    } 
+                return false
             }
         },
     //  watch: {
@@ -129,6 +150,12 @@ var _ = require('lodash');
                 .then(function (resp) {
                     // console.log(resp.data[key])
                     app.profile = resp.data[uid]
+                    app.pageIndex = parseInt(url.segment(-1))
+                    app.totalRecord = resp.data.length
+                   
+                    if (uid == resp.data.length) {
+                        app.pageIndex = 0;
+                    }
                     
                 })
                 .catch(function (resp) {
@@ -151,7 +178,22 @@ var _ = require('lodash');
                         app.nominations = resp.data.nomination;
                     })
             },
-            
+            nextPage() {
+                var app = this
+                var url = purl(window.location.href)
+                var id = parseInt(url.segment(-1))
+                var uid= parseInt(url.segment(-1)) + 1
+                window.location.href = uid
+                
+                
+            },
+            previousPage() {
+                var url = purl(window.location.href)
+                var id = parseInt(url.segment(-1))
+                var uid = parseInt(url.segment(-1)) - 1
+                window.location.href = uid
+                
+            }
             
 
         }

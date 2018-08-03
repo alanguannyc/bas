@@ -3631,11 +3631,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 var _ = __webpack_require__(57);
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            pageIndex: '',
+            totalRecord: '',
             nominations: '',
             member: {
                 name: '',
@@ -3648,6 +3653,21 @@ var _ = __webpack_require__(57);
         };
     },
 
+    computed: {
+        firstPage: function firstPage() {
+
+            if (this.pageIndex == 0) {
+                return true;
+            }
+            return false;
+        },
+        lastPage: function lastPage() {
+            if (this.pageIndex == this.totalRecord - 1) {
+                return true;
+            }
+            return false;
+        }
+    },
     //  watch: {
     //     nominations: function (){
     //                     this.debouncedGetAnswer()
@@ -3676,6 +3696,12 @@ var _ = __webpack_require__(57);
         axios.get('/api/v1/judge/').then(function (resp) {
             // console.log(resp.data[key])
             app.profile = resp.data[uid];
+            app.pageIndex = parseInt(url.segment(-1));
+            app.totalRecord = resp.data.length;
+
+            if (uid == resp.data.length) {
+                app.pageIndex = 0;
+            }
         }).catch(function (resp) {
             console.log(resp);
         });
@@ -3693,6 +3719,19 @@ var _ = __webpack_require__(57);
             axios.get('/api/v1/member/' + uid).then(function (resp) {
                 app.nominations = resp.data.nomination;
             });
+        },
+        nextPage: function nextPage() {
+            var app = this;
+            var url = purl(window.location.href);
+            var id = parseInt(url.segment(-1));
+            var uid = parseInt(url.segment(-1)) + 1;
+            window.location.href = uid;
+        },
+        previousPage: function previousPage() {
+            var url = purl(window.location.href);
+            var id = parseInt(url.segment(-1));
+            var uid = parseInt(url.segment(-1)) - 1;
+            window.location.href = uid;
         }
     }
 });
@@ -3749,6 +3788,38 @@ var render = function() {
                 ])
           ])
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-default pull-left",
+            attrs: { disabled: _vm.firstPage == true },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                _vm.previousPage()
+              }
+            }
+          },
+          [_vm._v("Previous")]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-default pull-right",
+            attrs: { disabled: _vm.lastPage == true },
+            on: {
+              click: function($event) {
+                $event.preventDefault()
+                _vm.nextPage()
+              }
+            }
+          },
+          [_vm._v("Next")]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-3 col-sm-12 col-xs-12 profilePanel" }, [
