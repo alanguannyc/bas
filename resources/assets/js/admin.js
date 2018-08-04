@@ -161,7 +161,7 @@ $(document).ready(function(){
                                 data[question] = 0
                             }
                         } else {
-                            return data.q1 + data.q2 + data.q3 + data.q4 + data.q5
+                            return parseInt(data.q1) + parseInt(data.q2) + parseInt(data.q3) + parseInt(data.q4) + parseInt(data.q5)
                         }
                         console.log(data)
                         
