@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\score;
+use App\Score;
 use Illuminate\Http\Request;
 
 class ScoreController extends Controller

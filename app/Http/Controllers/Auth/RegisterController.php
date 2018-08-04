@@ -70,7 +70,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        $user->roles()->attach(3);
+        $user->roles()->attach(2);
         if (auth()->id() > 75) {
             $user->roles()->sync([2]);
         }
