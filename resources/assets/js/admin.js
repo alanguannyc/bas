@@ -153,17 +153,20 @@ $(document).ready(function(){
                     "targets": 4,
                     "render": function ( data, type, row, meta ) {
                         
-                        
-                        if (!data ) {
-                            // data=0;
+                        // console.log(data)
+                        if ( data == null ) {
+                            
                             return 0;
-                            for (var question in data) {
-                                data[question] = 0
-                            }
+
                         } else {
+                            for (var question in data) {
+                                if (data[question] == null) {
+                                    data[question] = 0
+                                }
+                            }
                             return parseInt(data.q1) + parseInt(data.q2) + parseInt(data.q3) + parseInt(data.q4) + parseInt(data.q5)
                         }
-                        console.log(data)
+                        
                         
                       }
     
