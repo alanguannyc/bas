@@ -73,9 +73,9 @@
         </div>
         <div class="x_content">
         
-        <form autocomplete="nope">
+        <form autocomplete="off">
             <div class="form-group"> 
-            <input type="text" class="form-control"   v-model="member.name" placeholder="name">
+            <input type="text" class="form-control"   v-model="member.name" placeholder="name" autocomplete="nope">
             </div>
             <div class="form-group"> 
             <input type="text" class="form-control"  v-model="member.email" placeholder="email">

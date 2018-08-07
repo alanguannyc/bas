@@ -31833,7 +31833,7 @@ var render = function() {
               _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "x_content" }, [
-                _c("form", { attrs: { autocomplete: "nope" } }, [
+                _c("form", { attrs: { autocomplete: "off" } }, [
                   _c("div", { staticClass: "form-group" }, [
                     _c("input", {
                       directives: [
@@ -31845,7 +31845,11 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "text", placeholder: "name" },
+                      attrs: {
+                        type: "text",
+                        placeholder: "name",
+                        autocomplete: "nope"
+                      },
                       domProps: { value: _vm.member.name },
                       on: {
                         input: function($event) {
