@@ -81,6 +81,9 @@
             <input type="text" class="form-control"  v-model="member.email" placeholder="email">
             </div>
             <div class="form-group"> 
+            <input type="password" class="form-control"  v-model="member.password" placeholder="password">
+            </div>
+            <div class="form-group"> 
             <input  type="text" class="form-control"  v-model="profile.company" placeholder="company">
             </div>
             <div class="form-group"> 
@@ -233,6 +236,7 @@ var _ = require('lodash');
                 var newMember = {
                     name : app.member.name,
                     email: app.member.email,
+                    password: app.member.password,
                     role: app.role.name
                     }
                 var newProfile = app.profile

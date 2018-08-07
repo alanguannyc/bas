@@ -32,15 +32,15 @@
         <td><h5>{{ user.email}}</h5></td>
         <td><h5>{{ user.profile.company }}</h5></td> 
         <td id="profilePanel" ><h5>{{ user.roles[0].name }}</h5></td> 
-        <td id="updatePanel" style="display:none" >
-             <form>
-                 <div class="form-group"> 
-                <input  type="phone" class="form-control"  v-model="role" >
-                </div>
-                <button class="btn " v-on:click="cancelUpdate()">Cancel</button>
-                <button class="btn btn-primary" v-on:click="saveProfile()">SAVE</button>
-            </form>
-        </td> 
+            <td id="updatePanel" style="display:none" >
+                <form>
+                    <div class="form-group"> 
+                    <input  type="phone" class="form-control"  v-model="role" >
+                    </div>
+                    <button class="btn " v-on:click="cancelUpdate()">Cancel</button>
+                    <button class="btn btn-primary" v-on:click="saveProfile()">SAVE</button>
+                </form>
+            </td> 
         <td>{{ user.created_at}}</td>
         <td><button v-on:click="updateProfile()" class="btn btn-primary">Edit</button></td>
         </tr>

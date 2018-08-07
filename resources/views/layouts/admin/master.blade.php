@@ -132,7 +132,7 @@
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
    
     <!-- Scripts -->
-    <script src="{{ asset('js/admin.js?v=2.4') }}"></script>
+    <script src="{{ asset('js/admin.js?v=2.5') }}"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../build/js/custom.min.js"></script>
     
