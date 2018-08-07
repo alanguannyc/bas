@@ -31833,7 +31833,7 @@ var render = function() {
               _vm._m(2),
               _vm._v(" "),
               _c("div", { staticClass: "x_content" }, [
-                _c("form", [
+                _c("form", { attrs: { autocomplete: "nope" } }, [
                   _c("div", { staticClass: "form-group" }, [
                     _c("input", {
                       directives: [

@@ -73,7 +73,7 @@
         </div>
         <div class="x_content">
         
-        <form>
+        <form autocomplete="nope">
             <div class="form-group"> 
             <input type="text" class="form-control"   v-model="member.name" placeholder="name">
             </div>
