@@ -50,7 +50,7 @@
         <div class="x_content">
 
           <ul class="list-group">             
-            <li class="list-group-item">{{ member.email }}</li>
+            <li v-if="member" class="list-group-item">{{ member.email }}</li>
             <li v-if="member.profile" class="list-group-item">{{ member.profile.company }}</li>
             <li v-if="member.profile" class="list-group-item">{{ member.profile.address }}</li>
             <li v-if="member.profile" class="list-group-item">{{ member.profile.title }}</li>
@@ -143,7 +143,9 @@ var _ = require('lodash');
                 nominations: '',
                 member:{
                     name:'',
+                    email:'',
                     company:'',
+                    password:'',
                 },
                 profile:{
 

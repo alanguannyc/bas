@@ -13591,6 +13591,7 @@ var app = new Vue({
     // components: { App },
     // template: '<App/>'
 });
+Vue.config.productionTip = false;
 
 function format(d) {
     for (var question in d) {
@@ -31575,7 +31576,9 @@ var _ = __webpack_require__(58);
             nominations: '',
             member: {
                 name: '',
-                company: ''
+                email: '',
+                company: '',
+                password: ''
             },
             profile: {},
             detail: '',
@@ -31771,9 +31774,11 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "x_content" }, [
                 _c("ul", { staticClass: "list-group" }, [
-                  _c("li", { staticClass: "list-group-item" }, [
-                    _vm._v(_vm._s(_vm.member.email))
-                  ]),
+                  _vm.member
+                    ? _c("li", { staticClass: "list-group-item" }, [
+                        _vm._v(_vm._s(_vm.member.email))
+                      ])
+                    : _vm._e(),
                   _vm._v(" "),
                   _vm.member.profile
                     ? _c("li", { staticClass: "list-group-item" }, [
