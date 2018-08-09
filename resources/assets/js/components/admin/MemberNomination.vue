@@ -81,7 +81,7 @@
             <input type="text" class="form-control"  v-model="member.email" placeholder="email">
             </div>
             <div class="form-group"> 
-            <input type="password" class="form-control"  v-model="member.password" placeholder="password">
+            <input type="text" class="form-control"  v-model="member.password" placeholder="password">
             </div>
             <div class="form-group"> 
             <input  type="text" class="form-control"  v-model="profile.company" placeholder="company">
@@ -177,7 +177,8 @@ var _ = require('lodash');
 
             axios.get(`/api/v1/member/`+$uid)
                 .then(function (resp) {
-                    console.log(resp.data)
+                   
+                    
                     if (resp.data.nomination){
                         app.nominations = resp.data.nomination;
 
@@ -196,7 +197,7 @@ var _ = require('lodash');
                         app.role = resp.data.member.roles[0];
                     }
                     
-                    console.log(app.role)
+                    
                     
                 })
                 .catch(function (resp) {

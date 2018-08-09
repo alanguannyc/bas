@@ -33842,6 +33842,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -33951,98 +33957,107 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "b-card",
-        {
-          staticClass: "mt-1",
-          attrs: {
-            "sub-title":
-              "1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example."
-          }
-        },
-        [
-          _c("div", { staticClass: "box" }),
-          _vm._v(" "),
-          _c("img", {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: _vm.completed,
-                expression: "completed"
-              }
-            ],
-            staticClass: "center",
-            attrs: { src: "/images/completed.png", alt: "..." }
-          }),
-          _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q1) + "\n        ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
+      _vm.nomination.q1.length !== 0
+        ? _c(
+            "b-card",
             {
-              staticClass: "score",
-              on: {
-                click: function($event) {
-                  _vm.showScore()
-                }
+              staticClass: "mt-1",
+              attrs: {
+                "sub-title":
+                  "1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example."
               }
             },
-            [_c("h5", [_vm._v("Score: " + _vm._s(_vm.score.q1))])]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "scoreform" }, [
-            _c(
-              "form",
-              [
+            [
+              _c("div", { staticClass: "box" }),
+              _vm._v(" "),
+              _c("img", {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.completed,
+                    expression: "completed"
+                  }
+                ],
+                staticClass: "center",
+                attrs: { src: "/images/completed.png", alt: "..." }
+              }),
+              _vm._v(" "),
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(
+                  "\n            " + _vm._s(_vm.nomination.q1) + "\n        "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "score",
+                  on: {
+                    click: function($event) {
+                      _vm.showScore()
+                    }
+                  }
+                },
+                [_c("h5", [_vm._v("Score: " + _vm._s(_vm.score.q1))])]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "scoreform" }, [
                 _c(
-                  "b-input-group",
+                  "form",
                   [
-                    _c("b-form-input", {
-                      attrs: {
-                        type: "number",
-                        min: "0",
-                        max: "5",
-                        placeholder: "Enter your score"
-                      },
-                      model: {
-                        value: _vm.score.q1,
-                        callback: function($$v) {
-                          _vm.$set(_vm.score, "q1", $$v)
-                        },
-                        expression: "score.q1"
-                      }
-                    }),
-                    _vm._v(" "),
                     _c(
-                      "b-input-group-append",
+                      "b-input-group",
                       [
-                        _c(
-                          "b-btn",
-                          {
-                            attrs: { variant: "primary" },
-                            on: {
-                              click: function($event) {
-                                _vm.saveScore()
-                              }
-                            }
+                        _c("b-form-input", {
+                          attrs: {
+                            type: "number",
+                            min: "0",
+                            max: "5",
+                            placeholder: "Enter your score"
                           },
-                          [_vm._v("Save")]
-                        ),
+                          model: {
+                            value: _vm.score.q1,
+                            callback: function($$v) {
+                              _vm.$set(_vm.score, "q1", $$v)
+                            },
+                            expression: "score.q1"
+                          }
+                        }),
                         _vm._v(" "),
                         _c(
-                          "b-btn",
-                          {
-                            attrs: { variant: "outline-secondary", name: "q1" },
-                            on: {
-                              click: function($event) {
-                                _vm.clearScore()
-                              }
-                            }
-                          },
-                          [_vm._v("Cancel")]
+                          "b-input-group-append",
+                          [
+                            _c(
+                              "b-btn",
+                              {
+                                attrs: { variant: "primary" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.saveScore()
+                                  }
+                                }
+                              },
+                              [_vm._v("Save")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-btn",
+                              {
+                                attrs: {
+                                  variant: "outline-secondary",
+                                  name: "q1"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.clearScore()
+                                  }
+                                }
+                              },
+                              [_vm._v("Cancel")]
+                            )
+                          ],
+                          1
                         )
                       ],
                       1
@@ -34050,90 +34065,97 @@ var render = function() {
                   ],
                   1
                 )
-              ],
-              1
-            )
-          ])
-        ]
-      ),
+              ])
+            ]
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "b-card",
-        {
-          staticClass: "mt-1",
-          attrs: {
-            "sub-title":
-              "2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples."
-          }
-        },
-        [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q2) + "\n        ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
+      _vm.nomination.q2.length !== 0
+        ? _c(
+            "b-card",
             {
-              staticClass: "score",
-              on: {
-                click: function($event) {
-                  _vm.showScore()
-                }
+              staticClass: "mt-1",
+              attrs: {
+                "sub-title":
+                  "2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples."
               }
             },
-            [_c("h5", [_vm._v("Score: " + _vm._s(_vm.score.q2))])]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "scoreform" }, [
-            _c(
-              "form",
-              [
+            [
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(
+                  "\n            " + _vm._s(_vm.nomination.q2) + "\n        "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "score",
+                  on: {
+                    click: function($event) {
+                      _vm.showScore()
+                    }
+                  }
+                },
+                [_c("h5", [_vm._v("Score: " + _vm._s(_vm.score.q2))])]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "scoreform" }, [
                 _c(
-                  "b-input-group",
+                  "form",
                   [
-                    _c("b-form-input", {
-                      attrs: {
-                        type: "number",
-                        min: "0",
-                        max: "5",
-                        placeholder: "Enter your score"
-                      },
-                      model: {
-                        value: _vm.score.q2,
-                        callback: function($$v) {
-                          _vm.$set(_vm.score, "q2", $$v)
-                        },
-                        expression: "score.q2"
-                      }
-                    }),
-                    _vm._v(" "),
                     _c(
-                      "b-input-group-append",
+                      "b-input-group",
                       [
-                        _c(
-                          "b-btn",
-                          {
-                            attrs: { variant: "primary" },
-                            on: {
-                              click: function($event) {
-                                _vm.saveScore()
-                              }
-                            }
+                        _c("b-form-input", {
+                          attrs: {
+                            type: "number",
+                            min: "0",
+                            max: "5",
+                            placeholder: "Enter your score"
                           },
-                          [_vm._v("Save")]
-                        ),
+                          model: {
+                            value: _vm.score.q2,
+                            callback: function($$v) {
+                              _vm.$set(_vm.score, "q2", $$v)
+                            },
+                            expression: "score.q2"
+                          }
+                        }),
                         _vm._v(" "),
                         _c(
-                          "b-btn",
-                          {
-                            attrs: { variant: "outline-secondary", name: "q2" },
-                            on: {
-                              click: function($event) {
-                                _vm.clearScore()
-                              }
-                            }
-                          },
-                          [_vm._v("Cancel")]
+                          "b-input-group-append",
+                          [
+                            _c(
+                              "b-btn",
+                              {
+                                attrs: { variant: "primary" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.saveScore()
+                                  }
+                                }
+                              },
+                              [_vm._v("Save")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-btn",
+                              {
+                                attrs: {
+                                  variant: "outline-secondary",
+                                  name: "q2"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.clearScore()
+                                  }
+                                }
+                              },
+                              [_vm._v("Cancel")]
+                            )
+                          ],
+                          1
                         )
                       ],
                       1
@@ -34141,90 +34163,97 @@ var render = function() {
                   ],
                   1
                 )
-              ],
-              1
-            )
-          ])
-        ]
-      ),
+              ])
+            ]
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "b-card",
-        {
-          staticClass: "mt-1",
-          attrs: {
-            "sub-title":
-              "3.    Describe the interaction of the employee with guests. Please cite specific examples of the employee’s positive impact on the guest experience at your hotel."
-          }
-        },
-        [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q3) + "\n        ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
+      _vm.nomination.q3.length !== 0
+        ? _c(
+            "b-card",
             {
-              staticClass: "score",
-              on: {
-                click: function($event) {
-                  _vm.showScore()
-                }
+              staticClass: "mt-1",
+              attrs: {
+                "sub-title":
+                  "3.    Describe the interaction of the employee with guests. Please cite specific examples of the employee’s positive impact on the guest experience at your hotel."
               }
             },
-            [_c("h5", [_vm._v("Score: " + _vm._s(_vm.score.q3))])]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "scoreform" }, [
-            _c(
-              "form",
-              [
+            [
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(
+                  "\n            " + _vm._s(_vm.nomination.q3) + "\n        "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "score",
+                  on: {
+                    click: function($event) {
+                      _vm.showScore()
+                    }
+                  }
+                },
+                [_c("h5", [_vm._v("Score: " + _vm._s(_vm.score.q3))])]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "scoreform" }, [
                 _c(
-                  "b-input-group",
+                  "form",
                   [
-                    _c("b-form-input", {
-                      attrs: {
-                        type: "number",
-                        min: "0",
-                        max: "5",
-                        placeholder: "Enter your score"
-                      },
-                      model: {
-                        value: _vm.score.q3,
-                        callback: function($$v) {
-                          _vm.$set(_vm.score, "q3", $$v)
-                        },
-                        expression: "score.q3"
-                      }
-                    }),
-                    _vm._v(" "),
                     _c(
-                      "b-input-group-append",
+                      "b-input-group",
                       [
-                        _c(
-                          "b-btn",
-                          {
-                            attrs: { variant: "primary" },
-                            on: {
-                              click: function($event) {
-                                _vm.saveScore()
-                              }
-                            }
+                        _c("b-form-input", {
+                          attrs: {
+                            type: "number",
+                            min: "0",
+                            max: "5",
+                            placeholder: "Enter your score"
                           },
-                          [_vm._v("Save")]
-                        ),
+                          model: {
+                            value: _vm.score.q3,
+                            callback: function($$v) {
+                              _vm.$set(_vm.score, "q3", $$v)
+                            },
+                            expression: "score.q3"
+                          }
+                        }),
                         _vm._v(" "),
                         _c(
-                          "b-btn",
-                          {
-                            attrs: { variant: "outline-secondary", name: "q3" },
-                            on: {
-                              click: function($event) {
-                                _vm.clearScore()
-                              }
-                            }
-                          },
-                          [_vm._v("Cancel")]
+                          "b-input-group-append",
+                          [
+                            _c(
+                              "b-btn",
+                              {
+                                attrs: { variant: "primary" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.saveScore()
+                                  }
+                                }
+                              },
+                              [_vm._v("Save")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-btn",
+                              {
+                                attrs: {
+                                  variant: "outline-secondary",
+                                  name: "q3"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.clearScore()
+                                  }
+                                }
+                              },
+                              [_vm._v("Cancel")]
+                            )
+                          ],
+                          1
                         )
                       ],
                       1
@@ -34232,90 +34261,97 @@ var render = function() {
                   ],
                   1
                 )
-              ],
-              1
-            )
-          ])
-        ]
-      ),
+              ])
+            ]
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "b-card",
-        {
-          staticClass: "mt-1",
-          attrs: {
-            "sub-title":
-              "4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
-          }
-        },
-        [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q4) + "\n        ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
+      _vm.nomination.q4.length !== 0
+        ? _c(
+            "b-card",
             {
-              staticClass: "score",
-              on: {
-                click: function($event) {
-                  _vm.showScore()
-                }
+              staticClass: "mt-1",
+              attrs: {
+                "sub-title":
+                  "4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
               }
             },
-            [_c("h5", [_vm._v("Score: " + _vm._s(_vm.score.q4))])]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "scoreform" }, [
-            _c(
-              "form",
-              [
+            [
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(
+                  "\n            " + _vm._s(_vm.nomination.q4) + "\n        "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "score",
+                  on: {
+                    click: function($event) {
+                      _vm.showScore()
+                    }
+                  }
+                },
+                [_c("h5", [_vm._v("Score: " + _vm._s(_vm.score.q4))])]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "scoreform" }, [
                 _c(
-                  "b-input-group",
+                  "form",
                   [
-                    _c("b-form-input", {
-                      attrs: {
-                        type: "number",
-                        min: "0",
-                        max: "5",
-                        placeholder: "Enter your score"
-                      },
-                      model: {
-                        value: _vm.score.q4,
-                        callback: function($$v) {
-                          _vm.$set(_vm.score, "q4", $$v)
-                        },
-                        expression: "score.q4"
-                      }
-                    }),
-                    _vm._v(" "),
                     _c(
-                      "b-input-group-append",
+                      "b-input-group",
                       [
-                        _c(
-                          "b-btn",
-                          {
-                            attrs: { variant: "primary" },
-                            on: {
-                              click: function($event) {
-                                _vm.saveScore()
-                              }
-                            }
+                        _c("b-form-input", {
+                          attrs: {
+                            type: "number",
+                            min: "0",
+                            max: "5",
+                            placeholder: "Enter your score"
                           },
-                          [_vm._v("Save")]
-                        ),
+                          model: {
+                            value: _vm.score.q4,
+                            callback: function($$v) {
+                              _vm.$set(_vm.score, "q4", $$v)
+                            },
+                            expression: "score.q4"
+                          }
+                        }),
                         _vm._v(" "),
                         _c(
-                          "b-btn",
-                          {
-                            attrs: { variant: "outline-secondary", name: "q4" },
-                            on: {
-                              click: function($event) {
-                                _vm.clearScore()
-                              }
-                            }
-                          },
-                          [_vm._v("Cancel")]
+                          "b-input-group-append",
+                          [
+                            _c(
+                              "b-btn",
+                              {
+                                attrs: { variant: "primary" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.saveScore()
+                                  }
+                                }
+                              },
+                              [_vm._v("Save")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-btn",
+                              {
+                                attrs: {
+                                  variant: "outline-secondary",
+                                  name: "q4"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.clearScore()
+                                  }
+                                }
+                              },
+                              [_vm._v("Cancel")]
+                            )
+                          ],
+                          1
                         )
                       ],
                       1
@@ -34323,90 +34359,97 @@ var render = function() {
                   ],
                   1
                 )
-              ],
-              1
-            )
-          ])
-        ]
-      ),
+              ])
+            ]
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c(
-        "b-card",
-        {
-          staticClass: "mt-1",
-          attrs: {
-            "sub-title":
-              "5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards."
-          }
-        },
-        [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q5) + "\n        ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
+      _vm.nomination.q5.length !== 0
+        ? _c(
+            "b-card",
             {
-              staticClass: "score",
-              on: {
-                click: function($event) {
-                  _vm.showScore()
-                }
+              staticClass: "mt-1",
+              attrs: {
+                "sub-title":
+                  "5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards."
               }
             },
-            [_c("h5", [_vm._v("Score: " + _vm._s(_vm.score.q5))])]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "scoreform" }, [
-            _c(
-              "form",
-              [
+            [
+              _c("p", { staticClass: "card-text" }, [
+                _vm._v(
+                  "\n            " + _vm._s(_vm.nomination.q5) + "\n        "
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "score",
+                  on: {
+                    click: function($event) {
+                      _vm.showScore()
+                    }
+                  }
+                },
+                [_c("h5", [_vm._v("Score: " + _vm._s(_vm.score.q5))])]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "scoreform" }, [
                 _c(
-                  "b-input-group",
+                  "form",
                   [
-                    _c("b-form-input", {
-                      attrs: {
-                        type: "number",
-                        min: "0",
-                        max: "5",
-                        placeholder: "Enter your score"
-                      },
-                      model: {
-                        value: _vm.score.q5,
-                        callback: function($$v) {
-                          _vm.$set(_vm.score, "q5", $$v)
-                        },
-                        expression: "score.q5"
-                      }
-                    }),
-                    _vm._v(" "),
                     _c(
-                      "b-input-group-append",
+                      "b-input-group",
                       [
-                        _c(
-                          "b-btn",
-                          {
-                            attrs: { variant: "primary" },
-                            on: {
-                              click: function($event) {
-                                _vm.saveScore()
-                              }
-                            }
+                        _c("b-form-input", {
+                          attrs: {
+                            type: "number",
+                            min: "0",
+                            max: "5",
+                            placeholder: "Enter your score"
                           },
-                          [_vm._v("Save")]
-                        ),
+                          model: {
+                            value: _vm.score.q5,
+                            callback: function($$v) {
+                              _vm.$set(_vm.score, "q5", $$v)
+                            },
+                            expression: "score.q5"
+                          }
+                        }),
                         _vm._v(" "),
                         _c(
-                          "b-btn",
-                          {
-                            attrs: { variant: "outline-secondary", name: "q5" },
-                            on: {
-                              click: function($event) {
-                                _vm.clearScore()
-                              }
-                            }
-                          },
-                          [_vm._v("Cancel")]
+                          "b-input-group-append",
+                          [
+                            _c(
+                              "b-btn",
+                              {
+                                attrs: { variant: "primary" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.saveScore()
+                                  }
+                                }
+                              },
+                              [_vm._v("Save")]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-btn",
+                              {
+                                attrs: {
+                                  variant: "outline-secondary",
+                                  name: "q5"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.clearScore()
+                                  }
+                                }
+                              },
+                              [_vm._v("Cancel")]
+                            )
+                          ],
+                          1
                         )
                       ],
                       1
@@ -34414,12 +34457,10 @@ var render = function() {
                   ],
                   1
                 )
-              ],
-              1
-            )
-          ])
-        ]
-      )
+              ])
+            ]
+          )
+        : _vm._e()
     ],
     1
   )

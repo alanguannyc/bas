@@ -31604,7 +31604,7 @@ var _ = __webpack_require__(58);
         var $uid = url.segment(-1);
 
         axios.get('/api/v1/member/' + $uid).then(function (resp) {
-            console.log(resp.data);
+
             if (resp.data.nomination) {
                 app.nominations = resp.data.nomination;
             }
@@ -31620,8 +31620,6 @@ var _ = __webpack_require__(58);
             if (resp.data.member.roles[0]) {
                 app.role = resp.data.member.roles[0];
             }
-
-            console.log(app.role);
         }).catch(function (resp) {
             console.log(resp);
             // alert("Could not load nominations");
@@ -31897,7 +31895,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control",
-                      attrs: { type: "password", placeholder: "password" },
+                      attrs: { type: "text", placeholder: "password" },
                       domProps: { value: _vm.member.password },
                       on: {
                         input: function($event) {

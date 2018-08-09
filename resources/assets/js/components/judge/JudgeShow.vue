@@ -1,11 +1,15 @@
 <template>
     <div>
-    <b-card class="mt-1"  sub-title="1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example."> 
+        
+      
+   <b-card  v-if="nomination.q1.length !== 0" class="mt-1"  sub-title="1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example."> 
                     <div  class="box"></div>
     <img src="/images/completed.png" v-show="completed" class="center" alt="..." />
+    
         <p class="card-text">
             {{ nomination.q1 }}
         </p>
+        
         <div class="score" v-on:click="showScore()">
             <h5 >Score: {{ score.q1 }}</h5>
         </div>
@@ -23,8 +27,10 @@
         </div>
         
     </b-card>
+        
+   
 
-    <b-card class="mt-1" sub-title="2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples."
+    <b-card v-if="nomination.q2.length !== 0" class="mt-1" sub-title="2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples."
             >
         <p class="card-text">
             {{ nomination.q2 }}
@@ -46,7 +52,7 @@
         </div>
     </b-card>
 
-    <b-card class="mt-1" sub-title="3.    Describe the interaction of the employee with guests. Please cite specific examples of the employee’s positive impact on the guest experience at your hotel."
+    <b-card v-if="nomination.q3.length !== 0" class="mt-1" sub-title="3.    Describe the interaction of the employee with guests. Please cite specific examples of the employee’s positive impact on the guest experience at your hotel."
             >
         <p class="card-text">
             {{ nomination.q3 }}
@@ -68,7 +74,7 @@
         </div>
     </b-card>
 
-    <b-card class="mt-1" sub-title="4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
+    <b-card v-if="nomination.q4.length !== 0" class="mt-1" sub-title="4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
             >
         <p class="card-text">
             {{ nomination.q4 }}
@@ -90,7 +96,7 @@
         </div>
     </b-card>
 
-    <b-card class="mt-1" sub-title="5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards."
+    <b-card  v-if="nomination.q5.length !== 0" class="mt-1" sub-title="5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards."
             >
         <p class="card-text">
             {{ nomination.q5 }}
