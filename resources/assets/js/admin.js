@@ -160,10 +160,14 @@ $(document).ready(function(){
 
                         } else {
                             for (var question in data) {
+                                
                                 if (data[question] == null) {
                                     data[question] = 0
                                 }
+
                             }
+                            
+                            
                             return parseInt(data.q1) + parseInt(data.q2) + parseInt(data.q3) + parseInt(data.q4) + parseInt(data.q5)
                         }
                         
@@ -503,5 +507,87 @@ export function autocomplete(inp, arr) {
       closeAllLists(e.target);
   });
   }
-
   
+
+  $( document ).ready(function() {
+    $('#scoreUpdate').click(function(){
+
+
+        getNominations().then((resp)=>{
+            findEmptyResp(resp)
+        })
+        
+
+    })
+})
+
+  //get all nominations to find empty responses
+  async function getNominations() {
+    let nominations = await axios.get(`/api/v1/member/nominations/`)
+             .then(resp =>  {    
+                 return resp.data
+            })
+             .catch(function (resp) {
+                 console.log(resp);
+            })
+            return nominations
+ }
+
+ 
+  
+     
+ //find empty responses
+ async function findEmptyResp(nominations){
+
+    for (var index in nominations) {
+        
+        var j = 1
+        for (j = 1; j< 6; j++) {
+            
+            if(nominations[index]['q'+j] == null || nominations[index]['q'+j].length < 1){
+            
+                await findScores(nominations[index].id, j)
+
+            }
+        }
+    }
+    //  $.each(nominations, function( key, value ) {
+    //     var j = 1
+    //     for (j = 1; j< 6; j++) {
+            
+    //         if(value['q'+j] == null || value['q'+j].length < 1){
+                
+    //             findScores(value.id, j)
+
+    //         }
+    //     }
+         
+    //  })
+ }
+
+
+ //find scores for each nominations
+ async function findScores(id, i) {
+     await axios.get(`/api/v1/nominations/${id}/edit`)
+     .then(function (resp) {
+         
+         var currentScore =  resp.data.score
+
+         currentScore["q"+ i] = 0
+
+         updateScores(currentScore)
+        
+     })
+ }
+ 
+
+ // update scores
+ async function updateScores(score){
+     await axios.post(`/api/v1/updateEmptyScore`, score)
+     .then(function (resp) {
+         
+     })
+     .catch(function (resp) {
+         console.log(resp);
+     });
+ }

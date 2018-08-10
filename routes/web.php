@@ -145,6 +145,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','judge']], functi
 
 Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     Route::post('/score', 'ScoreController@store');
+    Route::post('/updateEmptyScore', 'ScoreController@updateEmptyScore');
     
     Route::post('/finalScore', 'FinalScoreController@store');
  

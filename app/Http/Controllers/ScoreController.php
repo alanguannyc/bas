@@ -24,7 +24,17 @@ class ScoreController extends Controller
             new Score(request(['q1','q2','q3','q4','q5']))
         );
         
+ 
+    }
 
+    public function updateEmptyScore(Request $request)
+    {
+        $nomination = \App\Nomination:: find($request->nomination_id);
+        
+        $nomination->updateEmptyScore(
+            new Score(request(['q1','q2','q3','q4','q5']))
+        );
+        return $nomination->score;
     }
 
     public function show($id)

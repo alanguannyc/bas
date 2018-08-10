@@ -22,10 +22,14 @@ class Nomination extends Model
     }
 
     public function updateScore($score) {
-        // $this->score()->save($score);
-        // foreach($score as $key=>$val) {
-        //     array_push($results, $obj);
-        // }
+        
+        $this->score()->updateOrCreate(['nomination_id'=>$this->id],['q1'=>$score->q1, 'q2'=>$score->q2, 'q3'=>$score->q3,'q4'=>$score->q4,'q5'=>$score->q5]);
+
+    }
+
+    //Update entire score to exclude empty response
+    public function updateEmptyScore($score) {
+        
         $this->score()->updateOrCreate(['nomination_id'=>$this->id],['q1'=>$score->q1, 'q2'=>$score->q2, 'q3'=>$score->q3,'q4'=>$score->q4,'q5'=>$score->q5]);
 
     }
