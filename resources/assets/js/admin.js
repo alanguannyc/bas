@@ -570,12 +570,14 @@ export function autocomplete(inp, arr) {
  async function findScores(id, i) {
      await axios.get(`/api/v1/nominations/${id}/edit`)
      .then(function (resp) {
+         if (resp.data.score) {
+            var currentScore =  resp.data.score
+
+            currentScore["q"+ i] = 0
+   
+            updateScores(currentScore)
+         }
          
-         var currentScore =  resp.data.score
-
-         currentScore["q"+ i] = 0
-
-         updateScores(currentScore)
         
      })
  }

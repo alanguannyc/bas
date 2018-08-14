@@ -13661,12 +13661,13 @@ var findScores = function () {
                     case 0:
                         _context3.next = 2;
                         return axios.get('/api/v1/nominations/' + id + '/edit').then(function (resp) {
+                            if (resp.data.score) {
+                                var currentScore = resp.data.score;
 
-                            var currentScore = resp.data.score;
+                                currentScore["q" + i] = 0;
 
-                            currentScore["q" + i] = 0;
-
-                            updateScores(currentScore);
+                                updateScores(currentScore);
+                            }
                         });
 
                     case 2:
