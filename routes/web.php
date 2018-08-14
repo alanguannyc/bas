@@ -208,6 +208,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
             } else if ($id >= 1) {
                 $nominations = DB::table('nominations')
                 ->whereBetween('nominations.id', array($id*10+1, $id*10+10))
+                ->whereNotIn('nominations.id', [19])
                 ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
                 ->select('nominations.*', 'profiles.company', 'profiles.id as profile_id')
                 ->get();
