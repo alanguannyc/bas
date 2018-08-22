@@ -135,7 +135,7 @@
                   q4:'',
                   q5:''
                   },
-                  score:{
+              score:{
                     // total:'',
                     q1:'',
                     q2:'',
@@ -173,9 +173,12 @@
             },
         computed:{
                 completed(){
+                    // return Object.values(this.score).every(o => o == '');
+
+
                     for (var key in this.score) {
                         
-                        if (this.score[key] == '') {
+                        if (this.score[key] == '' ) {
                             
                             return false;
                         } 
@@ -226,6 +229,7 @@
             clearScore() {
                 var id = event.target.name;
                 this.score[id] = "";
+              
             }
         }
     }

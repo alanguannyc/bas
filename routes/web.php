@@ -188,9 +188,6 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     });
     
     Route::get('/judge', function(){
-        // $users = \App\User::whereHas('roles', function ($query) {
-        //     $query->where('name', 'judge');
-        // })->with(['profile','roles'])->get();
         $users = \App\User::whereHas('roles', function ($query) {
             $query->where('name', 'judge');
         })->orderBy('created_at', 'desc')->get();
@@ -228,7 +225,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
         ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
         ->orderBy('totalscore', 'desc')
-        ->skip($countOfWith - 1)
+        ->skip($countOfWith - 9)
         ->limit(1)
         ->get();
         $nominations_1 = DB::table('nominations')
@@ -248,7 +245,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
         ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
         ->orderBy('totalscore', 'desc')
-        ->skip($countOfRoom - 1)
+        ->skip($countOfRoom - 9)
         ->limit(1)
         ->get();
         $nominations_2 = DB::table('nominations')
@@ -268,7 +265,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
         ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
         ->orderBy('totalscore', 'desc')
-        ->skip($countOfWithout - 1)
+        ->skip($countOfWithout - 9)
         ->limit(1)
         ->get();
         $nominations_3 = DB::table('nominations')
@@ -289,7 +286,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
         ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
         ->orderBy('totalscore', 'desc')
-        ->skip( $countOfManagerial - 1 )
+        ->skip( $countOfManagerial - 9 )
         ->limit(1)
         ->get();
         $nominations_4 = DB::table('nominations')
@@ -418,12 +415,6 @@ Route::group(['prefix' => 'nomination', 'middleware' => ['auth','admin']], funct
 // });
 
 Route::get('/judge/{id}',function () {
-    // $users = \App\User::whereHas('roles', function ($query) {
-    //         $query->where('name', 'judge');
-    //     })->orderBy('created_at', 'desc')->get();
-    //     foreach ($users as $key => $value) {
-    //         echo $value['id'] . '<br>';
-    //      }
     
     return view('layouts.judge.index');
     
@@ -438,3 +429,31 @@ Route::get('/final', function (){
 })->middleware('pwd');
 
 
+Route::post('/update', 'ScoreController@updateAll');
+
+
+Route::get('/test', function() {
+
+    // $nominations = DB::table('nominations')
+    // ->leftJoin('final_scores as judge_1', function($query) {
+    //     $query->on('nominations.id', '=', 'judge_1.nomination_id')
+    //     ->where('judge_1.user_id','=',4);
+    // })
+    // ->leftJoin('final_scores as judge_2', function($query) {
+    //     $query->on('nominations.id', '=', 'judge_2.nomination_id')
+    //     ->where('judge_2.user_id','=',28);
+    // })
+    // ->leftJoin('final_scores as judge_3', function($query) {
+    //     $query->on('nominations.id', '=', 'judge_3.nomination_id')
+    //     ->where('judge_3.user_id','=',1);
+    // })
+    // ->select('nominations.*', DB::raw('ANY_VALUE(profiles.company) as hotel'), 
+    // DB::raw('(COALESCE(judge_1.q1, 0) + COALESCE(judge_1.q2,0) + COALESCE(judge_1.q3,0) + COALESCE(judge_1.q4,0) + COALESCE(judge_1.q5,0)) as total_final_score_1'),
+    // DB::raw('(COALESCE(judge_2.q1, 0) + COALESCE(judge_2.q2,0) + COALESCE(judge_2.q3,0) + COALESCE(judge_2.q4,0) + COALESCE(judge_2.q5,0)) as total_final_score_2'),
+    // DB::raw('(COALESCE(judge_3.q1, 0) + COALESCE(judge_3.q2,0) + COALESCE(judge_3.q3,0) + COALESCE(judge_3.q4,0) + COALESCE(judge_3.q5,0)) as total_final_score_3'))
+    // ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
+    // ->get();
+
+    // return $nominations;
+    
+});

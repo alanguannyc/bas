@@ -43,4 +43,27 @@ class ScoreController extends Controller
         // dd($score);
         return $score = Score::where('nomination_id','=',$id)->get();
     }
+
+    public function updateAll()
+    {
+        $nominations = \App\Nomination::with('score')->get();
+        
+        // return $nominations;
+        
+        
+        foreach($nominations as $key=>$value){
+            // print "$key => $value\n";
+            for($i=1 ; $i < 6 ; $i++) {
+                if ($value["q" . $i] == null || $value["q" . $i] == '' ) {
+                    // print ($value['score']);
+                    // $value['score']["q" . $i] = '0';
+                    $value->score()->update(["q" . $i => 0]);
+                }
+            }
+          }
+
+
+    }
+
+
 }

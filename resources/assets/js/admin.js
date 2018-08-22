@@ -512,10 +512,13 @@ export function autocomplete(inp, arr) {
   $( document ).ready(function() {
     $('#scoreUpdate').click(function(){
 
-
-        getNominations().then((resp)=>{
-            findEmptyResp(resp)
-        })
+        axios.post(`/update`)
+        .then(resp =>  {    
+            
+       })
+        // getNominations().then((resp)=>{
+        //     findEmptyResp(resp)
+        // })
         
 
     })

@@ -28,6 +28,11 @@
             <h3>Thanks for your participation!</h3>
             
         </div>
+
+        <!-- <div class="thankyou" >
+            <h3>Thanks for your participation!</h3>
+            
+        </div> -->
     </div>
 </template>
 <script>
