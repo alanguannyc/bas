@@ -220,14 +220,27 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         ->where('category', '=', 'Full-Time Hourly With Guest Contact')
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
         ->count();
-        $the10thnumber_1 = DB::table('nominations')
-        ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-        ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-        ->orderBy('totalscore', 'desc')
-        ->skip($countOfWith - 9)
-        ->limit(1)
-        ->get();
+        if($countOfWith > 9 ){
+            $the10thnumber_1 = DB::table('nominations')
+            ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+            ->orderBy('totalscore', 'desc')
+            ->skip(9)
+            ->limit(1)
+            ->get();
+        } else{
+            $the10thnumber_1 = DB::table('nominations')
+            ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+            ->orderBy('totalscore', 'desc')
+            ->skip($countOfWith-1)
+            ->limit(1)
+            ->get();
+
+        }
+        
         $nominations_1 = DB::table('nominations')
         ->where('category', '=', 'Full-Time Hourly With Guest Contact')
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
@@ -240,14 +253,26 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         ->where('category', '=', 'Full-Time Room Attendant')
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
         ->count();
-        $the10thnumber_2 = DB::table('nominations')
-        ->where('category', '=', 'Full-Time Room Attendant')
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-        ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-        ->orderBy('totalscore', 'desc')
-        ->skip($countOfRoom - 9)
-        ->limit(1)
-        ->get();
+        if($countOfRoom > 9){
+            $the10thnumber_2 = DB::table('nominations')
+            ->where('category', '=', 'Full-Time Room Attendant')
+            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+            ->orderBy('totalscore', 'desc')
+            ->skip(9)
+            ->limit(1)
+            ->get();
+        } else{
+            $the10thnumber_2 = DB::table('nominations')
+            ->where('category', '=', 'Full-Time Room Attendant')
+            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+            ->orderBy('totalscore', 'desc')
+            ->skip($countOfRoom - 1)
+            ->limit(1)
+            ->get();
+        }
+        
         $nominations_2 = DB::table('nominations')
         ->where('category', '=', 'Full-Time Room Attendant')
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
@@ -260,14 +285,26 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
         ->count();
-        $the10thnumber_3 = DB::table('nominations')
-        ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-        ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-        ->orderBy('totalscore', 'desc')
-        ->skip($countOfWithout - 9)
-        ->limit(1)
-        ->get();
+        if($countOfWithout > 9 ){
+            $the10thnumber_3 = DB::table('nominations')
+            ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
+            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+            ->orderBy('totalscore', 'desc')
+            ->skip(9)
+            ->limit(1)
+            ->get();
+        } else {
+            $the10thnumber_3 = DB::table('nominations')
+            ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
+            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+            ->orderBy('totalscore', 'desc')
+            ->skip($countOfWithout-1)
+            ->limit(1)
+            ->get();
+        }
+        
         $nominations_3 = DB::table('nominations')
         ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
@@ -281,14 +318,26 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         ->where('category', '=', 'Managerial Below General Manager') 
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
         ->count() ;
-        $the10thnumber_4 = DB::table('nominations')
-        ->where('category', '=', 'Managerial Below General Manager')
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-        ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-        ->orderBy('totalscore', 'desc')
-        ->skip( $countOfManagerial - 9 )
-        ->limit(1)
-        ->get();
+        if($countOfManagerial > 9){
+            $the10thnumber_4 = DB::table('nominations')
+            ->where('category', '=', 'Managerial Below General Manager')
+            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+            ->orderBy('totalscore', 'desc')
+            ->skip( 9 )
+            ->limit(1)
+            ->get();
+        } else {
+            $the10thnumber_4 = DB::table('nominations')
+            ->where('category', '=', 'Managerial Below General Manager')
+            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+            ->orderBy('totalscore', 'desc')
+            ->skip( $countOfManagerial-1 )
+            ->limit(1)
+            ->get();
+        }
+        
         $nominations_4 = DB::table('nominations')
         ->where('category', '=', 'Managerial Below General Manager')
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
