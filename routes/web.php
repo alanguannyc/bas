@@ -3,7 +3,7 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Auth::routes();
 
@@ -130,7 +130,7 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
     
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','judge']], function(){
     Route::group(['middleware' => ['profile']], function(){
-        Route::get('/', 'HomeController@index')->name('home');
+        Route::get('/', 'HomeController@index');
     
         Route::get('nominations', function() {
             $count = \App\Nomination::where('user_id','=',auth()->id())->count();
