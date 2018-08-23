@@ -16,8 +16,11 @@ class SimplePassword
     public function handle($request, Closure $next)
     {
         $uid = auth()->user()->id;
+        $finallist_judge = array(
+            "216","217","218","219"
+        );
 
-        if(auth()->user()->id == '1') {
+        if(in_array($uid, $finallist_judge)) {
             return $next($request);
         }
 

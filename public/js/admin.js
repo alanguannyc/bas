@@ -13952,7 +13952,8 @@ $(document).ready(function () {
             }
 
         }],
-
+        dom: 'fBrtip',
+        buttons: ['csv', 'excel'],
         columns: [{
             "className": 'details-control',
             "orderable": false,
