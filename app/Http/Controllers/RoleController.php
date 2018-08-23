@@ -19,6 +19,8 @@ class RoleController extends Controller
             $user->roles()->sync([2]);
         } else if ($request->role == 'judge'){
             $user->roles()->sync([3]);
+        } else if ($request->role == 'final_judge'){
+            $user->roles()->sync([4]);
         }
 
         return [$user->roles()];

@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class SimplePassword
+class IsFinalJudge
 {
     /**
      * Handle an incoming request.
@@ -16,14 +16,15 @@ class SimplePassword
     public function handle($request, Closure $next)
     {
         $uid = auth()->user()->id;
-        $finallist_judge = array(
-            "216","217","218","219"
-        );
+        // $finallist_judge = array(
+        //     "216","217","218","219"
+        // );
+        
 
-        if(in_array($uid, $finallist_judge)) {
+        if (\Auth::user()->isFinalJudge()) {
+            // return redirect('admin');
             return $next($request);
         }
-
-        return redirect('/' );
+          return redirect('/');
     }
 }

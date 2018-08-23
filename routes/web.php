@@ -472,7 +472,7 @@ Route::get('/judge/{id}',function () {
 
 
 
-Route::group(['middleware' => ['auth','pwd']], function () {
+Route::group(['middleware' => ['auth','final_judge']], function () {
     
     Route::get('/final', function (){
     

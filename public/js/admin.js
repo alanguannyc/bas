@@ -32518,6 +32518,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 var _ = __webpack_require__(58);
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -32992,7 +32993,9 @@ var render = function() {
                         _vm._v(" "),
                         _c("option", [_vm._v("judge")]),
                         _vm._v(" "),
-                        _c("option", [_vm._v("admin")])
+                        _c("option", [_vm._v("admin")]),
+                        _vm._v(" "),
+                        _c("option", [_vm._v("final_judge")])
                       ]
                     )
                   ]),

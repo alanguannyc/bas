@@ -64,7 +64,7 @@ export default {
                     
                 })
                 .catch(function (resp) {
-                    console.log(resp);
+                    
                     // alert("Could not load nominations");
                 });
             

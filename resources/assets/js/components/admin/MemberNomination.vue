@@ -100,6 +100,7 @@
                 <option>member</option>
                 <option>judge</option>
                 <option>admin</option>
+                <option>final_judge</option>
                 </select>
                 </div>
             <button class="btn " v-on:click="cancelUpdate()">Cancel</button>

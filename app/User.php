@@ -103,6 +103,18 @@ class User extends Authenticatable
         return false;
     }
 
+    public function isFinalJudge()
+    {
+        foreach ($this->roles()->get() as $role)
+        {
+            if ($role->name == 'final_judge')
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function completedProfile()
     {
         if(!$this->profile || !$this->profile->company) {

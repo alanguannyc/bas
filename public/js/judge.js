@@ -34651,7 +34651,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
             // app.role = resp.data.member.roles[0];
             // console.log(app.nominations)
         }).catch(function (resp) {
-            console.log(resp);
+
             // alert("Could not load nominations");
         });
     },
@@ -35056,7 +35056,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         axios.get('/api/v1/nominations/' + id + '/edit').then(function (resp) {
 
             app.nomination = resp.data;
-            console.log(resp.data);
+
             if (resp.data.final_score[0]) {
                 app.score = resp.data.final_score[0];
             }

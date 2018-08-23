@@ -17,9 +17,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
     Schema::defaultStringLength(191);
-         \App\Role::firstOrCreate(['name'=>'admin']);
+        \App\Role::firstOrCreate(['name'=>'admin']);
         \App\Role::firstOrCreate(['name'=>'member']);
         \App\Role::firstOrCreate(['name'=>'judge']);
+        \App\Role::firstOrCreate(['name'=>'final_judge']);
 
         $members = \DB::table('users')->count();
         $memberIncrease = \DB::table('users')->where('created_at', '>', Carbon::now()->startOfWeek())
