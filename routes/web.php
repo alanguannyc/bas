@@ -470,13 +470,17 @@ Route::get('/judge/{id}',function () {
 })->middleware('judge');
 
 
-Route::get('/final', function (){
-    
-    
-    return view('layouts.judge.final');
 
-})->middleware('pwd');
 
+Route::group(['middleware' => ['auth','pwd']], function () {
+    
+    Route::get('/final', function (){
+    
+        return view('layouts.judge.final');
+    
+    });
+
+});
 
 Route::post('/update', 'ScoreController@updateAll');
 
