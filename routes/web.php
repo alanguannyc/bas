@@ -128,7 +128,7 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
         
     });
     
-Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','judge']], function(){
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','judge','final_judge']], function(){
     Route::group(['middleware' => ['profile']], function(){
         Route::get('/', 'HomeController@index');
     
