@@ -20,11 +20,25 @@ class IsFinalJudge
         //     "216","217","218","219"
         // );
         
+        $currentURL = app()->router->getCurrentRoute()->uri ;
 
-        if (\Auth::user()->isFinalJudge()) {
-            // return redirect('admin');
+        $judgeURL = 'final';
+
+        if (\Auth::user()->isFinalJudge() && $currentURL == $judgeURL ) {
+            
             return $next($request);
-        }
+
+        } else if (\Auth::user()->isFinalJudge()) {
+           
+            return redirect('/final');
+
+        };
           return redirect('/');
+
+        // if (\Auth::user()->isFinalJudge()) {
+        //     // return redirect('admin');
+        //     return $next($request);
+        // }
+        //   return redirect('/');
     }
 }

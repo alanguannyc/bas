@@ -476,6 +476,7 @@ Route::group(['middleware' => ['auth','final_judge']], function () {
     
     Route::get('/final', function (){
     
+        
         return view('layouts.judge.final');
     
     });
