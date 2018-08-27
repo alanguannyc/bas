@@ -397,6 +397,39 @@ $(document).ready(function(){
             tr.addClass('shown');
         }
     } );
+
+    var winner_list_table = $('#winner_list_table').DataTable(
+        {
+            "pagingType": "full_numbers",
+            "order": [[ 0, "desc" ]],
+            "ajax":{"url":"/api/v1/finalScores","dataSrc":""},
+            "columnDefs": [ {
+                "targets": 1,
+                "render": function ( data, type, row, meta ) {
+                    return '<a href="'+'/nomination/'+row.id+'">'+data+'</a>'
+                  }
+
+                },
+                
+              ],
+              dom: 'fBrtip',
+              buttons: [
+                'csv', 'excel'
+            ],
+            columns: [
+                
+                { data: 'category' },
+                { data: 'name' },
+                { data: 'title' },
+                { data: 'hotel' },
+                { data: 'total_final_score_1' },
+                { data: 'total_final_score_2' },
+                { data: 'total_final_score_3' },
+                { data: 'total_final_score_4' }
+            ]
+        }
+    );
+
 })
             
 

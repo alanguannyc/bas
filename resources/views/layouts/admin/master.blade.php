@@ -38,6 +38,9 @@
     {{-- <link href="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/jqueryui-editable/css/jqueryui-editable.css" rel="stylesheet"/> --}}
 
     <link href="../../assets/jqueryui-editable/css/jqueryui-editable.css" rel="stylesheet">
+
+    @yield('style')
+    
     
   </head>
   
@@ -132,7 +135,7 @@
      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
    
     <!-- Scripts -->
-    <script src="{{ asset('js/admin.js?v=3.4') }}"></script>
+    <script src="{{ asset('js/admin.js?v=3.5') }}"></script>
     <!-- Custom Theme Scripts -->
     <script src="../../build/js/custom.min.js"></script>
     
