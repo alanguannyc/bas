@@ -236,20 +236,23 @@ class WinnersController extends Controller
         $nominations = DB::table('nominations')
         ->leftJoin('final_scores as judge_1', function($query) {
             $query->on('nominations.id', '=', 'judge_1.nomination_id')
-            ->where('judge_1.user_id','=',1);
+            ->where('judge_1.user_id','=',216);
         })
         ->leftJoin('final_scores as judge_2', function($query) {
             $query->on('nominations.id', '=', 'judge_2.nomination_id')
-            ->where('judge_2.user_id','=',2);
+            ->where('judge_2.user_id','=',217);
         })
         ->leftJoin('final_scores as judge_3', function($query) {
             $query->on('nominations.id', '=', 'judge_3.nomination_id')
-            ->where('judge_3.user_id','=',3);
+            ->where('judge_3.user_id','=',218);
         })
         ->leftJoin('final_scores as judge_4', function($query) {
             $query->on('nominations.id', '=', 'judge_4.nomination_id')
-            ->where('judge_4.user_id','=',4);
+            ->where('judge_4.user_id','=',219);
         })
+        
+        
+
         ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
         ->select('nominations.*', DB::raw('ANY_VALUE(profiles.company) as hotel'), 
         DB::raw('(COALESCE(judge_1.q1, 0) + COALESCE(judge_1.q2,0) + COALESCE(judge_1.q3,0) + COALESCE(judge_1.q4,0) + COALESCE(judge_1.q5,0)) as total_final_score_1'),

@@ -62,9 +62,9 @@
               <th>Title</th>
               <th>Hotel</th>
               <th>Alan Steel</th>
-              <th>Alan Steel</th>
-              <th>Alan Steel</th>
-              <th>Alan Steel</th>
+              <th>Bjorn Hanson, Ph.D.</th>
+              <th>Almerinda Forte</th>
+              <th>Larry's Lawrence</th>
           </tr>
       </thead>
       
