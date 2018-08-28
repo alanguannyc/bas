@@ -104,7 +104,8 @@ class AdminController extends WinnersController
     {
         $winners = WinnersController::winner();
 
-        if($winners) {
+
+        if($winners != null) {
             return view('layouts.admin.index-winner-list')->with('winners', $winners);
         } else {
             return view('layouts.admin.index-winner-list');
