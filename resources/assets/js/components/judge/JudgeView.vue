@@ -1,6 +1,6 @@
 <template>
     <div class="container" >
-        <div v-show="!lastPage">
+        <!-- <div v-show="!lastPage">
         <b-card no-body >
         <b-tabs pills card vertical >
             <div v-for="nomination in nominations" v-bind:key="nomination.id">
@@ -27,12 +27,12 @@
         <div class="thankyou" v-show="lastPage">
             <h3>Thanks for your participation!</h3>
             
-        </div>
+        </div> -->
 
-        <!-- <div class="thankyou" >
+        <div class="thankyou" >
             <h3>Thanks for your participation!</h3>
             
-        </div> -->
+        </div>
     </div>
 </template>
 <script>

@@ -33524,110 +33524,20 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: !_vm.lastPage,
-            expression: "!lastPage"
-          }
-        ]
-      },
-      [
-        _c(
-          "b-card",
-          { attrs: { "no-body": "" } },
-          [
-            _c(
-              "b-tabs",
-              { attrs: { pills: "", card: "", vertical: "" } },
-              _vm._l(_vm.nominations, function(nomination) {
-                return _c(
-                  "div",
-                  { key: nomination.id },
-                  [
-                    _c(
-                      "b-tab",
-                      { attrs: { title: nomination.category } },
-                      [_c("judge-show", { attrs: { data: nomination } })],
-                      1
-                    )
-                  ],
-                  1
-                )
-              })
-            )
-          ],
-          1
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          [
-            _c(
-              "b-btn",
-              {
-                staticClass: "left",
-                attrs: { variant: "secondary" },
-                on: {
-                  click: function($event) {
-                    _vm.previousTab()
-                  }
-                }
-              },
-              [
-                _c("i", { staticClass: "material-icons" }, [
-                  _vm._v("\n    navigate_before\n    ")
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "b-btn",
-              {
-                staticClass: "right",
-                attrs: { variant: "secondary" },
-                on: {
-                  click: function($event) {
-                    _vm.nextTab()
-                  }
-                }
-              },
-              [
-                _c("i", { staticClass: "material-icons" }, [
-                  _vm._v("\n    navigate_next\n    ")
-                ])
-              ]
-            )
-          ],
-          1
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        directives: [
-          {
-            name: "show",
-            rawName: "v-show",
-            value: _vm.lastPage,
-            expression: "lastPage"
-          }
-        ],
-        staticClass: "thankyou"
-      },
-      [_c("h3", [_vm._v("Thanks for your participation!")])]
-    )
-  ])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "thankyou" }, [
+        _c("h3", [_vm._v("Thanks for your participation!")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
