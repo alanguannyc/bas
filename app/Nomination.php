@@ -39,7 +39,7 @@ class Nomination extends Model
         // foreach($score as $key=>$val) {
         //     array_push($results, $obj);
         // }
-        $this->final_score()->updateOrCreate(['nomination_id'=>$this->id],['user_id'=>auth()->id(),'q1'=>$final_score->q1, 'q2'=>$final_score->q2, 'q3'=>$final_score->q3,'q4'=>$final_score->q4,'q5'=>$final_score->q5]);
+        $this->final_score()->updateOrCreate(['user_id'=>auth()->id()],['nomination_id'=>$this->id,'q1'=>$final_score->q1, 'q2'=>$final_score->q2, 'q3'=>$final_score->q3,'q4'=>$final_score->q4,'q5'=>$final_score->q5]);
 
     }
 }

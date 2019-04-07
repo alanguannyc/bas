@@ -22,6 +22,10 @@
         <li><a href="/admin/final"><i class="fa fa-clone"></i> Final List </span></a>
           
         </li> 
+        
+        <li><a href="/admin/winner"><i class="fa fa-trophy"></i> Winners </span></a>
+          
+        </li> 
       </ul>
     </div>
 

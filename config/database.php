@@ -50,6 +50,10 @@ return [
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
+            // Behave like MySQL 5.6
+            'strict' => false,
+
+            // Behave like MySQL 5.7
             'strict' => false,
             'engine' => null,
         ],
