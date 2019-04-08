@@ -32,10 +32,12 @@
 
 <script>
 import VueModal from './VueModal.vue'
+
     export default {
         data(){
             return{
-                nominations: ''
+                nominations: '',
+                setting:'',
             }
         },
 
@@ -62,6 +64,8 @@ import VueModal from './VueModal.vue'
             'vue-modal':VueModal
         },
         mounted() {
+
+            console.log(this.$applicationRuning)
             var app = this;
             axios.get('/api/v1/nominations')
                 .then(function (resp) {
@@ -72,6 +76,15 @@ import VueModal from './VueModal.vue'
                     // alert("Could not load nominations");
                 });
             
+            axios.get('/api/v1/setting')
+                .then(function (resp) {
+                    app.setting = resp.data;
+                    console.log(app.setting)
+                })
+                .catch(function (resp) {
+                    console.log(resp);
+                    // alert("Could not load nominations");
+                });
         },
         methods: {
             

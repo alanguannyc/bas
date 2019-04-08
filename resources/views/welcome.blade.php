@@ -14,14 +14,14 @@
         <!-- Styles -->
         <style>
             html, body {
-                background: url("images/bas.jpg");
+                background: url("images/heroimage.jpg");
                 background-position: center;
                 background-repeat: no-repeat;
                 background-size: cover;
                 background-color: #fff;
                 color: white;
                 font-family: 'Raleway', sans-serif;
-                font-weight: 500;
+                font-weight: 800;
                 height: 100vh;
                 margin: 0;
             }
@@ -68,7 +68,7 @@
                 margin-bottom: 30px;
             }
             .btn{
-                font-weight: 500;
+                font-weight: 900;
             }
 
             

@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
         \App\Role::firstOrCreate(['name'=>'judge']);
         \App\Role::firstOrCreate(['name'=>'final_judge']);
 
+
         $members = \DB::table('users')->count();
         $memberIncrease = \DB::table('users')->where('created_at', '>', Carbon::now()->startOfWeek())
         ->where('created_at', '<', Carbon::now()->endOfWeek())

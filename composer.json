@@ -10,6 +10,7 @@
         "doctrine/dbal": "^2.7",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
+        "hisorange/browser-detect": "^3.1",
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0"
     },
@@ -57,6 +58,7 @@
         "sort-packages": true,
         "optimize-autoloader": true
     },
+    
     "minimum-stability": "dev",
     "prefer-stable": true
 }

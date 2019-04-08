@@ -33,7 +33,7 @@ const app = new Vue({
     // components: { App },
     // template: '<App/>'
 });
-Vue.config.productionTip = false;
+
 
 
 function format ( d ) {

@@ -86,8 +86,8 @@ pageview
   </div>
 <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination" disabled>Save changes</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteNomination" disabled>Delete</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination" >Save changes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteNomination" >Delete</button>
       </div>
   
 </form>

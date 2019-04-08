@@ -63,6 +63,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
         });
 
         Route::get('history', function() {
+            
             return view('layouts.member.history');
         });
     });
@@ -74,6 +75,15 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
 
 //api routes
 Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
+    Route::group(['prefix' => 'setting'], function(){
+        Route::post('/application_on', 'SettingController@ApplicationOn');
+        Route::post('/application_off', 'SettingController@ApplicationOff');
+
+
+        Route::get('/','SettingController@all');
+    });
+
+
     Route::post('/score', 'ScoreController@store');
     Route::post('/updateEmptyScore', 'ScoreController@updateEmptyScore');
     
@@ -207,48 +217,5 @@ Route::post('/update', 'ScoreController@updateAll');
 
 
 
-
-Route::get('/year', function(){
-
-
-    $nominations = \App\Nomination::select('*')
-    ->where('user_id','=',6)
-    ->orderBy('created_at','DESC')
-    ->get()
-    // ->unique('user_id')
-
-    // ->select(DB::raw('*, created_at as createdAt'))
-
-    // ->orderBy('createdAt', 'desc')
-    
-    // ->latest('created_at')
-    // ->get()
-    // ->groupBy('user_id')
-    // ;
-    ->groupBy(function($date) {
-        return Carbon::parse($date->created_at)->format('Y'); // grouping by years
-        //return Carbon::parse($date->created_at)->format('m'); // grouping by months
-    })
-    ->toArray()
-    ;
-
-    // $nominations = \App\Nomination::all()
-    // ->orderBy('created_at','DESC')
-    // ->groupBy('user_id')
-    // ->latest('createdAt')
-    // ->first();
-    // ->where('user_id','=',6)
-    
-    // $userNominations = DB::table(DB::raw("({$nominations->toSql()}) as sub"))
-    
-    // $nominations = $nominations
-    // ->groupBy('user_id');
-
-
-    // $nominations=$nominations->sort();
-
-   
-
-    return $nominations;
-});
+Route::get('/year', 'SettingController@endApplication');
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="row">
         <div class="col-lg-12 col-md-12" v-if="nominations ==''">
               <div class="card">
                   <div class="card-header card-header-tabs card-header-primary">
@@ -44,7 +44,7 @@
                                 <td><h5>{{ nomination.name}}</h5></td>
                                 <td>{{ nomination.created_at}}</td>
                                 <td>
-                                    <vue-modal :data="nomination" ></vue-modal>
+                                    <history-modal :data="nomination" ></history-modal>
                                 </td>
                                 </tr>
                             </tbody>
@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import VueModal from './VueModal.vue'
+import HistoryModal from './HistoryModal.vue'
     export default {
         data(){
             return{
@@ -92,7 +92,7 @@ import VueModal from './VueModal.vue'
                     
         //             },
         components:{
-            'vue-modal':VueModal
+            'history-modal':HistoryModal
         },
         mounted() {
             var app = this;
@@ -107,15 +107,23 @@ import VueModal from './VueModal.vue'
                             .sort()
                             .reverse()
                             .forEach(key => {
-                            newArray.push( {
-                            'date':key, 
-                            'nominations':obj[key]
-                            })
+                                var d = new Date();
+                                var n = d.getFullYear();
+                                if(key != n) {
+                                    newArray.push( {
+                                    'date':key, 
+                                    'nominations':obj[key]
+                                    })
+                                }
+                            
                             })
                         return newArray  
                         }
-                    app.nominations = arrayReverseObj(resp.data)
+                        var d = new Date();
+                        var n = d.getFullYear();
 
+                    app.nominations = arrayReverseObj(resp.data)
+        
 
                 })
                 .catch(function (resp) {

@@ -39,8 +39,10 @@ Vue.component('nominations-index', require('./components/member/NominationsIndex
 Vue.component('add-nominee', require('./components/member/AddNominee.vue'));
 Vue.component('nominations-history', require('./components/member/NominationsHistory.vue'));
 
+Vue.prototype.$applicationRuning = true
 const app = new Vue({
     el: '#member',
+    
     // router,
     // components: { App },
     // template: '<App/>'

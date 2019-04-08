@@ -4,11 +4,11 @@
 
 <div class="container-fluid">
 
-  <div class="row">
+  
         <nominations-history></nominations-history>
           
           
-      </div>
+     
         
 </div>
 
