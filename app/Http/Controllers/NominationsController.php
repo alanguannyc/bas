@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Nomination;
 use Illuminate\Support\Facades\DB;
@@ -87,14 +88,29 @@ class NominationsController extends Controller
     public function show()
     {
         
-        $nomination = Nomination::where('user_id','=',auth()->id())->get();
+        $nomination = Nomination::where('user_id','=',auth()->id())
+        ->whereYear('created_at', date('Y'))
+        ->get();
         
         return $nomination;
+    }
+
+    public function history()
+    {
+        $nominations = DB::table('nominations')
+        ->where('user_id','=',auth()->id())
+        ->orderBy('created_at','DESC')
+        ->get()
+        ->groupBy(function($date) {
+            return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+            //return Carbon::parse($date->created_at)->format('m'); // grouping by months
+        });
+        return $nominations;
     }
     
     public function showforadmin($id)
     {
-        $nominations = Nomination::where('user_id','=',$id)->get();
+        $nominations = Nomination::where('user_id','=',$id);
         return view('layouts.admin.show-nomination');
     }
     /**

@@ -1,15 +1,18 @@
 <?php
-
-
+use Carbon\Carbon;
+//Home page route
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+//Auth routes
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 Route::get('/logout' , 'Auth\LoginController@logout');
 
+
+//Admin routes
 Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function()
     {
         Route::get('/', 'AdminController@index')->name('admin');
@@ -46,14 +49,21 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
         Route::get('/winner', 'AdminController@winners');
         
     });
-    
-Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','judge','final_judge']], function(){
+//Members panel
+Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
     Route::group(['middleware' => ['profile']], function(){
         Route::get('/', 'HomeController@index');
     
         Route::get('nominations', function() {
-            $count = \App\Nomination::where('user_id','=',auth()->id())->count();
+            $count = \App\Nomination::where('user_id','=',auth()->id())
+            ->whereYear('created_at', date('Y'))
+            ->get()
+            ->count();
             return view('layouts.member.nomination')->with('count',$count);
+        });
+
+        Route::get('history', function() {
+            return view('layouts.member.history');
         });
     });
 
@@ -62,6 +72,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth','judge','final_ju
     });
 });
 
+//api routes
 Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     Route::post('/score', 'ScoreController@store');
     Route::post('/updateEmptyScore', 'ScoreController@updateEmptyScore');
@@ -73,6 +84,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     Route::post('/profile/{id}', 'ProfileController@update');
 
     Route::get('/nominations', 'NominationsController@show');
+    Route::get('/history', 'NominationsController@history');
     Route::get('/nominations/{id}/edit', 'NominationsController@edit');
     Route::post('/nominations/{id}', 'NominationsController@update');
     Route::delete('/nominations/{id}', 'NominationsController@destroy');
@@ -192,4 +204,51 @@ Route::group(['middleware' => ['auth','final_judge']], function () {
 
 Route::post('/update', 'ScoreController@updateAll');
 
+
+
+
+
+Route::get('/year', function(){
+
+
+    $nominations = \App\Nomination::select('*')
+    ->where('user_id','=',6)
+    ->orderBy('created_at','DESC')
+    ->get()
+    // ->unique('user_id')
+
+    // ->select(DB::raw('*, created_at as createdAt'))
+
+    // ->orderBy('createdAt', 'desc')
+    
+    // ->latest('created_at')
+    // ->get()
+    // ->groupBy('user_id')
+    // ;
+    ->groupBy(function($date) {
+        return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+        //return Carbon::parse($date->created_at)->format('m'); // grouping by months
+    })
+    ->toArray()
+    ;
+
+    // $nominations = \App\Nomination::all()
+    // ->orderBy('created_at','DESC')
+    // ->groupBy('user_id')
+    // ->latest('createdAt')
+    // ->first();
+    // ->where('user_id','=',6)
+    
+    // $userNominations = DB::table(DB::raw("({$nominations->toSql()}) as sub"))
+    
+    // $nominations = $nominations
+    // ->groupBy('user_id');
+
+
+    // $nominations=$nominations->sort();
+
+   
+
+    return $nominations;
+});
 

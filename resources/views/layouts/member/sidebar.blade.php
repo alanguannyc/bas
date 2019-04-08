@@ -29,6 +29,12 @@ Tip 2: you can also add an image using data-image tag
                   <p>Nominations</p>
               </a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/dashboard/history">
+                <i class="material-icons">history</i>
+                <p>History</p>
+            </a>
+        </li>
           
           
       </ul>

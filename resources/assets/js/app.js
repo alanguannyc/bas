@@ -37,7 +37,7 @@ window.Vue = require('vue');
 Vue.component('member-profile', require('./components/member/MemberProfile.vue'));
 Vue.component('nominations-index', require('./components/member/NominationsIndex.vue'));
 Vue.component('add-nominee', require('./components/member/AddNominee.vue'));
-
+Vue.component('nominations-history', require('./components/member/NominationsHistory.vue'));
 
 const app = new Vue({
     el: '#member',
