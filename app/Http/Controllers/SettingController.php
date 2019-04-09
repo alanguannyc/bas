@@ -10,7 +10,7 @@ class SettingController extends Controller
     {
         $setting = \App\Setting::find(1);
         if ($setting) {
-            $setting->application_on = false;
+            $setting->application_on = true;
             $setting->save();
         } else {
             $setting = \App\Setting::create([
@@ -38,10 +38,12 @@ class SettingController extends Controller
     {
         
         $setting = \App\Setting::find(1);
-        if ($setting) {
-            $setting->application_on = false;
-            return $setting;
-        } 
+        if ($setting->application_on){
+            $setting->application_on=true;
+        } else{
+            $setting->application_on=false;
+        }
+        return $setting;
         
     }
 }

@@ -48,6 +48,10 @@ Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function(
 
         Route::get('/winner', 'AdminController@winners');
         
+
+        Route::get('/setting', function () {
+            return view('layouts.admin.setting');   
+        });
     });
 //Members panel
 Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
@@ -59,7 +63,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function(){
             ->whereYear('created_at', date('Y'))
             ->get()
             ->count();
-            return view('layouts.member.nomination')->with('count',$count);
+
+            $setting = \App\Setting::find(1);
+            return view('layouts.member.nomination')->with('count',$count)->with('setting',$setting);
         });
 
         Route::get('history', function() {
@@ -217,5 +223,5 @@ Route::post('/update', 'ScoreController@updateAll');
 
 
 
-Route::get('/year', 'SettingController@endApplication');
+Route::get('/year', 'SettingController@ApplicationOn');
 

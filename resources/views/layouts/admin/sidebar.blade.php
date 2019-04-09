@@ -26,6 +26,10 @@
         <li><a href="/admin/winner"><i class="fa fa-trophy"></i> Winners </span></a>
           
         </li> 
+
+        <li><a href="/admin/setting"><i class="fa fa-cog"></i> Settings </span></a>
+          
+        </li> 
       </ul>
     </div>
 

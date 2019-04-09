@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         $hotelIncrease = \DB::table('profiles')->where('created_at', '>', Carbon::now()->startOfWeek())
         ->where('created_at', '<', Carbon::now()->endOfWeek())
         ->count();
-        $nominations = \DB::table('nominations')->count();
+        $nominations = \DB::table('nominations')->whereYear('created_at',  date('Y'))->get()->count();
         $nominationIncrease = \DB::table('nominations')->where('created_at', '>', Carbon::now()->startOfWeek())
         ->where('created_at', '<', Carbon::now()->endOfWeek())
         ->count();

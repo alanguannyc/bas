@@ -26,13 +26,17 @@ Vue.component('nomination-show', require('./components/admin/NominationShow.vue'
 Vue.component('nomination-add', require('./components/admin/NominationAdd.vue'));
 Vue.component('user-index', require('./components/admin/UserIndex.vue'));
 Vue.component('judge-nomination', require('./components/admin/JudgeNomination.vue'));
+Vue.component('setting', require('./components/admin/setting.vue'));
 
+import { ToggleButton } from 'vue-js-toggle-button'
+Vue.component('ToggleButton', ToggleButton)
 const app = new Vue({
     el: '#admin'
     
     // components: { App },
     // template: '<App/>'
 });
+
 
 
 
