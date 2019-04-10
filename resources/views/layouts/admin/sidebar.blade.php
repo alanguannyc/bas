@@ -8,7 +8,7 @@
         <li><a href="/admin/nominations"><i class="fa fa-bar-chart-o"></i> Nominations </a>
           
         </li>
-        <li><a href="/admin/member"><i class="fa fa-user"></i> Members</a>
+        <li><a href="/admin/member"><i class="fa fa-user"></i> Users </a>
           
         </li>
         

@@ -173,23 +173,18 @@ var _ = require('lodash');
             var app = this;
             var url = purl(window.location.href)
             var $uid=url.segment(-1)
-            
-            
 
             axios.get(`/api/v1/member/`+$uid)
                 .then(function (resp) {
                    
-                    
                     if (resp.data.nomination){
                         app.nominations = resp.data.nomination;
-
                     }
                     
                     if(resp.data.member) {
                         app.member = resp.data.member
-
                     }
-                    
+
                     if (resp.data.member.profile) {
                         app.profile = resp.data.member.profile;
                     }
@@ -197,8 +192,6 @@ var _ = require('lodash');
                     if (resp.data.member.roles[0]) {
                         app.role = resp.data.member.roles[0];
                     }
-                    
-                    
                     
                 })
                 .catch(function (resp) {
@@ -244,15 +237,16 @@ var _ = require('lodash');
                     role: app.role.name
                     }
                 var newProfile = app.profile
-                
+                //Update Members
                 axios.post(`/api/v1/member/`+uid, newMember)
                     .then(function (resp) {
-                        //alert success
+                        //Update Profile
                         axios.post(`/api/v1/profile/`+uid, newProfile)
                         .then(function (resp) {
-                            //alert success
+                            //Update Role
                             axios.patch(`/api/v1/role/`+uid, newMember )
                             .then(function (resp) {
+
                             //alert success
                             $('.profilePanel').show();
                             $('.updatePanel').hide();

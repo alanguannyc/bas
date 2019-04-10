@@ -117,7 +117,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     Route::get('/member/{id}', function($id){
         
         $data['nomination']=\App\Nomination::where('user_id','=', $id)->get();
-        $data['member']=\App\User::with(['profile','roles'])->get()->find($id);
+        $data['member']=\App\User::with(['profile','roles'])->find($id);
         
         return $data;
     });
@@ -135,9 +135,12 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     });
     
     Route::get('/judge', function(){
-        $users = \App\User::whereHas('roles', function ($query) {
-            $query->where('name', 'judge');
-        })->orderBy('created_at', 'desc')->get();
+        // $users = \App\User::whereHas('roles', function ($query) {
+        //     $query->where('name', 'judge');
+        // })->orderBy('created_at', 'desc')->get();
+        $users = \App\Judge::has('nominations')
+        ->with('nominations')
+        ->orderBy('created_at', 'desc')->get();
         return $users;
     });
     Route::get('/judge/{id}', function($id){

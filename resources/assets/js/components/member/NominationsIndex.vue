@@ -2,7 +2,7 @@
     <div class="container">
         <div v-if="nominations ==''">
             <h4>Start submitting your nominations</h4>
-            <button class="btn btn-primary add">Start</button>
+            <button class="btn btn-primary add" :disabled="!setting.application_on">Start</button>
         </div>
     <table class="table table-hover" v-else>
     <thead>
@@ -37,24 +37,41 @@ import VueModal from './VueModal.vue'
         data(){
             return{
                 nominations: '',
-                setting:'',
+                setting:{
+                    application_on:''
+                },
             }
         },
 
         // props: ['nominations'],
         watch: {
+                'setting': {
+                    handler: function (newData, oldData){
+                    var app = this;
+                    axios.get('/api/v1/setting')
+                    .then(function (resp) {
+                        app.setting = resp.data;
+
+                    })
+                    .catch(function (resp) {
+                        console.log(resp);
+                        // alert("Could not load nominations");
+                    });
+                        deep: true
+                    }
+                },
                 'nominations': {
                     handler: function (newData, oldData){
-                     var app = this;
-            axios.get('/api/v1/nominations')
-                .then(function (resp) {
-                    app.nominations = resp.data;
-                })
-                .catch(function (resp) {
-                    console.log(resp);
-                    // alert("Could not load nominations");
-                });
-                deep: true
+                    var app = this;
+                    axios.get('/api/v1/nominations')
+                    .then(function (resp) {
+                        app.nominations = resp.data;
+                    })
+                    .catch(function (resp) {
+                        console.log(resp);
+                        // alert("Could not load nominations");
+                    });
+                        deep: true
                     }
                     
                     }
@@ -65,7 +82,7 @@ import VueModal from './VueModal.vue'
         },
         mounted() {
 
-            console.log(this.$applicationRuning)
+            
             var app = this;
             axios.get('/api/v1/nominations')
                 .then(function (resp) {
@@ -79,7 +96,7 @@ import VueModal from './VueModal.vue'
             axios.get('/api/v1/setting')
                 .then(function (resp) {
                     app.setting = resp.data;
-                    console.log(app.setting)
+
                 })
                 .catch(function (resp) {
                     console.log(resp);

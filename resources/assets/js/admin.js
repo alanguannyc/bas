@@ -142,12 +142,24 @@ $(document).ready(function(){
         {   
             "order": [[ 7, "desc" ]],
             "ajax":{"url":"/api/v1/member/nominations","dataSrc":""},
-            "columnDefs": [ {
+            "columnDefs": [ 
+                {
                 
                     "targets": 6,
                     "render": function ( data, type, row, meta ) {
                         if(data != null){
                             return '<a href="'+'/admin/member/'+data.id+'">'+data.name+'</a>'
+                        }
+                    }
+
+                },
+                {
+                
+                    "targets": 7,
+                    "render": function ( data, type, row, meta ) {
+
+                        if(data != null){
+                            return '<a href="'+'/admin/judge/'+data.id+'">'+data.name+'</a>'
                         }
                     }
 
@@ -196,24 +208,15 @@ $(document).ready(function(){
                     "data":           null,
                     "defaultContent": 'view'
                 },
-                // {data: 'id'},
                 { data: 'category' },
                 { data: 'name' },
                 { data: 'title'},
                 { data: 'score' },
-                // { data: 'q1',
-                // "defaultContent": "<i>Not set</i>" },
-                // { data: 'q2',
-                // "defaultContent": "<i>Not set</i>" },
-                // { data: 'q3',
-                // "defaultContent": "<i>Not set</i>" },
-                // { data: 'q4',
-                // "defaultContent": "<i>Not set</i>" },
-                // { data: 'q5',
-                // "defaultContent": "<i>Not set</i>" },
                 { data: 'user.profile.company',
                 "defaultContent": "<i>Not set</i>" },
                 { data: 'user'},
+                { data: 'judge', 
+                "defaultContent": "<i>Not set</i>"},
                 { data: 'created_at' },
             ],
             dom: 'Bfrtip',
@@ -283,11 +286,8 @@ $(document).ready(function(){
                 {
                     "targets": 3,
                     "render": function ( data, type, row, meta ) {
-                        if (meta.row == 0) {
-                            return '0~9'
-                        } else if (meta.row >= 1) {
-                            return meta.row*10 + '~' + (meta.row*10 + 10)
-                        }
+
+                            return data.length
                         }
         
                     }
@@ -302,7 +302,7 @@ $(document).ready(function(){
                 },
                 { data: 'name' },
                 { data: 'email' },
-                { data: 'id',
+                { data: 'nominations',
                 "defaultContent": "<i>Not set</i>" },
                 
                 { data: 'updated_at' },

@@ -38,7 +38,9 @@ class NominationsController extends Controller
 
     public function index()
     {        
-        return $nominations = Nomination::with(['user.profile','score'])->get();
+        return $nominations = Nomination::with(['user.profile','score','judge'])
+        ->whereYear('created_at',date('Y'))
+        ->get();
 
     }
 
@@ -87,6 +89,11 @@ class NominationsController extends Controller
      */
     public function show()
     {
+        // $nomination = Nomination::whereHas('users',function ($query) {
+        //     $query->where('user_id', '=', 1);
+        // })
+        // ->whereYear('created_at', date('Y'))
+        // ->get();
         
         $nomination = Nomination::where('user_id','=',auth()->id())
         ->whereYear('created_at', date('Y'))
@@ -121,8 +128,16 @@ class NominationsController extends Controller
      */
     public function edit($id)
     {
-        
-        // $nomination = Nomination::with(['user.profile','score', 'final_score'])->find($id);
+        // $nomination = \App\Nomination::
+        // whereHas('users', function ($query) {
+        //     $query->where('user_id', '=', 1);
+        // })
+        // ->with(['user.profile','score','final_score' => function ($query) {
+        //     $query->where('user_id', '=', auth()->id());
+        // }])
+        // ->find($id);
+
+
         $nomination = Nomination::with(['user.profile','score','final_score' => function ($query) {
             $query->where('user_id', '=', auth()->id());
         }])->find($id);

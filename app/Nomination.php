@@ -12,6 +12,14 @@ class Nomination extends Model
        return $this->belongsTo('App\User');
     }
 
+    public function judge() {
+        return $this->belongsTo('App\Judge');
+    }
+
+    // public function final_judge() {
+    //     return $this->belongsTo('App\Final_judge');
+    // }
+
     public function score()
     {
         return $this->hasOne('App\Score');

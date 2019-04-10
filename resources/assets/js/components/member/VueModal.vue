@@ -13,7 +13,7 @@ pageview
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content" >
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">
+        <h5  class="modal-title" id="exampleModalLongTitle">
             <!-- <slot name="title">
             I'm the default title!
           </slot> -->
@@ -21,6 +21,8 @@ pageview
         
           
           </h5>
+       
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -33,22 +35,24 @@ pageview
 <form >
 <div class="col-md-6 pr-1">
     
-    <label> Name</label>
-    <input v-model="nomination.name" type="text" class="form-control" placeholder="Name" >
+    <label > Name</label>
+    <div v-if="!setting.application_on">{{nomination.name}} </div>
+    <input v-else v-model="nomination.name" type="text" class="form-control" placeholder="Name" >
     
 </div>
 <div class="col-md-6 pr-1">
     
     <label> Title </label>
-    <input v-model="nomination.title" type="text" class="form-control" placeholder="Title" required="true">
+    <div v-if="!setting.application_on">{{nomination.title}} </div>
+    <input v-else v-model="nomination.title" type="text" class="form-control" placeholder="Title" required="true">
     
 </div>
 <!-- Question 1 -->
 <div class="col-md-12">
 
     <label  for="exampleFormControlTextarea1">1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example.</label>
-    
-    <textarea v-model="nomination.q1" class="form-control textarea"  id="exampleFormControlTextarea1" rows="3"></textarea>
+    <div v-if="!setting.application_on" v-html="nomination.q1"> </div>
+    <textarea v-else v-model="nomination.q1" class="form-control textarea"  id="exampleFormControlTextarea1" rows="3"></textarea>
     
 
   </div>
@@ -56,38 +60,40 @@ pageview
 <!-- Question 2 -->
 <div class="col-md-12">
     <label for="exampleFormControlTextarea1">2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples.</label>
-    
-    <textarea v-model="nomination.q2" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <div v-if="!setting.application_on" v-html="nomination.q2"> </div>
+    <textarea v-else v-model="nomination.q2" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
     
   </div>
   <br>
 <!-- Question 3 -->
 <div class="col-md-12">
     <label for="exampleFormControlTextarea1">3.    Describe the interaction of the employee with guests. Please cite specific examples of the employee’s positive impact on the guest experience at your hotel.</label>
-    
-        <textarea v-model="nomination.q3" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <div v-if="!setting.application_on" v-html="nomination.q3"> </div>
+        <textarea v-else v-model="nomination.q3" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
      
   </div>
   <br>
 <!-- Question 4 -->
 <div class="col-md-12">
     <label for="exampleFormControlTextarea1">4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers.</label>
-   
-        <textarea v-model="nomination.q4" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
+   <div v-if="!setting.application_on" v-html="nomination.q4"> </div>
+        <textarea v-else v-model="nomination.q4" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
   
   </div>
   <br>
   <!-- Question 5 -->
 <div class="col-md-12">
     <label  for="exampleFormControlTextarea1">5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards.</label>
-   
-        <textarea v-model="nomination.q5" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
+    
+    <div v-if="!setting.application_on" v-html="nomination.q5"> </div>
+    <textarea v-else v-model="nomination.q5" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
     
   </div>
 <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination" >Save changes</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteNomination" >Delete</button>
+        
+        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination" v-if="setting.application_on">Save changes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteNomination" v-if="setting.application_on">Delete</button>
       </div>
   
 </form>
@@ -104,6 +110,7 @@ pageview
 </template>
 
 <script>
+import _ from 'lodash'
     export default {
         data() {
             return {
@@ -117,17 +124,24 @@ pageview
                   q3:'',
                   q4:'',
                   q5:''
-                  }
+                  },
+                setting:
+                {
+                    application_on:''
+                }
                 }
         },
-        
 
         props: {
                 data: {
                         type: Object
                             }
                 },
+        beforeMount() {
+                
+        },
         mounted() {
+
                 var app = this;
                 var id = this.data.id;
                 axios.get(`/api/v1/nominations/${id}/edit`)
@@ -138,6 +152,16 @@ pageview
                         console.log(resp);
                         // alert("Could not load nominations");
                     });
+
+                axios.get('/api/v1/setting')
+                .then(function (resp) {
+                    app.setting = resp.data;
+                console.log(app.setting)
+                })
+                .catch(function (resp) {
+                    console.log(resp);
+                    // alert("Could not load nominations");
+                });
             },
         methods: {
             updateNomination() {
@@ -166,9 +190,13 @@ pageview
                 }
                 
                
-            }
-        }
+            },
+
+        },
+       
+    
     }
+    
     </script>
 
 <style >

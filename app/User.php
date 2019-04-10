@@ -40,10 +40,6 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role');
     }
 
-    // public function role() {
-    //     return $this->hasOne('App\Role');
-    // }
-
     public function profile()
     {
         return $this->hasOne('App\Profile');
@@ -63,11 +59,15 @@ class User extends Authenticatable
             
             
         }
-        // dd($nomination);
-        
+
+
         $this->nominations()->save($nomination);
-        
-        Mail::to(auth()->user())->send(new NewNominations($nomination));
+
+
+        if ($_ENV['APP_ENV'] == 'prod') {
+            Mail::to(auth()->user())->send(new NewNominations($nomination));
+        }
+       
     }
 
     public function addProfile($profile) {
