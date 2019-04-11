@@ -29,9 +29,14 @@ class Judge extends Model
         return $this->hasOne('App\Role');
     }
 
+    public function profile()
+    {
+        return $this->hasOne('App\Profile', 'user_id');
+    }
+
     public function AssignNominations() {
         //Find all nominations without Judges
-        $nominations = \App\Nomination::doesntHave('judge')->get();
+        $nominations = \App\Nomination::doesntHave('judge')->whereYear('created_at',date('Y'))->get();
         //Assign 10
         $total_unassigned_nominations = $nominations->count();
         $nominations_to_be_assigned = [];

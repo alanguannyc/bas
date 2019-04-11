@@ -160,12 +160,18 @@
         <div class="x_content">
             
             <!-- <a :href="'/admin/member/'+nomination.user.id"><h4>{{ nomination.user.name }}</h4></a> -->
-          <ul class="list-group" >
-             <li class="list-group-item">{{ judge.name }}</li>         
+          <ul class="list-group" v-if="judge">
+             <li class="list-group-item">{{ judge.name }}</li>      
+             <li class="list-group-item">{{ judge.profile.company }}</li>      
             <li class="list-group-item">{{ judge.email }}</li>
             
 
           </ul>
+          <div >
+            
+            <select-judge  :data="nomination" @updateJudge="updateJudge"></select-judge>
+            <button v-if="judge" type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteFromJudge">Remove From This Judge</button>
+          </div>
   
         </div>
       </div>
@@ -177,12 +183,15 @@
 
 <script>
     import { showSucess } from '../../admin.js'
+
+    // import SelectJudge from './SelectJudge.vue'
+
     export default {
         data() {
             return {
               nomination:
                 {
-                    id:'',
+                  id:'',
                   category:'',
                   title:'',
                   name:'',
@@ -193,6 +202,7 @@
                   q5:'',
                   user:''
                   },
+
                   score:'',
                   judge:'',
                   pageIndex:'',
@@ -201,6 +211,7 @@
               
                 }
         },
+        
         computed: {
             lastPage: function () {
                 
@@ -223,12 +234,23 @@
         //                 type: Object
         //                     }
         //         },
+        components: {
+
+        // "select-judge" : SelectJudge
+    },  
+    watch:{
+      judge: function(val){
+
+        _.debounce(this.updateJudge, 500)
+      }, 
+      deep: true
+    },
         mounted() {
             
                 var app = this;
                 var url = purl(window.location.href)
-                var uid=url.segment(-1)
-
+                var uid = url.segment(-1)
+              
                 var key = Math.floor(uid/10)
                 
                 var id = parseInt(url.segment(-1))
@@ -236,17 +258,20 @@
                 axios.get(`/api/v1/member/nominations/`)
                 .then(function (resp) {
                 app.totalRecord = resp.data.length
+                // app.judge = resp.data.judge
+
                 app.pageIndex = resp.data.findIndex(function(e) {
                                 return e.id == id;
                                 })
                                 
                 })
-                
-                
+
                 axios.get(`/api/v1/nominations/`+uid+`/edit`)
                     .then(function (resp) {
                         app.nomination = resp.data;
-                        
+
+                        app.judge = resp.data.judge
+
                         if (resp.data.score) {
                             app.score = resp.data.score
                         }
@@ -256,18 +281,33 @@
                     .catch(function (resp) {
                         console.log(resp);
                     });
-                axios.get(`/api/v1/judge/`)
+                
+                axios.get(`/api/v1/nominations/`+uid+`/edit`)
                     .then(function (resp) {
-                        // console.log(resp.data[key])
-                        if( resp.data[key]) {
-                            app.judge = resp.data[key]
+                        app.nomination = resp.data;
+                        app.judge = resp.data.judge
+                        if (resp.data.score) {
+                            app.score = resp.data.score
                         }
-                        
+
                         
                     })
                     .catch(function (resp) {
                         console.log(resp);
-                    })
+                    });
+
+                // axios.get(`/api/v1/judge/`)
+                //     .then(function (resp) {
+                //         // console.log(resp.data[key])
+                //         if( resp.data[key]) {
+                //             app.judge = resp.data[key]
+                //         }
+                        
+                        
+                //     })
+                //     .catch(function (resp) {
+                //         console.log(resp);
+                //     })
         
         },
         methods: {
@@ -339,7 +379,36 @@
                     
                     window.location.href = uid
                 })
-            }
+            },
+          deleteFromJudge() {
+            var app = this
+            var url = purl(window.location.href)
+                var id = parseInt(url.segment(-1))
+              if (confirm("Are you sure?")) {
+                axios.post(`/api/v1/nominations/${id}/judge`)
+                                .then(function (resp) {
+                                  app.judge = null
+                                    
+                    
+                                })
+                                .catch(function (resp) {
+                                    console.log(resp);
+                                });
+                }
+          },
+          updateJudge(variable) {
+
+              var app = this
+              axios.get(`/api/v1/nominations/`+variable.id+`/edit`)
+                    .then(function (resp) {
+
+                        app.judge = resp.data.judge
+ 
+
+                        
+                    })
+          },
+          
         }
     }
     </script>

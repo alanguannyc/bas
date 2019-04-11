@@ -26,6 +26,22 @@ class NominationsController extends Controller
         return view('nominationHome');
     }
 
+    public function removeJudge($id)
+    {
+        $nomination = Nomination::find($id);
+        $nomination -> judge_id = 0;
+        $nomination -> save();
+    }
+
+    public function updateJudge(Request $request)
+    {
+        $nomination = Nomination::find($request->id);
+        $nomination -> judge_id = $request->judge_id;
+        
+        $nomination -> save();
+        return($nomination);
+    }
+
     public function addByAdmin(Request $request)
     {     
         $user = \App\User::where('name','=',$request->user)->get();
@@ -138,7 +154,7 @@ class NominationsController extends Controller
         // ->find($id);
 
 
-        $nomination = Nomination::with(['user.profile','score','final_score' => function ($query) {
+        $nomination = Nomination::with(['judge','judge.profile','user.profile','score','final_score' => function ($query) {
             $query->where('user_id', '=', auth()->id());
         }])->find($id);
 

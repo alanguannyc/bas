@@ -27,7 +27,7 @@ Vue.component('nomination-add', require('./components/admin/NominationAdd.vue'))
 Vue.component('user-index', require('./components/admin/UserIndex.vue'));
 Vue.component('judge-nomination', require('./components/admin/JudgeNomination.vue'));
 Vue.component('setting', require('./components/admin/setting.vue'));
-
+Vue.component('select-judge', require('./components/admin/SelectJudge.vue'));
 import { ToggleButton } from 'vue-js-toggle-button'
 Vue.component('ToggleButton', ToggleButton)
 const app = new Vue({
@@ -279,7 +279,7 @@ $(document).ready(function(){
                 "targets": 0,
                 "render": function ( data, type, row, meta ) {
                     // console.log(meta)
-                    return '<a href="'+'/admin/judge/'+meta.row+'">View</a>';
+                    return '<a href="'+'/admin/judge/'+data.id+'">View</a>';
                   }
 
                 },

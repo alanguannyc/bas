@@ -103,6 +103,8 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     Route::get('/history', 'NominationsController@history');
     Route::get('/nominations/{id}/edit', 'NominationsController@edit');
     Route::post('/nominations/{id}', 'NominationsController@update');
+    Route::post('/nominations/{id}/judge', 'NominationsController@removeJudge');
+    Route::post('/updatejudge', 'NominationsController@updateJudge');
     Route::delete('/nominations/{id}', 'NominationsController@destroy');
     Route::post('/nominations', 'NominationsController@store');
     Route::post('/admin-nominations', 'NominationsController@addByAdmin');
@@ -139,28 +141,34 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         //     $query->where('name', 'judge');
         // })->orderBy('created_at', 'desc')->get();
         $users = \App\Judge::has('nominations')
-        ->with('nominations')
+        ->with('nominations','profile')
         ->orderBy('created_at', 'desc')->get();
         return $users;
     });
     Route::get('/judge/{id}', function($id){
         
-            if ($id == 0) {
-                $nominations = DB::table('nominations')
-                ->whereBetween('nominations.id', array(0, 10))
-                ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-                ->select('nominations.*', 'profiles.company', 'profiles.id as profile_id')
-                ->get();
-                return $nominations;
-            } else if ($id >= 1) {
-                $nominations = DB::table('nominations')
-                ->whereBetween('nominations.id', array($id*10+1, $id*10+10))
-                ->whereNotIn('nominations.id', [19])
-                ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-                ->select('nominations.*', 'profiles.company', 'profiles.id as profile_id')
-                ->get();
-                return $nominations;
-            }
+            // if ($id == 0) {
+            //     $nominations = DB::table('nominations')
+            //     ->whereBetween('nominations.id', array(0, 10))
+            //     ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
+            //     ->select('nominations.*', 'profiles.company', 'profiles.id as profile_id')
+            //     ->get();
+            //     return $nominations;
+            // } else if ($id >= 1) {
+            //     $nominations = DB::table('nominations')
+            //     ->whereBetween('nominations.id', array($id*10+1, $id*10+10))
+            //     ->whereNotIn('nominations.id', [19])
+            //     ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
+            //     ->select('nominations.*', 'profiles.company', 'profiles.id as profile_id')
+            //     ->get();
+            //     return $nominations;
+            // }
+
+            $judge = \App\Judge::with(['nominations','nominations.user', 'nominations.user.profile','profile'])
+            ->find($id);
+            
+
+            return $judge;
 
     });
     

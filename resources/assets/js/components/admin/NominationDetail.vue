@@ -156,6 +156,7 @@
 
                 var app = this;
                 var id = this.data.id;
+                
                 axios.get(`/api/v1/nominations/${id}/edit`)
                     .then(function (resp) {
                         app.nomination = resp.data;

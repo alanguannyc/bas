@@ -23,6 +23,7 @@
         <th scope="col"><h5><strong>Category</strong></h5></th>
         <th scope="col"><h5><strong>Name</strong></h5></th>
         <th scope="col"><h5><strong>Hotel</strong></h5></th>
+        <th scope="col"><h5><strong>Change</strong></h5></th>
         <th scope="col"><h5><strong>Submit Date</strong></h5></th>
         
         </tr>
@@ -33,7 +34,8 @@
 </nomination-detail></td>
         <td ><h5>{{ nomination.category }}</h5></td>
         <td><h5>{{ nomination.name}}</h5></td>
-        <td><h5>{{ nomination.company}}</h5></td>
+        <td><h5>{{ nomination.user.profile.company}}</h5></td>
+        <td><select-judge  :data="nomination" @updateJudge="updateJudge"></select-judge></td>
         <td>{{ nomination.created_at}}</td>
         </tr>
     </tbody>
@@ -48,19 +50,17 @@
     <div class="col-md-3 col-sm-12 col-xs-12 profilePanel" >
       <div class="x_panel tile ">
         <div class="x_title">
-          <h2>{{ profile.name }}</h2>
+          <h2>{{ judge.name }}</h2>
           
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
 
-          <!-- <ul class="list-group">             
-            <li class="list-group-item">{{ member.email }}</li>
-            <li v-if="member.profile" class="list-group-item">{{ member.profile.company }}</li>
-            <li v-if="member.profile" class="list-group-item">{{ member.profile.address }}</li>
-            <li v-if="member.profile" class="list-group-item">{{ member.profile.title }}</li>
-            <li v-if="member.profile" class="list-group-item">{{ member.profile.phone }}</li>
-          </ul> -->
+          <ul class="list-group">             
+            <li class="list-group-item">{{ judge.email }}</li>
+            <li v-if="profile" class="list-group-item">{{ profile.company }}</li>
+            <li v-if="profile" class="list-group-item">{{ profile.title }}</li>
+          </ul>
 
         
         </div>
@@ -82,27 +82,23 @@
 
 <script>
 var _ = require('lodash');
+import NominationDetail from './NominationDetail.vue'
     export default {
      data(){
             return{
                 pageIndex:'',
-                  totalRecord:'',
+                totalRecord:'',
                 nominations: '',
-                member:{
-                    name:'',
-                    company:'',
-                },
-                profile:{
-
-                    },
+                profile:'',
                 detail:'',
-                role:''
+                role:'',
+                totalJudges:'',
+                judge:'',
 
             }
         },
         computed: {
             firstPage: function () {
-                
                 if (this.pageIndex == 0) {
                         return true
                     } 
@@ -114,6 +110,9 @@ var _ = require('lodash');
                         return true
                     } 
                 return false
+                
+
+                
             }
         },
     //  watch: {
@@ -124,6 +123,9 @@ var _ = require('lodash');
                         
 
     //                 },
+    components: {
+        "nomination-detail":NominationDetail
+    },
     created: function () {
     
     this.debouncedGetAnswer = _.debounce(this.getUpdate, 1500)
@@ -138,7 +140,10 @@ var _ = require('lodash');
 
             axios.get(`/api/v1/judge/`+uid)
                 .then(function (resp) {
-                    app.nominations = resp.data;
+                    app.nominations = resp.data.nominations;
+                    app.judge = resp.data
+                    app.profile = resp.data.profile
+
                     
                 })
                 .catch(function (resp) {
@@ -149,10 +154,14 @@ var _ = require('lodash');
             axios.get(`/api/v1/judge/`)
                 .then(function (resp) {
                     // console.log(resp.data[key])
-                    app.profile = resp.data[uid]
-                    app.pageIndex = parseInt(url.segment(-1))
+
+                    // app.pageIndex = parseInt(url.segment(-1))
+                    var id = parseInt(url.segment(-1))
                     app.totalRecord = resp.data.length
-                   
+                    app.totalJudges = resp.data
+                    app.pageIndex = app.totalJudges.map(function(x) {return x.id; }).indexOf(id);
+                    
+
                     if (uid == resp.data.length) {
                         app.pageIndex = 0;
                     }
@@ -172,7 +181,7 @@ var _ = require('lodash');
             getUpdate(){
                 var app = this;
                 var url = purl(window.location.href)
-                var uid=url.segment(-1)
+                var uid = url.segment(-1)
                 axios.get(`/api/v1/member/`+uid)
                     .then(function (resp) {
                         app.nominations = resp.data.nomination;
@@ -182,19 +191,39 @@ var _ = require('lodash');
                 var app = this
                 var url = purl(window.location.href)
                 var id = parseInt(url.segment(-1))
-                var uid= parseInt(url.segment(-1)) + 1
+                var elementPos = app.totalJudges.map(function(x) {return x.id; }).indexOf(id);
+                var objectFound = app.totalJudges[app.pageIndex];
+                var uid= app.totalJudges[app.pageIndex + 1].id 
+
                 window.location.href = uid
+                
                 
                 
             },
             previousPage() {
+                var app = this
                 var url = purl(window.location.href)
                 var id = parseInt(url.segment(-1))
-                var uid = parseInt(url.segment(-1)) - 1
+                // var uid = app.totalJudges[parseInt(url.segment(-1)) - 1].id 
+                var elementPos = app.totalJudges.map(function(x) {return x.id; }).indexOf(id);
+                var objectFound = app.totalJudges[app.pageIndex];
+                var uid= app.totalJudges[app.pageIndex - 1].id 
                 window.location.href = uid
                 
-            }
-            
+            },
+        
+            updateJudge(variable) {
+
+                var app = this;
+                var url = purl(window.location.href)
+                var uid=url.segment(-1)
+
+                axios.get(`/api/v1/judge/`+uid)
+                .then(function (resp) {
+                    app.nominations = resp.data.nominations;
+                    
+                })
+          },
 
         }
     }
