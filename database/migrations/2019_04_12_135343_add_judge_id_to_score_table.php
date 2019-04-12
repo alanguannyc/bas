@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddJudgeId extends Migration
+class AddJudgeIdToScoreTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class AddJudgeId extends Migration
      */
     public function up()
     {
-        Schema::table('nominations', function (Blueprint $table) {
+        Schema::table('scores', function (Blueprint $table) {
             $table->integer('judge_id')->nullable();
-            
+            $table->dropColumn('total');
         });
+        
     }
 
     /**
@@ -26,9 +27,8 @@ class AddJudgeId extends Migration
      */
     public function down()
     {
-        Schema::table('nominations', function($table) {
+        Schema::table('scores', function (Blueprint $table) {
             $table->dropColumn('judge_id');
-
         });
     }
 }

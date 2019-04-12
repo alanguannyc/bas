@@ -4,7 +4,7 @@
       
    <b-card  v-if="nomination.q1.length !== 0" class="mt-1"  sub-title="1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example."> 
                     <div  class="box"></div>
-    <img src="/images/completed.png" v-show="completed" class="center" alt="..." />
+    <!-- <img src="/images/completed.png" v-show="completed" class="center" alt="..." /> -->
     
         <p class="card-text">
             {{ nomination.q1 }}
@@ -196,7 +196,9 @@
                 
                 axios.post(`/api/v1/score`, newScore)
                 .then(function (resp) {
-                    console.log(resp.data);
+
+                    app.$emit('scoreUpdated', app.score)
+                    
                 })
                 .catch(function (resp) {
                     console.log(resp);
@@ -205,6 +207,7 @@
                 
                 // this.next().focus()
                 event.target.closest('div .scoreform').style.display = 'none'
+                
                 
                 // event.target.hide();
             },

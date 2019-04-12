@@ -5,19 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\User;
+use App\Nomination;
 
 class WinnersController extends Controller
 {
     public function finalList()
     {
+        $the10thnumber_1 = \App\Nomination::
+        with('score')
+            
+            // ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+          ->select('score', DB::raw(('COALESCE(score.q1, 0) + COALESCE(score.q2,0) + COALESCE(score.q3,0) + COALESCE(score.q4,0) + COALESCE(score.q5,0) as totalscore')))
+            // ->selectRaw('COALESCE(score.q1, 0) + COALESCE(score.q2,0) + COALESCE(score.q3,0) + COALESCE(score.q4,0) + COALESCE(score.q5,0) as totalscore')
+            // ->orderBy('totalscore', 'desc')
+            // ->skip(9)
+            // ->limit(1)
+            ->get();
+
+
+        return $the10thnumber_1;
+        
         $countOfWith= DB::table('nominations')
+
         ->where('category', '=', 'Full-Time Hourly With Guest Contact')
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+
         ->count();
+
+
         if($countOfWith > 9 ){
             $the10thnumber_1 = DB::table('nominations')
+            
             ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+            
             ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+
             ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
             ->orderBy('totalscore', 'desc')
             ->skip(9)
@@ -25,8 +47,11 @@ class WinnersController extends Controller
             ->get();
         } else{
             $the10thnumber_1 = DB::table('nominations')
+
             ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+            
             ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
+            
             ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
             ->orderBy('totalscore', 'desc')
             ->skip($countOfWith-1)
@@ -36,10 +61,13 @@ class WinnersController extends Controller
         }
         
         $nominations_1 = DB::table('nominations')
+        
         ->where('category', '=', 'Full-Time Hourly With Guest Contact')
+        
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
         ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
         ->select('nominations.*', 'profiles.company', DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+        ->whereYear('nominations.created_at',date('Y'))
         ->orderBy('totalscore', 'desc')
         ->havingRaw('totalscore >= ?', [$the10thnumber_1[0]->totalscore]);
         
@@ -72,6 +100,7 @@ class WinnersController extends Controller
         ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
         ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
         ->select('nominations.*','profiles.company', DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
+        ->whereYear('nominations.created_at',date('Y'))
         ->havingRaw('totalscore >= ?', [$the10thnumber_2[0]->totalscore]);
         
         
@@ -105,6 +134,7 @@ class WinnersController extends Controller
         ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
         ->select('nominations.*', 'profiles.company', DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
         ->orderBy('totalscore', 'desc')
+        ->whereYear('nominations.created_at',date('Y'))
         ->havingRaw('totalscore >= ?', [$the10thnumber_3[0]->totalscore]);
         
  
@@ -138,6 +168,7 @@ class WinnersController extends Controller
         ->leftJoin('profiles', 'nominations.user_id', '=', 'profiles.user_id')
         ->select('nominations.*', 'profiles.company',  DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
         ->orderBy('totalscore', 'desc')
+        ->whereYear('nominations.created_at',date('Y'))
         ->havingRaw('totalscore >= ?', [$the10thnumber_4[0]->totalscore])
         ->union($nominations_1)
         ->union($nominations_2)

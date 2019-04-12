@@ -290,6 +290,27 @@ $(document).ready(function(){
                             return data.length
                         }
         
+                },
+                {
+                    "targets": 4,
+                    "render": function ( data, type, row, meta ) {
+
+                            var completed = "Completed"
+                            data.map( score => {
+                                for (var i=1;i<6;i++){
+
+                                    if (score['q'+i] == null) {
+                                        
+                                        completed = "Not Completed"
+                                        }
+                                    }
+
+                                    
+                                })
+                                
+                                return completed
+                        }
+        
                     }
               ],
             
@@ -305,7 +326,8 @@ $(document).ready(function(){
                 { data: 'nominations',
                 "defaultContent": "<i>Not set</i>" },
                 
-                { data: 'updated_at' },
+                { data: 'scores',
+                "defaultContent": "<i>Not set</i>" },
             ]
         }
     );

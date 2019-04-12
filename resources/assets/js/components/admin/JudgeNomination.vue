@@ -24,7 +24,7 @@
         <th scope="col"><h5><strong>Name</strong></h5></th>
         <th scope="col"><h5><strong>Hotel</strong></h5></th>
         <th scope="col"><h5><strong>Change</strong></h5></th>
-        <th scope="col"><h5><strong>Submit Date</strong></h5></th>
+        <th scope="col"><h5><strong>Status</strong></h5></th>
         
         </tr>
     </thead>
@@ -36,7 +36,16 @@
         <td><h5>{{ nomination.name}}</h5></td>
         <td><h5>{{ nomination.user.profile.company}}</h5></td>
         <td><select-judge  :data="nomination" @updateJudge="updateJudge"></select-judge></td>
-        <td>{{ nomination.created_at}}</td>
+        <td v-if="nomination.completed" class="p-1">
+            <div class="alert alert-success p-1" role="alert">
+            COMPLETED
+            </div>
+        </td>
+            <td v-else ><div class="alert alert-danger" role="alert">
+                <p >NOT</p>
+            
+            </div>
+        </td>
         </tr>
     </tbody>
     </table>
@@ -95,6 +104,7 @@ import NominationDetail from './NominationDetail.vue'
                 totalJudges:'',
                 judge:'',
 
+
             }
         },
         computed: {
@@ -144,6 +154,17 @@ import NominationDetail from './NominationDetail.vue'
                     app.judge = resp.data
                     app.profile = resp.data.profile
 
+
+                    app.nominations.map(nomination=>{
+                        var completed = true
+                        for (var i=1;i<6;i++){
+                            
+                            if (!nomination.score || nomination.score['q'+i] == null) {
+                                completed = false
+                            }
+                        }
+                        nomination['completed'] = completed
+                    })
                     
                 })
                 .catch(function (resp) {
@@ -161,6 +182,7 @@ import NominationDetail from './NominationDetail.vue'
                     app.totalJudges = resp.data
                     app.pageIndex = app.totalJudges.map(function(x) {return x.id; }).indexOf(id);
                     
+
 
                     if (uid == resp.data.length) {
                         app.pageIndex = 0;
@@ -228,11 +250,20 @@ import NominationDetail from './NominationDetail.vue'
         }
     }
 </script>
-<style>
+<style scoped>
 .fade-enter-active, .fade-leave-active {
   transition: opacity 1s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+.alert {
+    font-size: 90%;
+  margin:auto;
+  height: 30px;
+  line-height:30px;
+  padding:0px 5px;
+  text-align: center;
 }
 </style>

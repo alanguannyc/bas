@@ -25,6 +25,10 @@ class Judge extends Model
         return $this->hasMany('App\Nomination');
     }
 
+    public function scores() {
+        return $this->hasMany('App\Score');
+    }
+
     public function role() {
         return $this->hasOne('App\Role');
     }

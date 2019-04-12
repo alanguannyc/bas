@@ -94,7 +94,7 @@
                 @if (Auth::user() && Auth::user()->isAdmin())
                     <a href="/admin"><button type="button" id="start" class="btn btn-primary btn-lg btn-block">START</button></a>
                 @elseif (Auth::user() && Auth::user()->isJudge())
-                    <a href="/judge/0"><button type="button" id="start" class="btn btn-primary btn-lg btn-block">START</button></a>
+                    <a href="/judge"><button type="button" id="start" class="btn btn-primary btn-lg btn-block">START</button></a>
                 @elseif (Auth::user() && Auth::user()->isFinalJudge())
                     <a href="/final"><button type="button" id="start" class="btn btn-primary btn-lg btn-block">START</button></a>
                 @else

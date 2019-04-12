@@ -141,7 +141,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         //     $query->where('name', 'judge');
         // })->orderBy('created_at', 'desc')->get();
         $users = \App\Judge::has('nominations')
-        ->with('nominations','profile')
+        ->with('nominations','profile','scores')
         ->orderBy('created_at', 'desc')->get();
         return $users;
     });
@@ -164,17 +164,36 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
             //     return $nominations;
             // }
 
-            $judge = \App\Judge::with(['nominations','nominations.user', 'nominations.user.profile','profile'])
+            $judge = \App\Judge::with(['nominations','nominations.user', 'nominations.user.profile','profile','nominations.score'])
             ->find($id);
             
 
             return $judge;
 
     });
+
+    Route::get('/judgepanel', function(){
+        
+
+        $judge = \App\Judge::with('nominations','nominations.score')
+        ->find(auth()->id());
+        
+
+        return $judge;
+
+});
     
     // Get finalist
 
     Route::get('/final', 'WinnersController@finalList');
+    Route::get('/final1', function(){
+        
+
+        $nominations = \App\Nomination::with(['score'])
+        ->get()
+        ->groupBy('category');
+        return $nominations;
+    });
 
     // Get the final judges scores of the nominees in the final list
 
@@ -209,7 +228,7 @@ Route::group(['prefix' => 'nomination', 'middleware' => ['auth','admin']], funct
 // 	});
 // });
 
-Route::get('/judge/{id}',function () {
+Route::get('/judge',function () {
     
     return view('layouts.judge.index');
     

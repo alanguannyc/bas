@@ -16,7 +16,7 @@
               <th>Email</th>
               <th>Judge Nominations</th>
               
-              <th>Last Activity</th>
+              <th>Status</th>
           </tr>
       </thead>
       

@@ -25,13 +25,15 @@ class Nomination extends Model
         return $this->hasOne('App\Score');
     }
 
+    
+
     public function final_score(){
         return $this->hasMany('App\Final_score');
     }
 
     public function updateScore($score) {
         
-        $this->score()->updateOrCreate(['nomination_id'=>$this->id],['q1'=>$score->q1, 'q2'=>$score->q2, 'q3'=>$score->q3,'q4'=>$score->q4,'q5'=>$score->q5]);
+        $this->score()->updateOrCreate(['nomination_id'=>$this->id, 'judge_id'=>auth()->id()],['q1'=>$score->q1, 'q2'=>$score->q2, 'q3'=>$score->q3,'q4'=>$score->q4,'q5'=>$score->q5]);
 
     }
 
