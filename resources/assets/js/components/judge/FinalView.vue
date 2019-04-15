@@ -1,12 +1,19 @@
 <template>
     <div class="container" >
-        <div v-show="!lastPage">
+        <div v-if="!lastPage && setting.application_on">
         <b-card no-body >
         <b-tabs pills card vertical >
             <div v-for="nomination in nominations" v-bind:key="nomination.id">
-            <b-tab :title="nomination.category" >
-            <final-show :data="nomination">
-            </final-show>
+            <b-tab  >
+
+                <template slot="title">
+                     {{nomination.category}} 
+                     <span v-if="nomination.completed" style="color:green;">
+                         <i><strong>Completed</strong></i>
+                     </span>
+                </template>
+                <final-show :data="nomination" @finalScoreUpdated="finalScoreUpdated">
+                </final-show>
             </b-tab>
             </div>
         </b-tabs>
@@ -24,9 +31,8 @@
         </b-btn>
         </div>
         </div>
-        <div class="thankyou" v-show="lastPage">
+        <div class="thankyou" v-else >
             <h3>Thanks for your participation!</h3>
-            
         </div>
     </div>
 </template>
@@ -35,6 +41,7 @@ import Vue from 'vue'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import _ from 'lodash'
 
 Vue.use(BootstrapVue);
 export default {
@@ -42,32 +49,45 @@ export default {
         return {
             nominations:'',
             score:'',
-            lastPage:false
+            lastPage:false,
+            setting:{
+                    application_on: ''
+                },
         }
     },
     mounted() {
             var app = this;
-            var url = purl(window.location.href)
-            var id = url.segment(-1)
-            
-            
 
-            axios.get(`/api/v1/final`)
+            axios.get(`/api/v1/finalListForJudge`)
                 .then(function (resp) {
                     
                     app.nominations = resp.data;
-                    // app.member = resp.data.member;
-                    // app.profile = resp.data.member.profile;
-                    
-                    // app.role = resp.data.member.roles[0];
-                    // console.log(app.nominations)
+                    app.nominations.map(nomination=>{
+                        var completed = true
+                        for (var i=1;i<6;i++){
+                            
+                            if (nomination.final_scores[0]['q'+i] == null) {
+                                completed = false
+                            }
+                        }
+                        nomination['completed'] = completed
+                    })
                     
                 })
                 .catch(function (resp) {
                     
                     // alert("Could not load nominations");
                 });
-            
+
+            axios.get('/api/v1/setting')
+                .then(function (resp) {
+                    app.setting = resp.data;
+
+                })
+                .catch(function (resp) {
+                    console.log(resp);
+                    // alert("Could not load nominations");
+                });
         },
     computed:{
         
@@ -98,6 +118,43 @@ export default {
                 // $('body').find('li a.active').closest('li a').removeClass('active');
                 $('body').find('li a.active').closest('li').prev('li').find('a')[0].click();
                 $('html,body').scrollTop(0);
+            },
+            finalScoreUpdated(variable) {
+
+                var app = this;
+                axios.get(`/api/v1/finalListForJudge`)
+                .then(function (resp) {
+                        app.nominations = resp.data;
+
+                        // this.checkIfCompleted(app.nominations)
+
+                        app.nominations.map(nomination=>{
+                        var completed = true
+                        for (var i=1;i<6;i++){
+                            
+                            if (nomination.final_scores[0]['q'+i] == null) {
+                                completed = false
+                            }
+                        }
+                        nomination['completed'] = completed
+                    })
+                        
+                })
+                
+            },
+            checkIfCompleted(nominations){
+                nominations.map(nomination=>{
+                                var completed = true
+                                for (var i=1;i<6;i++){
+                                    
+                                    if (nomination.final_scores || nomination.final_scores[0]['q'+i] == null) {
+                                        completed = false
+                                    }
+                                }
+                                nomination['completed'] = completed
+                            })
+
+                return nominations
             }
         }
 }

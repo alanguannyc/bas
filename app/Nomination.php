@@ -16,9 +16,9 @@ class Nomination extends Model
         return $this->belongsTo('App\Judge');
     }
 
-    // public function final_judge() {
-    //     return $this->belongsTo('App\Final_judge');
-    // }
+    public function final_judges() {
+        return $this->belongsToMany('App\Final_judge');
+    }
 
     public function score()
     {
@@ -27,7 +27,7 @@ class Nomination extends Model
 
     
 
-    public function final_score(){
+    public function final_scores(){
         return $this->hasMany('App\Final_score');
     }
 
@@ -49,7 +49,7 @@ class Nomination extends Model
         // foreach($score as $key=>$val) {
         //     array_push($results, $obj);
         // }
-        $this->final_score()->updateOrCreate(['user_id'=>auth()->id()],['nomination_id'=>$this->id,'q1'=>$final_score->q1, 'q2'=>$final_score->q2, 'q3'=>$final_score->q3,'q4'=>$final_score->q4,'q5'=>$final_score->q5]);
+        $this->final_scores()->updateOrCreate(['user_id'=>auth()->id(), 'final_judge_id'=>auth()->id()],['nomination_id'=>$this->id,'q1'=>$final_score->q1, 'q2'=>$final_score->q2, 'q3'=>$final_score->q3,'q4'=>$final_score->q4,'q5'=>$final_score->q5]);
 
     }
 }

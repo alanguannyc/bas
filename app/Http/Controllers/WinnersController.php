@@ -9,354 +9,180 @@ use App\Nomination;
 
 class WinnersController extends Controller
 {
+    protected $categories = ['Full-Time Hourly With Guest Contact', 'Full-Time Room Attendant', 'Full-Time Hourly Without Guest Contact', 'Managerial Below General Manager'];
+
+    private function getTotalCount($category)
+    {
+        return Nomination::with('score')
+        ->where('category', $category)
+        ->count();
+    }
+
+    private function getTopTenthScore($category)
+    {
+        $nomiatnions = Nomination::with('score')
+        ->where('category', $category)
+        ->get();
+
+        $sorted = $nomiatnions->sortByDesc(function ($nomination, $key) {
+            return $nomination['score']['q1'] + $nomination['score']['q2'] + $nomination['score']['q3'] + $nomination['score']['q4'] + $nomination['score']['q5'];
+        });
+        // if ($this->getTotalCount($category) > 9) {
+        //     $nomination = $sorted->values()->get(10);
+        // } elseif ($this->getTotalCount($category) < 10){
+        //     $nomination = $sorted->last();
+        // }
+        
+        $nomination =  $this->getTotalCount($category) > 9 ? $sorted->values()->get(10) : $sorted->last();
+
+        $score = \App\Score::where('nomination_id', $nomination->id)->first() ? \App\Score::where('nomination_id', $nomination->id)->first()->total() : 0;
+
+        return $score;
+    }
+
+    private function sumScores($score)
+    {
+        $sum = 0;
+        for($i = 1; $i<6; $i++){
+           $sum = $sum + $score['q' . $i]; 
+        }
+        return $sum;
+    }
+
+    private function addTotalScore($nominations)
+    {
+        foreach($nominations as $nomination)
+        {
+            $nomination['totalScore'] = $this->sumScores($nomination['score']);
+        }
+        return $nominations;
+    }
+
+    private function getFinalList($category, Bool $forJudge)
+    {
+        if($forJudge){
+            $nomiatnions = Nomination::with(['score','user.profile','final_scores.final_judge','final_scores'=>function($query){
+                $query->where('final_judge_id',auth()->id());
+            }])
+            ->where('category', $category)
+            ->get();
+        } else {
+            $nomiatnions = Nomination::with(['score','user.profile','final_scores','final_scores.final_judge'])
+            ->where('category', $category)
+            ->get();
+        }
+        
+
+        $filtered = $nomiatnions->filter(function ($value) use ($category) {
+            return $this->sumScores($value['score']) >= $this->getTopTenthScore($category);
+            // return $value['score']['q1'] + $value['score']['q2'] + $value['score']['q3'] + $value['score']['q4']+ $value['score']['q5'] >= $this->getTopTenthScore($value['category']);
+        });
+
+        $filtered->all();
+
+        return $filtered;
+    }
+
+    public function finalListForJudge()
+    {
+        $FinalLists = collect();
+
+        foreach($this->categories as $category) {
+            $FinalLists = $FinalLists->concat($this->getFinalList($category, true));
+        }
+
+        $this->addTotalScore($FinalLists);
+
+        return $FinalLists;
+    }
+
     public function finalList()
     {
-        $the10thnumber_1 = \App\Nomination::
-        with('score')
-            
-            // ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-          ->select('score', DB::raw(('COALESCE(score.q1, 0) + COALESCE(score.q2,0) + COALESCE(score.q3,0) + COALESCE(score.q4,0) + COALESCE(score.q5,0) as totalscore')))
-            // ->selectRaw('COALESCE(score.q1, 0) + COALESCE(score.q2,0) + COALESCE(score.q3,0) + COALESCE(score.q4,0) + COALESCE(score.q5,0) as totalscore')
-            // ->orderBy('totalscore', 'desc')
-            // ->skip(9)
-            // ->limit(1)
-            ->get();
+        $FinalLists = collect();
 
-
-        return $the10thnumber_1;
-        
-        $countOfWith= DB::table('nominations')
-
-        ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-
-        ->count();
-
-
-        if($countOfWith > 9 ){
-            $the10thnumber_1 = DB::table('nominations')
-            
-            ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-            
-            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-
-            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-            ->orderBy('totalscore', 'desc')
-            ->skip(9)
-            ->limit(1)
-            ->get();
-        } else{
-            $the10thnumber_1 = DB::table('nominations')
-
-            ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-            
-            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-            
-            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-            ->orderBy('totalscore', 'desc')
-            ->skip($countOfWith-1)
-            ->limit(1)
-            ->get();
-
+        foreach($this->categories as $category) {
+            $FinalLists = $FinalLists->concat($this->getFinalList($category, false));
         }
-        
-        $nominations_1 = DB::table('nominations')
-        
-        ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-        
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-        ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-        ->select('nominations.*', 'profiles.company', DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-        ->whereYear('nominations.created_at',date('Y'))
-        ->orderBy('totalscore', 'desc')
-        ->havingRaw('totalscore >= ?', [$the10thnumber_1[0]->totalscore]);
-        
-        $countOfRoom= DB::table('nominations')
-        ->where('category', '=', 'Full-Time Room Attendant')
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-        ->count();
-        if($countOfRoom > 9){
-            $the10thnumber_2 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Room Attendant')
-            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-            ->orderBy('totalscore', 'desc')
-            ->skip(9)
-            ->limit(1)
-            ->get();
-        } else{
-            $the10thnumber_2 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Room Attendant')
-            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-            ->orderBy('totalscore', 'desc')
-            ->skip($countOfRoom - 1)
-            ->limit(1)
-            ->get();
-        }
-        
-        $nominations_2 = DB::table('nominations')
-        ->where('category', '=', 'Full-Time Room Attendant')
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-        ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-        ->select('nominations.*','profiles.company', DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-        ->whereYear('nominations.created_at',date('Y'))
-        ->havingRaw('totalscore >= ?', [$the10thnumber_2[0]->totalscore]);
-        
-        
-        $countOfWithout = DB::table('nominations')
-        ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-        ->count();
-        if($countOfWithout > 9 ){
-            $the10thnumber_3 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
-            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-            ->orderBy('totalscore', 'desc')
-            ->skip(9)
-            ->limit(1)
-            ->get();
-        } else {
-            $the10thnumber_3 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
-            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-            ->orderBy('totalscore', 'desc')
-            ->skip($countOfWithout-1)
-            ->limit(1)
-            ->get();
-        }
-        
-        $nominations_3 = DB::table('nominations')
-        ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-        ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-        ->select('nominations.*', 'profiles.company', DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-        ->orderBy('totalscore', 'desc')
-        ->whereYear('nominations.created_at',date('Y'))
-        ->havingRaw('totalscore >= ?', [$the10thnumber_3[0]->totalscore]);
-        
- 
-        $countOfManagerial = DB::table('nominations')
-        ->where('category', '=', 'Managerial Below General Manager') 
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-        ->count() ;
-        if($countOfManagerial > 9){
-            $the10thnumber_4 = DB::table('nominations')
-            ->where('category', '=', 'Managerial Below General Manager')
-            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-            ->orderBy('totalscore', 'desc')
-            ->skip( 9 )
-            ->limit(1)
-            ->get();
-        } else {
-            $the10thnumber_4 = DB::table('nominations')
-            ->where('category', '=', 'Managerial Below General Manager')
-            ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-            ->select(DB::raw('COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-            ->orderBy('totalscore', 'desc')
-            ->skip( $countOfManagerial-1 )
-            ->limit(1)
-            ->get();
-        }
-        
-        $nominations_4 = DB::table('nominations')
-        ->where('category', '=', 'Managerial Below General Manager')
-        ->join('scores', 'nominations.id', '=', 'scores.nomination_id')
-        ->leftJoin('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-        ->select('nominations.*', 'profiles.company',  DB::raw('scores.id as score_id, COALESCE(scores.q1, 0) + COALESCE(scores.q2,0) + COALESCE(scores.q3,0) + COALESCE(scores.q4,0) + COALESCE(scores.q5,0) as totalscore'))
-        ->orderBy('totalscore', 'desc')
-        ->whereYear('nominations.created_at',date('Y'))
-        ->havingRaw('totalscore >= ?', [$the10thnumber_4[0]->totalscore])
-        ->union($nominations_1)
-        ->union($nominations_2)
-        ->union($nominations_3)
-        ->get();
+        // $FinalLists = DB::table('nominations')
+        //         ->when(true, function ($query, $judge) {
+        //             return $query->whereHas('score');
+        //         }, function ($query) {
+        //             return $query->whereHas('final_scores');
+        //         })
+        //         ->get();
+        $this->addTotalScore($FinalLists);
 
-        return $nominations_4;
+        return $FinalLists;   
     }
 
-    public static function winner() 
+    private function getTopScore($category)
     {
-        $countOfWith= DB::table('nominations')
-        ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-        ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-        ->count();
-        if ($countOfWith > 0) {
-            $the10thnumber_1 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-            ->select(DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-            ->orderBy('total_final_score', 'desc')
-            ->groupby('nominations.id')
-            ->limit(1)
-            ->get();
+        $WinnerList = $this->finalScores()
+        ->where('category', $category)
+        ;
 
-            $nominations_1 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-            ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-            ->select('nominations.*',  DB::raw('MAX(profiles.company) as hotel'),  DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-            ->groupby('nominations.id')
-            ->havingRaw('total_final_score >= ?', [$the10thnumber_1[0]->total_final_score]);
+        $score =  $WinnerList -> max('total_final_score');
 
-        } else {
-            
-            $nominations_1 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Hourly With Guest Contact')
-            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-            ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-            ->select('nominations.*',  DB::raw('MAX(profiles.company) as hotel'),  DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-            ->groupby('nominations.id');
-            
-        }
-        
-        
-
-        
-        
-        $countOfRoom= DB::table('nominations')
-        ->where('category', '=', 'Full-Time Room Attendant')
-        ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-        ->count();
-        
-        if($countOfRoom>0) {
-            $the10thnumber_2 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Room Attendant')
-            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-            ->select(DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-            ->orderBy('total_final_score', 'desc')
-            ->groupby('nominations.id')
-            ->limit(1)
-            ->get();
-            $nominations_2 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Room Attendant')
-            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-            ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-            ->select('nominations.*',  DB::raw('MAX(profiles.company) as hotel'),  DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-            ->groupby('nominations.id')
-            ->havingRaw('total_final_score >= ?', [$the10thnumber_2[0]->total_final_score]);
-        } else {
-            $nominations_2 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Room Attendant')
-            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-            ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-            ->select('nominations.*',  DB::raw('MAX(profiles.company) as hotel'),  DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-            ->groupby('nominations.id');
-        }
-        
-        
-        $countOfWithout= DB::table('nominations')
-        ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
-        ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-        ->count();
-        if ($countOfWithout >0) {
-            $the10thnumber_3 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
-            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-            ->select(DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-            ->orderBy('total_final_score', 'desc')
-            ->groupby('nominations.id')
-            ->limit(1)
-            ->get();
-            $nominations_3 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
-            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-            ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-            ->select('nominations.*',  DB::raw('MAX(profiles.company) as hotel'),  DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-            ->groupby('nominations.id')
-            ->havingRaw('total_final_score >= ?', [$the10thnumber_3[0]->total_final_score]);
-        } else {
-            $nominations_3 = DB::table('nominations')
-            ->where('category', '=', 'Full-Time Hourly Without Guest Contact')
-            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-            ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-            ->select('nominations.*',  DB::raw('MAX(profiles.company) as hotel'),  DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-            ->groupby('nominations.id');
-        }
-        
-        
-        $countOfManager= DB::table('nominations')
-        ->where('category', '=', 'Managerial Below General Manager')
-        ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-        ->count();
-        if ($countOfManager > 0) {
-            $the10thnumber_4 = DB::table('nominations')
-            ->where('category', '=', 'Managerial Below General Manager')
-            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-            ->select(DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-            ->orderBy('total_final_score', 'desc')
-            ->groupby('nominations.id')
-            ->limit(1)
-            ->get();
-
-            $nominations_4 = DB::table('nominations')
-            ->where('category', '=', 'Managerial Below General Manager')
-            ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-            ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-            ->select('nominations.*',  DB::raw('MAX(profiles.company) as hotel'),  DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-            ->groupby('nominations.id')
-            ->havingRaw('total_final_score >= ?', [$the10thnumber_4[0]->total_final_score])
-            ->union($nominations_1)
-            ->union($nominations_2)
-            ->union($nominations_3)
-            ->get();
-        } else {
-            $nominations_4 = DB::table('nominations')
-        ->where('category', '=', 'Managerial Below General Manager')
-        ->join('final_scores', 'nominations.id', '=', 'final_scores.nomination_id')
-        ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-        ->select('nominations.*',  DB::raw('MAX(profiles.company) as hotel'),  DB::raw('SUM(COALESCE(final_scores.q1, 0) + COALESCE(final_scores.q2,0) + COALESCE(final_scores.q3,0) + COALESCE(final_scores.q4,0) + COALESCE(final_scores.q5,0)) as total_final_score'))
-        ->groupby('nominations.id')
-        ->union($nominations_1)
-        ->union($nominations_2)
-        ->union($nominations_3)
-        ->get();
-        }
-        
-        
-
-        return $nominations_4;
+        return $score;
     }
+
+    private function getWinner($category)
+    {
+        $WinnerList = $this->finalScores()
+        ->where('category', $category)
+        ;
+
+        $filtered = $WinnerList->filter(function ($value) use ($category){
+            return $value['total_final_score'] >= $this->getTopScore($category);
+            // return $value['score']['q1'] + $value['score']['q2'] + $value['score']['q3'] + $value['score']['q4']+ $value['score']['q5'] >= $this->getTopTenthScore($value['category']);
+        });
+
+        return $filtered;
+
+
+    }
+
+    public function winner() 
+    {
+        $WinnerList = $this->finalScores();
+
+        
+        $FinalLists = collect();
+
+        foreach($this->categories as $category) {
+            $FinalLists = $FinalLists->concat($this->getWinner($category));
+        }
+
+        return $FinalLists;
+    }
+
 
     public function finalScores()
     {
-        $nominations = DB::table('nominations')
-        ->leftJoin('final_scores as judge_1', function($query) {
-            $query->on('nominations.id', '=', 'judge_1.nomination_id')
-            ->where('judge_1.user_id','=',216);
-        })
-        ->leftJoin('final_scores as judge_2', function($query) {
-            $query->on('nominations.id', '=', 'judge_2.nomination_id')
-            ->where('judge_2.user_id','=',217);
-        })
-        ->leftJoin('final_scores as judge_3', function($query) {
-            $query->on('nominations.id', '=', 'judge_3.nomination_id')
-            ->where('judge_3.user_id','=',218);
-        })
-        ->leftJoin('final_scores as judge_4', function($query) {
-            $query->on('nominations.id', '=', 'judge_4.nomination_id')
-            ->where('judge_4.user_id','=',219);
-        })
-        
-        
+        //Get all the finallist with Final Scores
+        $FinalLists = $this->finalList();
 
-        ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-        ->select('nominations.*', DB::raw('profiles.company as hotel'), 
-        DB::raw('(COALESCE(judge_1.q1, 0) + COALESCE(judge_1.q2,0) + COALESCE(judge_1.q3,0) + COALESCE(judge_1.q4,0) + COALESCE(judge_1.q5,0)) as total_final_score_1'),
-        DB::raw('(COALESCE(judge_2.q1, 0) + COALESCE(judge_2.q2,0) + COALESCE(judge_2.q3,0) + COALESCE(judge_2.q4,0) + COALESCE(judge_2.q5,0)) as total_final_score_2'),
-        DB::raw('(COALESCE(judge_3.q1, 0) + COALESCE(judge_3.q2,0) + COALESCE(judge_3.q3,0) + COALESCE(judge_3.q4,0) + COALESCE(judge_3.q5,0)) as total_final_score_3'),
-        DB::raw('(COALESCE(judge_4.q1, 0) + COALESCE(judge_4.q2,0) + COALESCE(judge_4.q3,0) + COALESCE(judge_4.q4,0) + COALESCE(judge_4.q5,0)) as total_final_score_4'))
+        //Sum up final scores of each judge
 
-        ->havingRaw('total_final_score_1 > ?', [0])
-        ->orHavingRaw('total_final_score_2 > ?', [0])
-        ->orHavingRaw('total_final_score_3 > ?', [0])
-        ->orHavingRaw('total_final_score_4 > ?', [0])
-        ->orderBy('id')
-        ->get();
+        foreach($FinalLists as $nomination){
+            foreach($nomination['final_scores'] as $finalScore){
+                $finalScore['final_judge_name'] = $finalScore['final_judge']['name'];
+                $finalScore['total'] = $this->sumScores($finalScore);
+            }
 
-        return $nominations;
+        }
+
+        //Write a new collection with total final scores and judge name
+        foreach($FinalLists as $nomination){
+            $total_final_score = 0;
+            foreach($nomination['final_scores'] as $finalScore){
+                $total_final_score = $total_final_score + $finalScore['total'];
+            }
+            $nomination['total_final_score'] = $total_final_score;
+        }
+
+        return $FinalLists;
+
+       
     }
 }

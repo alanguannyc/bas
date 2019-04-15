@@ -400,8 +400,8 @@ $(document).ready(function(){
                 { data: 'category' },
                 { data: 'name' },
                 { data: 'title' },
-                { data: 'company' },
-                { data: 'totalscore' },
+                { data: 'user.profile.company' },
+                { data: 'totalScore' },
                 { data: 'updated_at' },
             ]
         }
@@ -429,14 +429,64 @@ $(document).ready(function(){
             "pagingType": "full_numbers",
             "order": [[ 0, "desc" ]],
             "ajax":{"url":"/api/v1/finalScores","dataSrc":""},
-            "columnDefs": [ {
-                "targets": 1,
-                "render": function ( data, type, row, meta ) {
-                    return '<a href="'+'/nomination/'+row.id+'">'+data+'</a>'
-                  }
+            "columnDefs": [ 
+                {
+                    "targets": 1,
+                    "render": function ( data, type, row, meta ) {
+                        return '<a href="'+'/nomination/'+row.id+'">'+data+'</a>'
+                    }
 
                 },
-                
+                {
+                    "targets": 4,
+                    "render": function ( data, type, row, meta ) {
+                        var newArray = data.filter((score)=>{
+                            return score.final_judge.name == "Alan Guan"
+                            
+                        })
+                        console.log(winner_list_table.column(0).title)
+                        if(newArray[0]){
+                            return newArray[0].total
+                        } else {
+                            return 0
+                        }
+                        
+                      }
+    
+                },
+                {
+                    "targets": 5,
+                    "render": function ( data, type, row, meta ) {
+                        var newArray = data.filter((query)=>{
+                            return query.final_judge.name= "Alan Guan"
+                        })
+
+                        return newArray.total
+                        }
+    
+                    },
+                    {
+                        "targets": 6,
+                        "render": function ( data, type, row, meta ) {
+                            var newArray = data.filter((query)=>{
+                                return query.final_judge.name= "Alan Guan"
+                            })
+
+                            return newArray.total
+                            }
+        
+                        },
+                        {
+                            "targets": 7,
+                            "render": function ( data, type, row, meta ) {
+                                var newArray = data.filter((query)=>{
+                                    return query.final_judge.name= "Alan Guan"
+                                })
+
+                                return newArray.total
+                                }
+            
+                            },
               ],
               dom: 'fBrtip',
               buttons: [
@@ -447,11 +497,11 @@ $(document).ready(function(){
                 { data: 'category' },
                 { data: 'name' },
                 { data: 'title' },
-                { data: 'hotel' },
-                { data: 'total_final_score_1' },
-                { data: 'total_final_score_2' },
-                { data: 'total_final_score_3' },
-                { data: 'total_final_score_4' }
+                { data: 'user.profile.company' },
+                { data: 'final_scores' },
+                { data: 'final_scores'},
+                { data: 'final_scores'},
+                { data: 'final_scores' }
             ]
         }
     );

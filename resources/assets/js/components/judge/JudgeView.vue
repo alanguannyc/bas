@@ -83,7 +83,7 @@ export default {
     //         }, 1000)
     //     },
     // },
-
+ 
     mounted() {
             var app = this;
             axios.get(`/api/v1/judgepanel/`)
@@ -99,8 +99,7 @@ export default {
                             }
                         }
                         nomination['completed'] = completed
-                    }
-                )
+                    })
 
                 })
                 .catch(function (err) {

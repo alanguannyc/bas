@@ -2,24 +2,14 @@
     <div>
     <b-card class="mt-1"  sub-title="1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example."> 
                     <div  class="box"></div>
-    <img src="/images/completed.png" v-show="completed" class="center" alt="..." />
+    <!-- <img src="/images/completed.png" v-show="completed" class="center" alt="..." /> -->
         <p class="card-text">
             {{ nomination.q1 }}
         </p>
-        <div class="score" v-on:click="showScore()">
-            <h5 >Score: {{ score.q1 }}</h5>
-        </div>
-        <div class="scoreform">
-            <form>
-                <b-input-group>
-                    <b-form-input type="number" min="0" max="5" placeholder="Enter your score" v-model="score.q1"></b-form-input>
-                    <b-input-group-append>
-                    
-                    <b-btn variant="primary" v-on:click="saveScore()" >Save</b-btn>
-                    <b-btn variant="outline-secondary" name='q1' v-on:click="clearScore()">Cancel</b-btn>
-                    </b-input-group-append>
-                </b-input-group>
-            </form>
+        <div>
+            <label for="range-1"><i>Give your score by scrolling the bar below</i></label>
+            <b-form-input id="range-1" v-model="score.q1" type="range" min="0" max="5"></b-form-input>
+            <div class="mt-2">Score: {{ score.q1 }}</div>
         </div>
         
     </b-card>
@@ -29,20 +19,10 @@
         <p class="card-text">
             {{ nomination.q2 }}
         </p>
-        <div class="score" v-on:click="showScore()">
-            <h5 >Score: {{ score.q2 }}</h5>
-        </div>
-        <div class="scoreform">
-            <form>
-                <b-input-group>
-                    <b-form-input type="number" min="0" max="5" placeholder="Enter your score" v-model="score.q2"></b-form-input>
-                    <b-input-group-append>
-                    
-                    <b-btn variant="primary" v-on:click="saveScore()" >Save</b-btn>
-                    <b-btn variant="outline-secondary" name='q2' v-on:click="clearScore()">Cancel</b-btn>
-                    </b-input-group-append>
-                </b-input-group>
-            </form>
+        <div>
+            <label for="range-2">Give your score by scrolling the bar below</label>
+            <b-form-input id="range-2" v-model="score.q2" type="range" min="0" max="5"></b-form-input>
+            <div class="mt-2">Score: {{ score.q2 }}</div>
         </div>
     </b-card>
 
@@ -51,20 +31,10 @@
         <p class="card-text">
             {{ nomination.q3 }}
         </p>
-        <div class="score" v-on:click="showScore()">
-            <h5 >Score: {{ score.q3 }}</h5>
-        </div>
-        <div class="scoreform">
-            <form>
-                <b-input-group>
-                    <b-form-input type="number" min="0" max="5" placeholder="Enter your score" v-model="score.q3"></b-form-input>
-                    <b-input-group-append>
-                    
-                    <b-btn variant="primary" v-on:click="saveScore()" >Save</b-btn>
-                    <b-btn variant="outline-secondary" name='q3' v-on:click="clearScore()">Cancel</b-btn>
-                    </b-input-group-append>
-                </b-input-group>
-            </form>
+        <div>
+            <label for="range-3">Give your score by scrolling the bar below</label>
+            <b-form-input id="range-3" v-model="score.q3" type="range" min="0" max="5"></b-form-input>
+            <div class="mt-2">Score: {{ score.q3 }}</div>
         </div>
     </b-card>
 
@@ -73,20 +43,10 @@
         <p class="card-text">
             {{ nomination.q4 }}
         </p>
-        <div class="score" v-on:click="showScore()">
-            <h5 >Score: {{ score.q4 }}</h5>
-        </div>
-        <div class="scoreform">
-            <form>
-                <b-input-group>
-                    <b-form-input type="number" min="0" max="5" placeholder="Enter your score" v-model="score.q4"></b-form-input>
-                    <b-input-group-append>
-                    
-                    <b-btn variant="primary" v-on:click="saveScore()" >Save</b-btn>
-                    <b-btn variant="outline-secondary" name='q4' v-on:click="clearScore()">Cancel</b-btn>
-                    </b-input-group-append>
-                </b-input-group>
-            </form>
+        <div>
+            <label for="range-4">Give your score by scrolling the bar below</label>
+            <b-form-input id="range-4" v-model="score.q4" type="range" min="0" max="5"></b-form-input>
+            <div class="mt-2">Score: {{ score.q4 }}</div>
         </div>
     </b-card>
 
@@ -95,23 +55,17 @@
         <p class="card-text">
             {{ nomination.q5 }}
         </p>
-        <div class="score" v-on:click="showScore()">
-            <h5 >Score: {{ score.q5 }}</h5>
-        </div>
-        <div class="scoreform">
-            <form>
-                <b-input-group>
-                    <b-form-input type="number" min="0" max="5" placeholder="Enter your score" v-model="score.q5"></b-form-input>
-                    <b-input-group-append>
-                    
-                    <b-btn variant="primary" v-on:click="saveScore()" >Save</b-btn>
-                    <b-btn variant="outline-secondary" name='q5' v-on:click="clearScore()">Cancel</b-btn>
-                    </b-input-group-append>
-                </b-input-group>
-            </form>
+        <div>
+            <label for="range-5">Give your score by scrolling the bar below</label>
+            <b-form-input  id="range-5" v-model="score.q5" type="range" min="0" max="5"></b-form-input>
+            <div class="mt-2">Score: {{ score.q5 }}</div>
         </div>
     </b-card>
-    
+    <b-alert v-model="showSuccess" fade variant="success" dismissible >
+      Scores Saved!
+    </b-alert>
+    <b-btn variant="primary" v-on:click.prevent="saveScore()" >Save</b-btn>
+    <b-btn variant="outline-secondary"  v-on:click="clearScore()">Cancel</b-btn>
 </div>
 </template>
 <script>
@@ -136,7 +90,8 @@
                     q3:'',
                     q4:'',
                     q5:''
-                  }
+                  },
+                  showSuccess :false,
                 }
         },
         
@@ -154,9 +109,9 @@
                     .then(function (resp) {
                     
                         app.nomination = resp.data;
-                        
-                        if (resp.data.final_score[0]) {
-                            app.score = resp.data.final_score[0]
+
+                        if (resp.data.final_scores[0]) {
+                            app.score = resp.data.final_scores[0]
                             
                         }
                     })
@@ -184,12 +139,18 @@
         methods: {
             
             saveScore() {
+                // e.preventDefault()
                 var app = this;
                 var newScore = app.score;
                 newScore.id = app.data.id
-                console.log(newScore)
+
                 axios.post(`/api/v1/finalScore`, newScore)
                 .then(function (resp) {
+                    app.showSuccess = true
+                    app.$emit('finalScoreUpdated', newScore)
+                    setTimeout(() => {
+                        app.showSuccess = false
+                    }, 1500);
                     
                 })
                 .catch(function (resp) {
@@ -198,7 +159,7 @@
                 // this.showscore = false;
                 
                 // this.next().focus()
-                event.target.closest('div .scoreform').style.display = 'none'
+                // event.target.closest('div .scoreform').style.display = 'none'
                 
                 // event.target.hide();
             },
@@ -214,15 +175,14 @@
                         console.log('no record')
                     }
                         
-                        
-                        
                     }
                         
-                
             },
             clearScore() {
                 var id = event.target.name;
-                this.score[id] = "";
+                for ( var i = 1; i<6 ; i++){
+                    this.score['q'+i] = null;
+                }
             }
         }
     }

@@ -154,13 +154,13 @@ class NominationsController extends Controller
         // ->find($id);
 
 
-        $nomination = Nomination::with(['judge','judge.profile','user.profile','score','final_score' => function ($query) {
+        $nomination = Nomination::with(['judge','judge.profile','user.profile','score','final_scores' => function ($query) {
             $query->where('user_id', '=', auth()->id());
         }])->find($id);
 
-        if (Gate::denies('update-nomination', $nomination)) {
-            abort(403);
-        }
+        // if (Gate::denies('update-nomination', $nomination)) {
+        //     abort(403);
+        // }
         
         return $nomination;
         

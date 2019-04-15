@@ -146,23 +146,6 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         return $users;
     });
     Route::get('/judge/{id}', function($id){
-        
-            // if ($id == 0) {
-            //     $nominations = DB::table('nominations')
-            //     ->whereBetween('nominations.id', array(0, 10))
-            //     ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-            //     ->select('nominations.*', 'profiles.company', 'profiles.id as profile_id')
-            //     ->get();
-            //     return $nominations;
-            // } else if ($id >= 1) {
-            //     $nominations = DB::table('nominations')
-            //     ->whereBetween('nominations.id', array($id*10+1, $id*10+10))
-            //     ->whereNotIn('nominations.id', [19])
-            //     ->join('profiles', 'nominations.user_id', '=', 'profiles.user_id')
-            //     ->select('nominations.*', 'profiles.company', 'profiles.id as profile_id')
-            //     ->get();
-            //     return $nominations;
-            // }
 
             $judge = \App\Judge::with(['nominations','nominations.user', 'nominations.user.profile','profile','nominations.score'])
             ->find($id);
@@ -174,26 +157,16 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
 
     Route::get('/judgepanel', function(){
         
-
         $judge = \App\Judge::with('nominations','nominations.score')
         ->find(auth()->id());
-        
-
         return $judge;
 
-});
+    });
     
     // Get finalist
 
     Route::get('/final', 'WinnersController@finalList');
-    Route::get('/final1', function(){
-        
-
-        $nominations = \App\Nomination::with(['score'])
-        ->get()
-        ->groupBy('category');
-        return $nominations;
-    });
+    Route::get('/finalListForJudge', 'WinnersController@finalListForJudge');
 
     // Get the final judges scores of the nominees in the final list
 
