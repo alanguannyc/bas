@@ -16,7 +16,12 @@ class RoleController extends Controller
         if ($request->role == 'admin') {
             $user->roles()->sync([1]);
         } else if ($request->role == 'member'){
+            if($user->isJudge()){
+                $judge = \App\Judge::find($id);
+                $judge->RemoveNominations();
+            }
             $user->roles()->sync([2]);
+            
         } else if ($request->role == 'judge'){
             $user->roles()->sync([3]);
             $judge = \App\Judge::find($id);

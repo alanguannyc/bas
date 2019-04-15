@@ -117,11 +117,9 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     });
     Route::get('/member/nominations', 'NominationsController@index');
     Route::get('/member/{id}', function($id){
+        $member = \App\User::with(['profile','roles','nominations'])->find($id);
         
-        $data['nomination']=\App\Nomination::where('user_id','=', $id)->get();
-        $data['member']=\App\User::with(['profile','roles'])->find($id);
-        
-        return $data;
+        return $member;
     });
     Route::post('/member/{id}', 'UserController@update');
 
@@ -226,5 +224,10 @@ Route::post('/update', 'ScoreController@updateAll');
 
 
 
-Route::get('/year', 'SettingController@ApplicationOn');
+Route::get('/year', function(){
+    $judge = \App\Judge::find(83);
+    $judge->RemoveNominations();
+
+
+});
 

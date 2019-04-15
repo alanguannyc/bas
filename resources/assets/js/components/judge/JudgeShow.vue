@@ -110,7 +110,6 @@ import _ from 'lodash'
                   q5:''
                   },
               score:{
-                    // total:'',
                     q1:'',
                     q2:'',
                     q3:'',
@@ -174,9 +173,12 @@ import _ from 'lodash'
                 axios.post(`/api/v1/score`, newScore)
                 .then(function (resp) {
                     app.showSuccess = true
+
                     setTimeout(() => {
                         app.showSuccess = false
                     }, 1500);
+
+
                     app.$emit('scoreUpdated', app.score)
                     
                 })
@@ -213,10 +215,21 @@ import _ from 'lodash'
                 for ( var i = 1; i<6 ; i++){
                     this.score['q'+i] = null;
                 }
-
-
+            },
+            checkIfCompleted(nomination){
                 
-              
+                                var completed = true
+                                // for (var i=1;i<6;i++){
+                                    
+                                //     if (nomination.score['q' + i]==null) {
+                                //         completed = false
+                                //     }
+                                    
+                                // }
+                                nomination['completed'] = completed
+
+
+                           
             }
         }
     }

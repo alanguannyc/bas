@@ -48,6 +48,7 @@ export default {
     data(){
         return {
             nominations:'',
+            
             score:'',
             lastPage:false,
             setting:{
@@ -62,7 +63,7 @@ export default {
                 .then(function (resp) {
                     
                     app.nominations = resp.data;
-                    app.nominations.map(nomination=>{
+                    app.nominations = app.nominations.map(nomination=>{
                         var completed = true
                         for (var i=1;i<6;i++){
                             
@@ -71,6 +72,7 @@ export default {
                             }
                         }
                         nomination['completed'] = completed
+                        return nomination
                     })
                     
                 })
@@ -119,27 +121,22 @@ export default {
                 $('body').find('li a.active').closest('li').prev('li').find('a')[0].click();
                 $('html,body').scrollTop(0);
             },
-            finalScoreUpdated(variable) {
+            finalScoreUpdated(id) {
 
                 var app = this;
-                axios.get(`/api/v1/finalListForJudge`)
-                .then(function (resp) {
-                        app.nominations = resp.data;
-
-                        // this.checkIfCompleted(app.nominations)
-
-                        app.nominations.map(nomination=>{
-                        var completed = true
-                        for (var i=1;i<6;i++){
-                            
-                            if (nomination.final_scores[0]['q'+i] == null) {
-                                completed = false
-                            }
-                        }
-                        nomination['completed'] = completed
+                
+                var nominationUpdated = app.nominations.find(function(nomination){
+                        return nomination.id == id
                     })
+
+                var completed = true
+                for (var i=1;i<6;i++){
                         
-                })
+                        if (nominationUpdated.final_scores[0]['q'+i] == null) {
+                            completed = false
+                        }
+                    }
+                nominationUpdated['completed'] = true
                 
             },
             checkIfCompleted(nominations){

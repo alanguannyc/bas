@@ -58,7 +58,6 @@
           </ul>
 
         <button class="btn btn-primary" v-on:click="updateProfile()">Update</button>
-        
         </div>
       </div>
 
@@ -80,9 +79,7 @@
             <div class="form-group"> 
             <input type="text" class="form-control"  v-model="member.email" placeholder="email">
             </div>
-            <div class="form-group"> 
-            <input type="text" class="form-control"  v-model="member.password" placeholder="password">
-            </div>
+            
             <div class="form-group"> 
             <input  type="text" class="form-control"  v-model="profile.company" placeholder="company">
             </div>
@@ -96,7 +93,7 @@
             <input  type="phone" class="form-control"  v-model="profile.phone" placeholder="phone">
             </div>
             <div class="form-group"> 
-            <select class="form-control"  v-model="role.name">
+            <select class="form-control"  v-model="role">
                 <option>member</option>
                 <option>judge</option>
                 <option>admin</option>
@@ -105,8 +102,15 @@
                 </div>
             <button class="btn " v-on:click="cancelUpdate()">Cancel</button>
             <button class="btn btn-primary" v-on:click="saveProfile()">SAVE</button>
+            <button class="btn btn-primary right " v-on:click.prevent="updatePassword()">Update password</button>
+
         </form>
-          
+          <form v-if="changingPassword">
+            <div class="form-group" > 
+            <input type="password" class="form-control"  v-model="password" placeholder="password">
+            </div>
+            <button class="btn btn-primary" v-on:click.prevent="savePassword()">SAVE</button>
+          </form>
         </div>
       </div>
     </div> 
@@ -142,28 +146,23 @@ var _ = require('lodash');
      data(){
             return{
                 nominations: '',
-                member:{
-                    name:'',
-                    email:'',
-                    company:'',
-                    password:'',
-                },
-                profile:{
-
-                    },
+                member:'',
+                profile:{},
                 detail:'',
-                role:''
+                role:'',
+                password:'',
+                changingPassword:false
 
             }
         },
-     watch: {
-        nominations: function (){
-                        this.debouncedGetAnswer()
+    //  watch: {
+    //     nominations: function (){
+    //                     this.debouncedGetAnswer()
                         
-                        }
+    //                     }
                         
 
-                    },
+    //                 },
     created: function () {
     
     this.debouncedGetAnswer = _.debounce(this.getUpdate, 1500)
@@ -176,21 +175,21 @@ var _ = require('lodash');
 
             axios.get(`/api/v1/member/`+$uid)
                 .then(function (resp) {
-                   
-                    if (resp.data.nomination){
-                        app.nominations = resp.data.nomination;
+
+                    if (resp.data.nominations){
+                        app.nominations = resp.data.nominations;
                     }
                     
-                    if(resp.data.member) {
-                        app.member = resp.data.member
+                    if(resp.data) {
+                        app.member = resp.data
                     }
 
-                    if (resp.data.member.profile) {
-                        app.profile = resp.data.member.profile;
+                    if (resp.data.profile) {
+                        app.profile = resp.data.profile;
                     }
                     
-                    if (resp.data.member.roles[0]) {
-                        app.role = resp.data.member.roles[0];
+                    if (resp.data.roles[0]) {
+                        app.role = resp.data.roles[0];
                     }
                     
                 })
@@ -212,7 +211,7 @@ var _ = require('lodash');
                 var uid=url.segment(-1)
                 axios.get(`/api/v1/member/`+uid)
                     .then(function (resp) {
-                        app.nominations = resp.data.nomination;
+                        app.nominations = resp.data.nominations;
                     })
             },
             updateProfile(){
@@ -225,7 +224,7 @@ var _ = require('lodash');
                 $('.updatePanel').hide();
             },
             saveProfile(){
-                 event.preventDefault();
+
                 var app = this;
                 var url = purl(window.location.href)
                 var uid=url.segment(-1)
@@ -233,12 +232,11 @@ var _ = require('lodash');
                 var newMember = {
                     name : app.member.name,
                     email: app.member.email,
-                    password: app.member.password,
-                    role: app.role.name
+                    role: app.role
                     }
                 var newProfile = app.profile
                 //Update Members
-                axios.post(`/api/v1/member/`+uid, newMember)
+                axios.post(`/api/v1/member/`+ uid, newMember)
                     .then(function (resp) {
                         //Update Profile
                         axios.post(`/api/v1/profile/`+uid, newProfile)
@@ -252,6 +250,21 @@ var _ = require('lodash');
                             $('.updatePanel').hide();
                         })
                         })
+                    })
+            },
+            updatePassword(){
+              this.changingPassword = true
+            },
+            savePassword(){
+                var app = this;
+                var url = purl(window.location.href)
+                var uid=url.segment(-1)
+                var newMember = {
+                    password : app.password,
+                    }
+                axios.post(`/api/v1/member/`+ uid, newMember)
+                    .then(function (resp) {
+                        app.changingPassword = false
                     })
             }
 

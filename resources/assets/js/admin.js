@@ -444,7 +444,7 @@ $(document).ready(function(){
                             return score.final_judge.name == "Alan Guan"
                             
                         })
-                        console.log(winner_list_table.column(0).title)
+
                         if(newArray[0]){
                             return newArray[0].total
                         } else {
@@ -458,35 +458,47 @@ $(document).ready(function(){
                     "targets": 5,
                     "render": function ( data, type, row, meta ) {
                         var newArray = data.filter((query)=>{
-                            return query.final_judge.name= "Alan Guan"
+                            return query.final_judge.name == "Alan Guan"
+                        })
+                        
+                        if(newArray[0]){
+                            return newArray[0].total
+                        } else {
+                            return 0
+                        }
+                        }
+    
+                    },
+                {
+                    "targets": 6,
+                    "render": function ( data, type, row, meta ) {
+                        var newArray = data.filter((query)=>{
+                            return query.final_judge.name == "Alan Guan"
                         })
 
-                        return newArray.total
+                        if(newArray[0]){
+                            return newArray[0].total
+                        } else {
+                            return 0
+                        }
                         }
     
                     },
                     {
-                        "targets": 6,
+                        "targets": 7,
                         "render": function ( data, type, row, meta ) {
                             var newArray = data.filter((query)=>{
-                                return query.final_judge.name= "Alan Guan"
+                                return query.final_judge.name == "Alan Guan"
                             })
 
-                            return newArray.total
+                            if(newArray[0]){
+                                return newArray[0].total
+                            } else {
+                                return 0
+                            }
                             }
         
                         },
-                        {
-                            "targets": 7,
-                            "render": function ( data, type, row, meta ) {
-                                var newArray = data.filter((query)=>{
-                                    return query.final_judge.name= "Alan Guan"
-                                })
-
-                                return newArray.total
-                                }
-            
-                            },
               ],
               dom: 'fBrtip',
               buttons: [

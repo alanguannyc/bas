@@ -12,7 +12,7 @@
                 <b-tab > 
                 <template slot="title">
                      {{nomination.category}} 
-                     <span v-if="nomination.completed" style="color:green;">
+                     <span v-show="nomination.completed" style="color:green;">
                          <i><strong>Completed</strong></i>
                      </span>
                 </template>
@@ -56,6 +56,7 @@ Vue.use(BootstrapVue);
 export default {
     data: function(){
         return {
+            completed:false,
             nominations:'',
             score:'',
             lastPage:false,
@@ -89,8 +90,8 @@ export default {
             axios.get(`/api/v1/judgepanel/`)
                 .then(function (resp) {
 
-                    app.nominations = resp.data.nominations;
-                    app.nominations.map(nomination=>{
+                    // app.nominations = resp.data.nominations;
+                    app.nominations = resp.data.nominations.map(nomination=>{
                         var completed = true
                         for (var i=1;i<6;i++){
                             
@@ -99,7 +100,10 @@ export default {
                             }
                         }
                         nomination['completed'] = completed
+
+                        return nomination
                     })
+
 
                 })
                 .catch(function (err) {
@@ -149,22 +153,43 @@ export default {
             },
             scoreUpdated() {
 
+                
+                
+                // app.nominations.forEach(nomination=>{
+                //                 var completed = true
+                //                 for (var i=1;i<6;i++){
+                                    
+                //                     if (nomination.score['q' + i]==null) {
+                //                         completed = false
+                //                     }
+                                    
+                //                 }
+                //                 nomination['completed'] = completed
+
+
+                //             })
+                
                 var app = this;
                 axios.get(`/api/v1/judgepanel/`)
-                    .then(function (resp) {
-                        app.nominations = resp.data.nominations;
-                        app.nominations.map(nomination=>{
-                                var completed = true
-                                for (var i=1;i<6;i++){
-                                    
-                                    if (nomination.score['q'+i] == null) {
-                                        completed = false
-                                    }
-                                }
-                                nomination['completed'] = completed
+                .then(function (resp) {
+
+                    app.nominations = resp.data.nominations;
+                    app.nominations = app.nominations.map(nomination=>{
+                        var completed = true
+                        for (var i=1;i<6;i++){
+                            
+                            if (nomination.score['q'+i] == null) {
+                                completed = false
                             }
-                    )
+                        }
+                        nomination['completed'] = completed
+
+                        return nomination
+                    })
+
+
                 })
+
                 
             }
         }

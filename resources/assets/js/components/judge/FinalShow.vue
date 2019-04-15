@@ -147,7 +147,7 @@
                 axios.post(`/api/v1/finalScore`, newScore)
                 .then(function (resp) {
                     app.showSuccess = true
-                    app.$emit('finalScoreUpdated', newScore)
+                    app.$emit('finalScoreUpdated', app.data.id)
                     setTimeout(() => {
                         app.showSuccess = false
                     }, 1500);
