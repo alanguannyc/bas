@@ -29,7 +29,7 @@
                                 <tr>
                                     <td>{{ $winner->category }}</td>
                                     <td>{{$winner->name}} </td>
-                                  <td>{{$winner->hotel}}</td>
+                                  <td>{{$winner->user->profile->company}}</td>
                                   <td>{{$winner->title}}</td>
                                   <td>{{$winner->total_final_score}}</td>
                                 </tr>

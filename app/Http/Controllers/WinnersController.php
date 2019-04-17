@@ -14,6 +14,7 @@ class WinnersController extends Controller
     private function getTotalCount($category)
     {
         return Nomination::with('score')
+        ->whereYear('created_at', date('Y'))
         ->where('category', $category)
         ->count();
     }
@@ -21,6 +22,7 @@ class WinnersController extends Controller
     private function getTopTenthScore($category)
     {
         $nomiatnions = Nomination::with('score')
+        ->whereYear('created_at', date('Y'))
         ->where('category', $category)
         ->get();
 
@@ -64,10 +66,12 @@ class WinnersController extends Controller
             $nomiatnions = Nomination::with(['score','user.profile','final_scores.final_judge','final_scores'=>function($query){
                 $query->where('final_judge_id',auth()->id());
             }])
+            ->whereYear('created_at', date('Y'))
             ->where('category', $category)
             ->get();
         } else {
             $nomiatnions = Nomination::with(['score','user.profile','final_scores','final_scores.final_judge'])
+            ->whereYear('created_at', date('Y'))
             ->where('category', $category)
             ->get();
         }

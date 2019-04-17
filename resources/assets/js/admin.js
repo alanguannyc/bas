@@ -424,6 +424,7 @@ $(document).ready(function(){
         }
     } );
 
+    let finalJudges = ['Alan Steel','Bjorn Hanson, Ph.D.','Almerinda Forte','Larry Lawrence']
     var winner_list_table = $('#winner_list_table').DataTable(
         {
             "pagingType": "full_numbers",
@@ -441,7 +442,7 @@ $(document).ready(function(){
                     "targets": 4,
                     "render": function ( data, type, row, meta ) {
                         var newArray = data.filter((score)=>{
-                            return score.final_judge.name == "Alan Guan"
+                            return score.final_judge.name == finalJudges[0]
                             
                         })
 
@@ -458,7 +459,7 @@ $(document).ready(function(){
                     "targets": 5,
                     "render": function ( data, type, row, meta ) {
                         var newArray = data.filter((query)=>{
-                            return query.final_judge.name == "Alan Guan"
+                            return query.final_judge.name == finalJudges[1]
                         })
                         
                         if(newArray[0]){
@@ -473,7 +474,7 @@ $(document).ready(function(){
                     "targets": 6,
                     "render": function ( data, type, row, meta ) {
                         var newArray = data.filter((query)=>{
-                            return query.final_judge.name == "Alan Guan"
+                            return query.final_judge.name == finalJudges[2]
                         })
 
                         if(newArray[0]){
@@ -488,7 +489,7 @@ $(document).ready(function(){
                         "targets": 7,
                         "render": function ( data, type, row, meta ) {
                             var newArray = data.filter((query)=>{
-                                return query.final_judge.name == "Alan Guan"
+                                return query.final_judge.name == finalJudges[3]
                             })
 
                             if(newArray[0]){

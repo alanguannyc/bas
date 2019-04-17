@@ -50772,7 +50772,7 @@ var render = function() {
               [
                 _c(
                   "b-tabs",
-                  { attrs: { pills: "", card: "", vertical: "" } },
+                  { ref: "tabs", attrs: { pills: "", card: "", vertical: "" } },
                   _vm._l(_vm.nominations, function(nomination) {
                     return _c(
                       "div",
@@ -50780,6 +50780,7 @@ var render = function() {
                       [
                         _c(
                           "b-tab",
+                          { key: nomination.id },
                           [
                             _c("template", { slot: "title" }, [
                               _vm._v(
@@ -50787,21 +50788,17 @@ var render = function() {
                                   _vm._s(nomination.category) +
                                   " \n                 "
                               ),
-                              _c(
-                                "span",
-                                {
-                                  directives: [
-                                    {
-                                      name: "show",
-                                      rawName: "v-show",
-                                      value: nomination.completed,
-                                      expression: "nomination.completed"
-                                    }
-                                  ],
-                                  staticStyle: { color: "green" }
-                                },
-                                [_c("i", [_c("strong", [_vm._v("Completed")])])]
-                              )
+                              nomination.completed
+                                ? _c(
+                                    "span",
+                                    { staticStyle: { color: "green" } },
+                                    [
+                                      _c("i", [
+                                        _c("strong", [_vm._v("Completed")])
+                                      ])
+                                    ]
+                                  )
+                                : _vm._e()
                             ]),
                             _vm._v(" "),
                             _c("judge-show", {

@@ -117,7 +117,10 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
     });
     Route::get('/member/nominations', 'NominationsController@index');
     Route::get('/member/{id}', function($id){
-        $member = \App\User::with(['profile','roles','nominations'])->find($id);
+        $member = \App\User::with(['profile','roles','nominations'=>function($query){
+            return $query->orderBy('created_at','desc');
+        }])->find($id);
+
         
         return $member;
     });

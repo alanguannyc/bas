@@ -2,17 +2,17 @@
     <div class="container" >
         <div v-if="!lastPage && setting.application_on">
             <b-card no-body >
-            <b-tabs pills card vertical >
+            <b-tabs pills card vertical ref="tabs">
                 <div v-for="nomination in nominations" v-bind:key="nomination.id">
 
                 <!-- <b-tab :title="nomination.category" > 
                 
                 </b-tab> -->
-
-                <b-tab > 
+                
+                <b-tab v-bind:key="nomination.id"> 
                 <template slot="title">
                      {{nomination.category}} 
-                     <span v-show="nomination.completed" style="color:green;">
+                     <span v-if="nomination.completed" style="color:green;">
                          <i><strong>Completed</strong></i>
                      </span>
                 </template>
@@ -120,6 +120,8 @@ export default {
                     console.log(resp);
                     // alert("Could not load nominations");
                 });
+             
+           
         },
     computed:{
         

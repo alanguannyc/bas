@@ -29,7 +29,7 @@
     <tbody>
         <tr v-for="nomination in nominations" v-bind:key="nomination.id" >
         <td > <nomination-detail :data="nomination">  
-</nomination-detail></td>
+              </nomination-detail></td>
         <td ><h5>{{ nomination.category }}</h5></td>
         <td><h5>{{ nomination.name}}</h5></td>
         <td>{{ nomination.created_at}}</td>

@@ -31137,6 +31137,7 @@ $(document).ready(function () {
         }
     });
 
+    var finalJudges = ['Alan Steel', 'Bjorn Hanson, Ph.D.', 'Almerinda Forte', 'Larry Lawrence'];
     var winner_list_table = $('#winner_list_table').DataTable({
         "pagingType": "full_numbers",
         "order": [[0, "desc"]],
@@ -31151,7 +31152,7 @@ $(document).ready(function () {
             "targets": 4,
             "render": function render(data, type, row, meta) {
                 var newArray = data.filter(function (score) {
-                    return score.final_judge.name == "Alan Guan";
+                    return score.final_judge.name == finalJudges[0];
                 });
 
                 if (newArray[0]) {
@@ -31165,7 +31166,7 @@ $(document).ready(function () {
             "targets": 5,
             "render": function render(data, type, row, meta) {
                 var newArray = data.filter(function (query) {
-                    return query.final_judge.name == "Alan Guan";
+                    return query.final_judge.name == finalJudges[1];
                 });
 
                 if (newArray[0]) {
@@ -31179,7 +31180,7 @@ $(document).ready(function () {
             "targets": 6,
             "render": function render(data, type, row, meta) {
                 var newArray = data.filter(function (query) {
-                    return query.final_judge.name == "Alan Guan";
+                    return query.final_judge.name == finalJudges[2];
                 });
 
                 if (newArray[0]) {
@@ -31193,7 +31194,7 @@ $(document).ready(function () {
             "targets": 7,
             "render": function render(data, type, row, meta) {
                 var newArray = data.filter(function (query) {
-                    return query.final_judge.name == "Alan Guan";
+                    return query.final_judge.name == finalJudges[3];
                 });
 
                 if (newArray[0]) {
