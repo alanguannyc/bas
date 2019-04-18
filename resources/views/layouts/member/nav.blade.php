@@ -16,7 +16,7 @@
                     @If(Browser::isIE())
                     <strong>Internet Explorer isn't working on this site. Plese use Chrome instead.</strong> 
                     @endif
-                    Need Help? Please Contact sandy@hanyc.org
+
                 </li>
                 <li class="nav-item dropdown ">
                     <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
