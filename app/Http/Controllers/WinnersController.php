@@ -137,7 +137,10 @@ class WinnersController extends Controller
         ;
 
         $filtered = $WinnerList->filter(function ($value) use ($category){
-            return $value['total_final_score'] >= $this->getTopScore($category);
+            if($this->getTopScore($category) != 0) {
+                return $value['total_final_score'] >= $this->getTopScore($category);
+            }
+            
             // return $value['score']['q1'] + $value['score']['q2'] + $value['score']['q3'] + $value['score']['q4']+ $value['score']['q5'] >= $this->getTopTenthScore($value['category']);
         });
 

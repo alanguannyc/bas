@@ -33154,6 +33154,7 @@ var render = function() {
                       staticClass: "btn btn-primary",
                       on: {
                         click: function($event) {
+                          $event.preventDefault()
                           _vm.saveProfile()
                         }
                       }

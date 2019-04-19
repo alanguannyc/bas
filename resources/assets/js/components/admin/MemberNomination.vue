@@ -101,7 +101,7 @@
                 </select>
                 </div>
             <button class="btn " v-on:click="cancelUpdate()">Cancel</button>
-            <button class="btn btn-primary" v-on:click="saveProfile()">SAVE</button>
+            <button class="btn btn-primary" v-on:click.prevent="saveProfile()">SAVE</button>
             <button class="btn btn-primary right " v-on:click.prevent="updatePassword()">Update password</button>
 
         </form>

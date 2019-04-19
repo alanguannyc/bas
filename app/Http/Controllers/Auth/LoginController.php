@@ -48,6 +48,6 @@ class LoginController extends Controller
             return redirect('/admin');
         }
 
-        return redirect('/home');
+        return redirect('/dashboard');
     }
 }
