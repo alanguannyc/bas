@@ -132,20 +132,28 @@ export default {
             },
             finalScoreUpdated(id) {
 
-                var app = this;
-                
-                var nominationUpdated = app.nominations.find(function(nomination){
-                        return nomination.id == id
-                    })
-
-                var completed = true
-                for (var i=1;i<6;i++){
-                        
-                        if (nominationUpdated.final_scores[0]['q'+i] == null) {
+                axios.get(`/api/v1/finalListForJudge`)
+                .then(function (resp) {
+                    
+                    app.nominations = resp.data;
+                    app.nominations = app.nominations.map(nomination=>{
+                        var completed = true
+                        if (nomination.final_scores == null) {
                             completed = false
+                        } else {
+                            for (var i=1;i<6;i++){
+                            
+                                if (nomination.final_scores[0]['q'+i] == null) {
+                                    completed = false
+                                }
+                            }
                         }
-                    }
-                nominationUpdated['completed'] = true
+                        
+                        nomination['completed'] = completed
+                        return nomination
+                    })
+                    
+                })
                 
             },
             checkIfCompleted(nominations){

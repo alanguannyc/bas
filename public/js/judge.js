@@ -51669,12 +51669,17 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
             app.nominations = resp.data;
             app.nominations = app.nominations.map(function (nomination) {
                 var completed = true;
-                for (var i = 1; i < 6; i++) {
+                if (nomination.final_scores == null) {
+                    completed = false;
+                } else {
+                    for (var i = 1; i < 6; i++) {
 
-                    if (nomination.final_scores[0]['q' + i] == null) {
-                        completed = false;
+                        if (nomination.final_scores[0]['q' + i] == null) {
+                            completed = false;
+                        }
                     }
                 }
+
                 nomination['completed'] = completed;
                 return nomination;
             });
@@ -51722,20 +51727,26 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
         },
         finalScoreUpdated: function finalScoreUpdated(id) {
 
-            var app = this;
+            axios.get('/api/v1/finalListForJudge').then(function (resp) {
 
-            var nominationUpdated = app.nominations.find(function (nomination) {
-                return nomination.id == id;
+                app.nominations = resp.data;
+                app.nominations = app.nominations.map(function (nomination) {
+                    var completed = true;
+                    if (nomination.final_scores == null) {
+                        completed = false;
+                    } else {
+                        for (var i = 1; i < 6; i++) {
+
+                            if (nomination.final_scores[0]['q' + i] == null) {
+                                completed = false;
+                            }
+                        }
+                    }
+
+                    nomination['completed'] = completed;
+                    return nomination;
+                });
             });
-
-            var completed = true;
-            for (var i = 1; i < 6; i++) {
-
-                if (nominationUpdated.final_scores[0]['q' + i] == null) {
-                    completed = false;
-                }
-            }
-            nominationUpdated['completed'] = true;
         },
         checkIfCompleted: function checkIfCompleted(nominations) {
             nominations.map(function (nomination) {
