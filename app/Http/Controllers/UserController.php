@@ -25,9 +25,12 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
-        $user->fill([
-            'password' => Hash::make($request->password)
-        ])->save();
+        if ($request->password != ""){
+            $user->fill([
+                'password' => Hash::make($request->password)
+            ])->save();
+        }
+        
         return $user;
     }
 }

@@ -39933,7 +39933,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
                 var completed = true;
                 for (var i = 1; i < 6; i++) {
 
-                    if (nomination.score['q' + i] == null) {
+                    if (!nomination.score | nomination.score['q' + i] == null) {
                         completed = false;
                     }
                 }

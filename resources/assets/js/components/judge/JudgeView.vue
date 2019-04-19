@@ -95,7 +95,7 @@ export default {
                         var completed = true
                         for (var i=1;i<6;i++){
                             
-                            if (nomination.score['q'+i] == null) {
+                            if (!nomination.score | nomination.score['q'+i] == null) {
                                 completed = false
                             }
                         }
