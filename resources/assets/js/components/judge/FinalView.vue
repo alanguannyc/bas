@@ -130,8 +130,8 @@ export default {
                 $('body').find('li a.active').closest('li').prev('li').find('a')[0].click();
                 $('html,body').scrollTop(0);
             },
-            finalScoreUpdated(id) {
-
+            finalScoreUpdated() {
+                var app = this
                 axios.get(`/api/v1/finalListForJudge`)
                 .then(function (resp) {
                     

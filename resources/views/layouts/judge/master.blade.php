@@ -44,7 +44,7 @@
 <!-- Jquery URL Scripts -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-url-parser/2.3.1/purl.min.js"></script>
    
-<script src="{{ asset('js/judge.js?v=2.1') }}" ></script>
+<script src="{{ asset('js/judge.js?v=2.2') }}" ></script>
 </body>
 
 

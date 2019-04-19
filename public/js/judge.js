@@ -51725,8 +51725,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
             $('body').find('li a.active').closest('li').prev('li').find('a')[0].click();
             $('html,body').scrollTop(0);
         },
-        finalScoreUpdated: function finalScoreUpdated(id) {
-
+        finalScoreUpdated: function finalScoreUpdated() {
+            var app = this;
             axios.get('/api/v1/finalListForJudge').then(function (resp) {
 
                 app.nominations = resp.data;
@@ -52124,11 +52124,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             newScore.id = app.data.id;
 
             axios.post('/api/v1/finalScore', newScore).then(function (resp) {
+
                 app.showSuccess = true;
-                app.$emit('finalScoreUpdated', app.data.id);
+
                 setTimeout(function () {
                     app.showSuccess = false;
                 }, 1500);
+
+                app.$emit('finalScoreUpdated', app.data.id);
             }).catch(function (resp) {
                 console.log(resp);
             });
