@@ -39931,12 +39931,16 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
             // app.nominations = resp.data.nominations;
             app.nominations = resp.data.nominations.map(function (nomination) {
                 var completed = true;
-                for (var i = 1; i < 6; i++) {
-
-                    if (!nomination.score | nomination.score['q' + i] == null) {
-                        completed = false;
+                if (nomination.score == null) {
+                    completed = false;
+                } else {
+                    for (var i = 1; i < 6; i++) {
+                        if (nomination.score['q' + i] == null) {
+                            completed = false;
+                        }
                     }
                 }
+
                 nomination['completed'] = completed;
 
                 return nomination;
