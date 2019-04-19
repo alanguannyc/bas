@@ -36648,13 +36648,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
             setting: {
-                application_on: ''
+                application_on: '',
+                judge_on: ''
             }
         };
     },
@@ -36663,16 +36676,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         axios.get('/api/v1/setting').then(function (resp) {
             _this.setting = resp.data;
-            console.log(_this.setting);
+            for (var key in _this.setting) {
+                if (key == 'id' | key == 'updated_at' | key == 'created_at') continue;
+                _this.setting[key] = _this.setting[key] == 0 ? false : true;
+            }
         }).catch(function (err) {
             console.log(eer);
         });
     },
 
     methods: {
-        settingChange: function settingChange() {
-            console.log(this.setting.application_on);
-            this.setting.application_on ? axios.post('/api/v1/setting/application_on') : axios.post('/api/v1/setting/application_off');
+        StatusChange: function StatusChange() {
+            var app = this;
+            var newSetting = {
+                "application_on": app.setting.application_on,
+                "judge_on": app.setting.judge_on
+            };
+            axios.post('/api/v1/setting/update', newSetting).then(function (resp) {});
+        },
+        judgeChange: function judgeChange() {
+
+            this.setting.judge_on ? axios.post('/api/v1/setting/judge_on') : axios.post('/api/v1/setting/judge_off');
         }
     }
 });
@@ -36705,13 +36729,39 @@ var render = function() {
                     labels: true,
                     "font-size": 14
                   },
-                  on: { change: _vm.settingChange },
+                  on: { change: _vm.StatusChange },
                   model: {
                     value: _vm.setting.application_on,
                     callback: function($$v) {
                       _vm.$set(_vm.setting, "application_on", $$v)
                     },
                     expression: "setting.application_on"
+                  }
+                })
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              [
+                _c("label", [_vm._v("Start Judging")]),
+                _vm._v(" "),
+                _c("toggle-button", {
+                  attrs: {
+                    value: false,
+                    color: "#82C7EB",
+                    sync: true,
+                    labels: true,
+                    "font-size": 14
+                  },
+                  on: { change: _vm.StatusChange },
+                  model: {
+                    value: _vm.setting.judge_on,
+                    callback: function($$v) {
+                      _vm.$set(_vm.setting, "judge_on", $$v)
+                    },
+                    expression: "setting.judge_on"
                   }
                 })
               ],

@@ -85,6 +85,10 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         Route::post('/application_on', 'SettingController@ApplicationOn');
         Route::post('/application_off', 'SettingController@ApplicationOff');
 
+        Route::post('/judge_on', 'SettingController@JudgeOn');
+        Route::post('/judge_off', 'SettingController@JudgeOff');
+
+        Route::post('/update', 'SettingController@Update');
 
         Route::get('/','SettingController@all');
     });

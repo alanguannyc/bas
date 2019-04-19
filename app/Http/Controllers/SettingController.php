@@ -34,15 +34,22 @@ class SettingController extends Controller
         
     }
 
+    public static function Update(Request $request)
+    {
+        // dd($request->all());
+        $setting = \App\Setting::updateOrCreate(['id' => 1], $request->all());
+
+    }
+
     public static function All()
     {
         
         $setting = \App\Setting::find(1);
-        if ($setting->application_on){
-            $setting->application_on=true;
-        } else{
-            $setting->application_on=false;
-        }
+        // if ($setting->application_on){
+        //     $setting->application_on=true;
+        // } else{
+        //     $setting->application_on=false;
+        // }
         return $setting;
         
     }

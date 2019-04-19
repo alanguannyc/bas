@@ -18,10 +18,22 @@
             :labels="true" 
             :font-size=14 
             v-model="setting.application_on"
-            @change="settingChange"
+            @change="StatusChange"
             />
         </div>
-   
+
+        <div >
+           <label>Start Judging</label>
+            <toggle-button 
+            :value="false" 
+            color="#82C7EB" 
+            :sync="true" 
+            :labels="true" 
+            :font-size=14 
+            v-model="setting.judge_on"
+            @change="StatusChange"
+            />
+        </div>
     
       </div>
     </div>
@@ -40,22 +52,40 @@
     data () {
       return {
         setting: {
-            application_on:''
+            application_on:'',
+            judge_on:'',
         }
       }
     },
     mounted() {
         axios.get('/api/v1/setting').then(resp=>{
             this.setting = resp.data
-            console.log(this.setting)
+            for (var key in this.setting){
+              if (key == 'id' | key =='updated_at' | key =='created_at') continue;
+              this.setting[key] = this.setting[key] == 0 ? false : true
+            }
+
         }).catch(err=>{
             console.log(eer)
         })
     },
     methods: {
-        settingChange: function(){
-            console.log(this.setting.application_on)
-            this.setting.application_on ? axios.post('/api/v1/setting/application_on') : axios.post('/api/v1/setting/application_off')
+        StatusChange: function(){
+            var app = this
+            var newSetting = 
+              {
+                "application_on" : app.setting.application_on,
+                "judge_on": app.setting.judge_on
+            }
+            axios.post('/api/v1/setting/update', newSetting)
+            .then(resp =>{
+              
+            })
+
+        },
+        judgeChange: function(){
+          
+            this.setting.judge_on ? axios.post('/api/v1/setting/judge_on') : axios.post('/api/v1/setting/judge_off')
         }
     }
   }

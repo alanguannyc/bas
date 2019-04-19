@@ -39900,7 +39900,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
             score: '',
             lastPage: false,
             setting: {
-                application_on: ''
+                judge_on: ''
             }
         };
     },
@@ -39948,6 +39948,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
 
         axios.get('/api/v1/setting').then(function (resp) {
             app.setting = resp.data;
+            for (var key in app.setting) {
+                if (key == 'id' | key == 'updated_at' | key == 'created_at') continue;
+                app.setting[key] = app.setting[key] == 0 ? false : true;
+            }
         }).catch(function (resp) {
             console.log(resp);
             // alert("Could not load nominations");
@@ -50762,7 +50766,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    !_vm.lastPage && _vm.setting.application_on
+    !_vm.lastPage && _vm.setting.judge_on
       ? _c(
           "div",
           [
@@ -51649,7 +51653,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
             score: '',
             lastPage: false,
             setting: {
-                application_on: ''
+                judge_on: ''
             }
         };
     },
@@ -51677,6 +51681,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
 
         axios.get('/api/v1/setting').then(function (resp) {
             app.setting = resp.data;
+            for (var key in app.setting) {
+                if (key == 'id' | key == 'updated_at' | key == 'created_at') continue;
+                app.setting[key] = app.setting[key] == 0 ? false : true;
+            }
         }).catch(function (resp) {
             console.log(resp);
             // alert("Could not load nominations");
@@ -51751,7 +51759,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    !_vm.lastPage && _vm.setting.application_on
+    !_vm.lastPage && _vm.setting.judge_on
       ? _c(
           "div",
           [

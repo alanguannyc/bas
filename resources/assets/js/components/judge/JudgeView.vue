@@ -1,6 +1,6 @@
 <template>
     <div class="container" >
-        <div v-if="!lastPage && setting.application_on">
+        <div v-if="!lastPage && setting.judge_on">
             <b-card no-body >
             <b-tabs pills card vertical ref="tabs">
                 <div v-for="nomination in nominations" v-bind:key="nomination.id">
@@ -61,7 +61,7 @@ export default {
             score:'',
             lastPage:false,
             setting:{
-                    application_on: ''
+                    judge_on: ''
                 },
         }
     },
@@ -114,6 +114,10 @@ export default {
             axios.get('/api/v1/setting')
                 .then(function (resp) {
                     app.setting = resp.data;
+                    for (var key in app.setting){
+                    if (key == 'id' | key =='updated_at' | key =='created_at') continue;
+                    app.setting[key] = app.setting[key] == 0 ? false : true
+                    }
 
                 })
                 .catch(function (resp) {
