@@ -65,12 +65,17 @@ export default {
                     app.nominations = resp.data;
                     app.nominations = app.nominations.map(nomination=>{
                         var completed = true
-                        for (var i=1;i<6;i++){
+                        if (nomination.final_scores == null) {
+                            completed = false
+                        } else {
+                            for (var i=1;i<6;i++){
                             
-                            if (nomination.final_scores[0]['q'+i] == null) {
-                                completed = false
+                                if (nomination.final_scores[0]['q'+i] == null) {
+                                    completed = false
+                                }
                             }
                         }
+                        
                         nomination['completed'] = completed
                         return nomination
                     })
