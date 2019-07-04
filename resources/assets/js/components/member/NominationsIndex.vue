@@ -2,7 +2,9 @@
     <div class="container">
         <div v-if="nominations =='' & setting.application_on ">
             <h4>Start submitting your nominations</h4>
-            <button class="btn btn-primary add" :disabled="!setting.application_on">Start</button>
+            <!-- <button class="btn btn-primary add" :disabled="!setting.application_on">Start</button> -->
+                        <button class="btn btn-primary add" disabled>Start</button>
+
         </div>
     <table class="table table-hover" v-else>
     <thead>
