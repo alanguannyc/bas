@@ -14,7 +14,8 @@ Route::get('/logout' , 'Auth\LoginController@logout');
 
 //Admin routes
 Route::group(['prefix' => 'admin',  'middleware' => ['auth','admin']], function()
-    {
+    {   
+        Route::get('/testing', 'WinnersController@testing');
         Route::get('/', 'AdminController@index')->name('admin');
 
         Route::get('/user', 'AdminController@indexUsers');

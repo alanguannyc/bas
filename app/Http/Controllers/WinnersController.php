@@ -21,26 +21,24 @@ class WinnersController extends Controller
 
     private function getTopTenthScore($category)
     {
-        $nomiatnions = Nomination::with('score')
-        ->whereYear('created_at', date('Y'))
-        ->where('category', $category)
-        ->get();
+        // $nomiatnions = Nomination::with('score')
+        // ->whereYear('created_at', date('Y'))
+        // ->where('category', $category)
+        // ->get();
 
-        $sorted = $nomiatnions->sortByDesc(function ($nomination, $key) {
-            return $nomination['score']['q1'] + $nomination['score']['q2'] + $nomination['score']['q3'] + $nomination['score']['q4'] + $nomination['score']['q5'];
-        });
-        // if ($this->getTotalCount($category) > 9) {
-        //     $nomination = $sorted->values()->get(10);
-        // } elseif ($this->getTotalCount($category) < 10){
-        //     $nomination = $sorted->last();
-        // }
+        // $sorted = $nomiatnions->sortByDesc(function ($nomination, $key) {
+        //     return $nomination['score']['q1'] + $nomination['score']['q2'] + $nomination['score']['q3'] + $nomination['score']['q4'] + $nomination['score']['q5'];
+        // });
         
-        $nomination =  $this->getTotalCount($category) > 9 ? $sorted->values()->get(10) : $sorted->last();
+        // $nomination =  $this->getTotalCount($category) > 9 ? $sorted->values()->get(9) : $sorted->last();
 
-        $score = \App\Score::where('nomination_id', $nomination->id)->first() ? \App\Score::where('nomination_id', $nomination->id)->first()->total() : 0;
+        // $score = \App\Score::where('nomination_id', $nomination->id)->first() ? \App\Score::where('nomination_id', $nomination->id)->first()->total() : 0;
 
-        return $score;
+        // return $score;
+
+        return 0;
     }
+
 
     private function sumScores($score)
     {
@@ -137,8 +135,10 @@ class WinnersController extends Controller
         ;
 
         $filtered = $WinnerList->filter(function ($value) use ($category){
-            if($this->getTopScore($category) != 0) {
+            if($this->getTopScore($category) > 0) {
                 return $value['total_final_score'] >= $this->getTopScore($category);
+            } else {
+                return $value['total_final_score'] >= 10;
             }
             
             // return $value['score']['q1'] + $value['score']['q2'] + $value['score']['q3'] + $value['score']['q4']+ $value['score']['q5'] >= $this->getTopTenthScore($value['category']);
@@ -156,9 +156,9 @@ class WinnersController extends Controller
         
         $FinalLists = collect();
 
-        foreach($this->categories as $category) {
-            $FinalLists = $FinalLists->concat($this->getWinner($category));
-        }
+        // foreach($this->categories as $category) {
+        //     $FinalLists = $FinalLists->concat($this->getWinner($category));
+        // }
 
         return $FinalLists;
     }
