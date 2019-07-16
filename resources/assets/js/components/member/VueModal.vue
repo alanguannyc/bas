@@ -36,14 +36,14 @@ pageview
 <div class="col-md-6 pr-1">
     
     <label > Name</label>
-    <div v-if="!setting.application_on">{{nomination.name}} </div>
+    <div v-if="setting.application_on == false">{{nomination.name}} </div>
     <input v-else v-model="nomination.name" type="text" class="form-control" placeholder="Name" >
     
 </div>
 <div class="col-md-6 pr-1">
     
     <label> Title </label>
-    <div v-if="!setting.application_on">{{nomination.title}} </div>
+    <div v-if="setting.application_on == false">{{nomination.title}} </div>
     <input v-else v-model="nomination.title" type="text" class="form-control" placeholder="Title" required="true">
     
 </div>
@@ -51,7 +51,7 @@ pageview
 <div class="col-md-12">
 
     <label  for="exampleFormControlTextarea1">1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example.</label>
-    <div v-if="!setting.application_on" v-html="nomination.q1"> </div>
+    <div v-if="setting.application_on == false" v-html="nomination.q1"> </div>
     <textarea v-else v-model="nomination.q1" class="form-control textarea"  id="exampleFormControlTextarea1" rows="3"></textarea>
     
 
@@ -60,7 +60,7 @@ pageview
 <!-- Question 2 -->
 <div class="col-md-12">
     <label for="exampleFormControlTextarea1">2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples.</label>
-    <div v-if="!setting.application_on" v-html="nomination.q2"> </div>
+    <div v-if="setting.application_on == false" v-html="nomination.q2"> </div>
     <textarea v-else v-model="nomination.q2" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
     
   </div>
@@ -68,7 +68,7 @@ pageview
 <!-- Question 3 -->
 <div class="col-md-12">
     <label for="exampleFormControlTextarea1">3.    Describe the interaction of the employee with guests. Please cite specific examples of the employee’s positive impact on the guest experience at your hotel.</label>
-    <div v-if="!setting.application_on" v-html="nomination.q3"> </div>
+    <div v-if="setting.application_on == false" v-html="nomination.q3"> </div>
         <textarea v-else v-model="nomination.q3" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
      
   </div>
@@ -76,7 +76,7 @@ pageview
 <!-- Question 4 -->
 <div class="col-md-12">
     <label for="exampleFormControlTextarea1">4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers.</label>
-   <div v-if="!setting.application_on" v-html="nomination.q4"> </div>
+   <div v-if="setting.application_on == false" v-html="nomination.q4"> </div>
         <textarea v-else v-model="nomination.q4" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
   
   </div>
@@ -85,15 +85,15 @@ pageview
 <div class="col-md-12">
     <label  for="exampleFormControlTextarea1">5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards.</label>
     
-    <div v-if="!setting.application_on" v-html="nomination.q5"> </div>
+    <div v-if="setting.application_on == false" v-html="nomination.q5"> </div>
     <textarea v-else v-model="nomination.q5" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
     
   </div>
 <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         
-        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination" v-if="setting.application_on">Save changes</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteNomination" v-if="setting.application_on">Delete</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination" v-if="setting.application_on == false">Save changes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteNomination" v-if="setting.application_on == false">Delete</button>
       </div>
   
 </form>

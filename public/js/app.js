@@ -31726,7 +31726,7 @@ var render = function() {
                   _c("div", { staticClass: "col-md-6 pr-1" }, [
                     _c("label", [_vm._v(" Name")]),
                     _vm._v(" "),
-                    !_vm.setting.application_on
+                    _vm.setting.application_on == false
                       ? _c("div", [_vm._v(_vm._s(_vm.nomination.name) + " ")])
                       : _c("input", {
                           directives: [
@@ -31758,7 +31758,7 @@ var render = function() {
                   _c("div", { staticClass: "col-md-6 pr-1" }, [
                     _c("label", [_vm._v(" Title ")]),
                     _vm._v(" "),
-                    !_vm.setting.application_on
+                    _vm.setting.application_on == false
                       ? _c("div", [_vm._v(_vm._s(_vm.nomination.title) + " ")])
                       : _c("input", {
                           directives: [
@@ -31802,7 +31802,7 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    !_vm.setting.application_on
+                    _vm.setting.application_on == false
                       ? _c("div", {
                           domProps: { innerHTML: _vm._s(_vm.nomination.q1) }
                         })
@@ -31849,7 +31849,7 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    !_vm.setting.application_on
+                    _vm.setting.application_on == false
                       ? _c("div", {
                           domProps: { innerHTML: _vm._s(_vm.nomination.q2) }
                         })
@@ -31896,7 +31896,7 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    !_vm.setting.application_on
+                    _vm.setting.application_on == false
                       ? _c("div", {
                           domProps: { innerHTML: _vm._s(_vm.nomination.q3) }
                         })
@@ -31943,7 +31943,7 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    !_vm.setting.application_on
+                    _vm.setting.application_on == false
                       ? _c("div", {
                           domProps: { innerHTML: _vm._s(_vm.nomination.q4) }
                         })
@@ -31990,7 +31990,7 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    !_vm.setting.application_on
+                    _vm.setting.application_on == false
                       ? _c("div", {
                           domProps: { innerHTML: _vm._s(_vm.nomination.q5) }
                         })
@@ -32034,7 +32034,7 @@ var render = function() {
                       [_vm._v("Close")]
                     ),
                     _vm._v(" "),
-                    _vm.setting.application_on
+                    _vm.setting.application_on == false
                       ? _c(
                           "button",
                           {
@@ -32046,7 +32046,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.setting.application_on
+                    _vm.setting.application_on == false
                       ? _c(
                           "button",
                           {
