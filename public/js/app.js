@@ -31581,6 +31581,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -31994,34 +31996,36 @@ var render = function() {
                       ? _c("div", {
                           domProps: { innerHTML: _vm._s(_vm.nomination.q5) }
                         })
-                      : _c("textarea", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.nomination.q5,
-                              expression: "nomination.q5"
-                            }
-                          ],
-                          staticClass: "form-control textarea",
-                          attrs: {
-                            id: "exampleFormControlTextarea1",
-                            rows: "3"
-                          },
-                          domProps: { value: _vm.nomination.q5 },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                      : _c("div", [
+                          _c("textarea", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.nomination.q5,
+                                expression: "nomination.q5"
                               }
-                              _vm.$set(
-                                _vm.nomination,
-                                "q5",
-                                $event.target.value
-                              )
+                            ],
+                            staticClass: "form-control textarea",
+                            attrs: {
+                              id: "exampleFormControlTextarea1",
+                              rows: "3"
+                            },
+                            domProps: { value: _vm.nomination.q5 },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.nomination,
+                                  "q5",
+                                  $event.target.value
+                                )
+                              }
                             }
-                          }
-                        })
+                          })
+                        ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-footer" }, [
@@ -32034,7 +32038,7 @@ var render = function() {
                       [_vm._v("Close")]
                     ),
                     _vm._v(" "),
-                    _vm.setting.application_on == false
+                    _vm.setting.application_on == true
                       ? _c(
                           "button",
                           {
@@ -32046,7 +32050,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.setting.application_on == false
+                    _vm.setting.application_on == true
                       ? _c(
                           "button",
                           {
