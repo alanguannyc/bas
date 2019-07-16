@@ -31992,7 +31992,7 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _vm.setting.application_on == false
+                    !_vm.setting.application_on
                       ? _c("div", {
                           domProps: { innerHTML: _vm._s(_vm.nomination.q5) }
                         })
@@ -32038,7 +32038,7 @@ var render = function() {
                       [_vm._v("Close")]
                     ),
                     _vm._v(" "),
-                    _vm.setting.application_on == true
+                    _vm.setting.application_on
                       ? _c(
                           "button",
                           {
@@ -32050,7 +32050,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.setting.application_on == true
+                    _vm.setting.application_on
                       ? _c(
                           "button",
                           {
