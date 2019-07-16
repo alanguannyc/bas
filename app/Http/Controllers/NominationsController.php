@@ -179,13 +179,12 @@ class NominationsController extends Controller
         $name = explode(" ", strtolower($input['name']));
         $checklist = [];
 
-        $hotellist = ['hilton','marriott','london', 'grand hyatt', 'hyatt', 'arlo',
+        $hotellist = ['hilton','marriott', 'grand hyatt', 'hyatt', 
         'Baccarat','Cassa','Conrad','Courtyard','Doubletree','even','Denihan','Fitzpatrick',
-        'Gardens','seasons','Hilton Garden','Hilton Fashion','Indigo','NYMA','mela','Plaza Athenee','Athenee',
-        'Hudson','wales','ink48','InterContinental','Kimpton','eventi','Kitano','muse','LOTTE','Mandarin Oriental',
-        'Paramount','Berkshire','Omni','Park Lane','Peninsula','Ritz Carlton','Ritz-Carlton','Renaissance',
-        'Shelburne','Sheraton','Stewart','Rosewood','Carlyle','Dominick','Benjamin','James','Maxwell','Michelangelo','Pierre','taj','Wyndham',
-        'St. Regis','Quin','Redbury','Surrey','Sherry-Netherland','Westin','TRUMP','Viceroy','Warwick','WestHouse','warwick','Yotel'];
+        'Hilton Garden','Hilton Fashion','Indigo','NYMA','Plaza Athenee','wales','ink48','InterContinental','Kimpton','Kitano','Mandarin Oriental',
+        'Paramount','Berkshire','Park Lane','Peninsula','Ritz Carlton','Ritz-Carlton','Renaissance',
+        'Shelburne','Sheraton','Stewart','Rosewood','Carlyle','Dominick','Benjamin','Maxwell','Michelangelo','Pierre','taj','Wyndham',
+        'St. Regis','Redbury','Surrey','Sherry-Netherland','Westin','Viceroy','Warwick','WestHouse','warwick','Yotel'];
         $hotellist_upper = array_map('strtoupper', $hotellist); 
         $hotellist_lower = array_map('strtolower', $hotellist);
         $hotellist_ucfirst = array_map('ucfirst', $hotellist); 
