@@ -31593,7 +31593,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 q5: ''
             },
             setting: {
-                application_on: true
+                application_on: false
             }
         };
     },
@@ -31609,8 +31609,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         var app = this;
         var id = this.data.id;
+
         axios.get('/api/v1/nominations/' + id + '/edit').then(function (resp) {
             app.nomination = resp.data;
+            console.log(app.nomination);
         }).catch(function (resp) {
             console.log(resp);
             // alert("Could not load nominations");

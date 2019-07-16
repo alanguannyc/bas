@@ -71,6 +71,7 @@
 <!-- Material Dashboard Core initialisations of plugins and Bootstrap Material Design Library -->
 <script src="../assets/js/material-dashboard.js?v=2.0.0"></script>
 <!-- demo init -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <script src="{{ asset('js/app.js?v=1.92') }}" ></script>
 <script src="../assets/js/plugins/demo.js"></script>

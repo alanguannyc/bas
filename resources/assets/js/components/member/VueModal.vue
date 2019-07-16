@@ -127,7 +127,7 @@ import _ from 'lodash'
                   },
                 setting:
                 {
-                    application_on: true
+                    application_on: false
                 }
                 }
         },
@@ -144,9 +144,11 @@ import _ from 'lodash'
 
                 var app = this;
                 var id = this.data.id;
+                
                 axios.get(`/api/v1/nominations/${id}/edit`)
                     .then(function (resp) {
                         app.nomination = resp.data;
+                        console.log(app.nomination)
                     })
                     .catch(function (resp) {
                         console.log(resp);
