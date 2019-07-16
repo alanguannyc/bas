@@ -159,10 +159,10 @@ import _ from 'lodash'
 
                 axios.get('/api/v1/setting')
                 .then(function (resp) {
-                    app.setting.application_on = Boolean(resp.data.application_on);
+                    app.setting.application_on = resp.data.application_on
                     console.log(resp.data.application_on)
                     console.log(app.setting.application_on)
-                    console.log(Boolean(resp.data.application_on))
+
 
                 })
                 .catch(function (resp) {
