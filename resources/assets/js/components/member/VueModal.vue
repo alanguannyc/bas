@@ -148,7 +148,7 @@ import _ from 'lodash'
                 axios.get(`/api/v1/nominations/${id}/edit`)
                     .then(function (resp) {
                         app.nomination = resp.data;
-                        console.log(app.nomination)
+
                     })
                     .catch(function (resp) {
                         console.log(resp);
@@ -158,7 +158,7 @@ import _ from 'lodash'
                 axios.get('/api/v1/setting')
                 .then(function (resp) {
                     app.setting.application_on = Boolean(resp.data.application_on);
-                    console.log(app.setting.application_on)
+
                 })
                 .catch(function (resp) {
                     console.log(resp);

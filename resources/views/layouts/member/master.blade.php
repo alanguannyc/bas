@@ -73,7 +73,7 @@
 <!-- demo init -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<script src="{{ asset('js/app.js?v=1.92') }}" ></script>
+<script src="{{ asset('js/app.js?v=1.93') }}" ></script>
 <script src="../assets/js/plugins/demo.js"></script>
 
 <script type="text/javascript">

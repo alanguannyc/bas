@@ -31300,6 +31300,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -31612,7 +31613,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         axios.get('/api/v1/nominations/' + id + '/edit').then(function (resp) {
             app.nomination = resp.data;
-            console.log(app.nomination);
         }).catch(function (resp) {
             console.log(resp);
             // alert("Could not load nominations");
@@ -31620,7 +31620,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         axios.get('/api/v1/setting').then(function (resp) {
             app.setting.application_on = Boolean(resp.data.application_on);
-            console.log(app.setting.application_on);
         }).catch(function (resp) {
             console.log(resp);
             // alert("Could not load nominations");
@@ -32102,6 +32101,10 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _vm.setting.application_on == false
+      ? _c("div", [_vm._v("Deadline has passed.")])
+      : _vm._e(),
+    _vm._v(" "),
     (_vm.nominations == "") & _vm.setting.application_on
       ? _c("div", [
           _c("h4", [_vm._v("Start submitting your nominations")]),

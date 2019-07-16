@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <div v-if="setting.application_on == false">Deadline has passed.</div>
         <div v-if="nominations =='' & setting.application_on ">
             <h4>Start submitting your nominations</h4>
             <button class="btn btn-primary add" :disabled="!setting.application_on">Start</button>
