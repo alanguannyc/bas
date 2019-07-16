@@ -94,7 +94,7 @@ pageview
 <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         
-        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination" v-if="setting.application_on">Save changes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination" v-show="setting.application_on">Save changes</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteNomination" v-if="setting.application_on">Delete</button>
       </div>
   
@@ -160,6 +160,7 @@ import _ from 'lodash'
                 axios.get('/api/v1/setting')
                 .then(function (resp) {
                     app.setting.application_on = Boolean(resp.data.application_on);
+                    console.log(app.setting.application_on)
 
                 })
                 .catch(function (resp) {
