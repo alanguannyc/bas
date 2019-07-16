@@ -31317,18 +31317,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     // props: ['nominations'],
     watch: {
-        'setting': {
-            handler: function handler(newData, oldData) {
-                var app = this;
-                axios.get('/api/v1/setting').then(function (resp) {
-                    app.setting = resp.data;
-                }).catch(function (resp) {
-                    console.log(resp);
-                    // alert("Could not load nominations");
-                });
-                deep: true;
-            }
-        },
+        //         'setting': {
+        //             handler: function (newData, oldData){
+        //             var app = this;
+        //             axios.get('/api/v1/setting')
+        //             .then(function (resp) {
+        //                 app.setting = resp.data;
+
+        //             })
+        //             .catch(function (resp) {
+        //                 console.log(resp);
+        //                 // alert("Could not load nominations");
+        //             });
+        //                 deep: true
+        //             }
+        //         },
         'nominations': {
             handler: function handler(newData, oldData) {
                 var app = this;

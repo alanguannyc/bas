@@ -48,21 +48,21 @@ import VueModal from './VueModal.vue'
 
         // props: ['nominations'],
         watch: {
-                'setting': {
-                    handler: function (newData, oldData){
-                    var app = this;
-                    axios.get('/api/v1/setting')
-                    .then(function (resp) {
-                        app.setting = resp.data;
+        //         'setting': {
+        //             handler: function (newData, oldData){
+        //             var app = this;
+        //             axios.get('/api/v1/setting')
+        //             .then(function (resp) {
+        //                 app.setting = resp.data;
 
-                    })
-                    .catch(function (resp) {
-                        console.log(resp);
-                        // alert("Could not load nominations");
-                    });
-                        deep: true
-                    }
-                },
+        //             })
+        //             .catch(function (resp) {
+        //                 console.log(resp);
+        //                 // alert("Could not load nominations");
+        //             });
+        //                 deep: true
+        //             }
+        //         },
                 'nominations': {
                     handler: function (newData, oldData){
                     var app = this;
