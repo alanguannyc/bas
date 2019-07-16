@@ -31317,21 +31317,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     // props: ['nominations'],
     watch: {
-        //         'setting': {
-        //             handler: function (newData, oldData){
-        //             var app = this;
-        //             axios.get('/api/v1/setting')
-        //             .then(function (resp) {
-        //                 app.setting = resp.data;
-
-        //             })
-        //             .catch(function (resp) {
-        //                 console.log(resp);
-        //                 // alert("Could not load nominations");
-        //             });
-        //                 deep: true
-        //             }
-        //         },
+        'setting': {
+            handler: function handler(newData, oldData) {
+                var app = this;
+                axios.get('/api/v1/setting').then(function (resp) {
+                    app.setting = resp.data;
+                }).catch(function (resp) {
+                    console.log(resp);
+                    // alert("Could not load nominations");
+                });
+                deep: true;
+            }
+        },
         'nominations': {
             handler: function handler(newData, oldData) {
                 var app = this;
@@ -31998,36 +31995,34 @@ var render = function() {
                       ? _c("div", {
                           domProps: { innerHTML: _vm._s(_vm.nomination.q5) }
                         })
-                      : _c("div", [
-                          _c("textarea", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.nomination.q5,
-                                expression: "nomination.q5"
-                              }
-                            ],
-                            staticClass: "form-control textarea",
-                            attrs: {
-                              id: "exampleFormControlTextarea1",
-                              rows: "3"
-                            },
-                            domProps: { value: _vm.nomination.q5 },
-                            on: {
-                              input: function($event) {
-                                if ($event.target.composing) {
-                                  return
-                                }
-                                _vm.$set(
-                                  _vm.nomination,
-                                  "q5",
-                                  $event.target.value
-                                )
-                              }
+                      : _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.nomination.q5,
+                              expression: "nomination.q5"
                             }
-                          })
-                        ])
+                          ],
+                          staticClass: "form-control textarea",
+                          attrs: {
+                            id: "exampleFormControlTextarea1",
+                            rows: "3"
+                          },
+                          domProps: { value: _vm.nomination.q5 },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.nomination,
+                                "q5",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-footer" }, [
@@ -32040,25 +32035,19 @@ var render = function() {
                       [_vm._v("Close")]
                     ),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        directives: [
+                    !_vm.setting.application_on
+                      ? _c(
+                          "button",
                           {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.setting.application_on,
-                            expression: "setting.application_on"
-                          }
-                        ],
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "button", "data-dismiss": "modal" },
-                        on: { click: _vm.updateNomination }
-                      },
-                      [_vm._v("Save changes")]
-                    ),
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "button", "data-dismiss": "modal" },
+                            on: { click: _vm.updateNomination }
+                          },
+                          [_vm._v("Save changes")]
+                        )
+                      : _vm._e(),
                     _vm._v(" "),
-                    _vm.setting.application_on
+                    !_vm.setting.application_on
                       ? _c(
                           "button",
                           {

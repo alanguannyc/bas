@@ -86,16 +86,16 @@ pageview
     <label  for="exampleFormControlTextarea1">5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards.</label>
     
     <div v-if="!setting.application_on" v-html="nomination.q5"> </div>
-    <div v-else>
 
-    <textarea  v-model="nomination.q5" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
-    </div>
+
+    <textarea v-else v-model="nomination.q5" class="form-control textarea" id="exampleFormControlTextarea1" rows="3"></textarea>
+
   </div>
 <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         
-        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination" v-show="setting.application_on">Save changes</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteNomination" v-if="setting.application_on">Delete</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" v-on:click="updateNomination" v-if="!setting.application_on">Save changes</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="deleteNomination" v-if="!setting.application_on">Delete</button>
       </div>
   
 </form>
