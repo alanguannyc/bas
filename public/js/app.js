@@ -31622,8 +31622,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         axios.get('/api/v1/setting').then(function (resp) {
             app.setting.application_on = resp.data.application_on;
-            console.log(resp.data.application_on);
-            console.log(app.setting.application_on);
         }).catch(function (resp) {
             console.log(resp);
             // alert("Could not load nominations");
@@ -32035,7 +32033,7 @@ var render = function() {
                       [_vm._v("Close")]
                     ),
                     _vm._v(" "),
-                    !_vm.setting.application_on == false
+                    _vm.setting.application_on == true
                       ? _c(
                           "button",
                           {
@@ -32047,7 +32045,7 @@ var render = function() {
                         )
                       : _vm._e(),
                     _vm._v(" "),
-                    !_vm.setting.application_on == false
+                    _vm.setting.application_on == true
                       ? _c(
                           "button",
                           {
