@@ -21,22 +21,22 @@ class WinnersController extends Controller
 
     private function getTopTenthScore($category)
     {
-        // $nomiatnions = Nomination::with('score')
-        // ->whereYear('created_at', date('Y'))
-        // ->where('category', $category)
-        // ->get();
+        $nomiatnions = Nomination::with('score')
+        ->whereYear('created_at', date('Y'))
+        ->where('category', $category)
+        ->get();
 
-        // $sorted = $nomiatnions->sortByDesc(function ($nomination, $key) {
-        //     return $nomination['score']['q1'] + $nomination['score']['q2'] + $nomination['score']['q3'] + $nomination['score']['q4'] + $nomination['score']['q5'];
-        // });
+        $sorted = $nomiatnions->sortByDesc(function ($nomination, $key) {
+            return $nomination['score']['q1'] + $nomination['score']['q2'] + $nomination['score']['q3'] + $nomination['score']['q4'] + $nomination['score']['q5'];
+        });
         
-        // $nomination =  $this->getTotalCount($category) > 9 ? $sorted->values()->get(9) : $sorted->last();
+        $nomination =  $this->getTotalCount($category) > 9 ? $sorted->values()->get(9) : $sorted->last();
 
-        // $score = \App\Score::where('nomination_id', $nomination->id)->first() ? \App\Score::where('nomination_id', $nomination->id)->first()->total() : 0;
+        $score = \App\Score::where('nomination_id', $nomination->id)->first() ? \App\Score::where('nomination_id', $nomination->id)->first()->total() : 0;
 
-        // return $score;
+        return $score;
 
-        return 0;
+        // return 0;
     }
 
 

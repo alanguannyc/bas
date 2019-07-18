@@ -1,6 +1,6 @@
 <template>
     <div class="container" >
-        <div v-if="!lastPage && setting.judge_on">
+        <div v-if="!lastPage && setting.final_judge_on">
         <b-card no-body >
         <b-tabs pills card vertical >
             <div v-for="nomination in nominations" v-bind:key="nomination.id">
@@ -52,7 +52,7 @@ export default {
             score:'',
             lastPage:false,
             setting:{
-                    judge_on: ''
+                    final_judge_on: ''
                 },
         }
     },

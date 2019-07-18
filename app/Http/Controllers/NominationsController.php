@@ -180,10 +180,10 @@ class NominationsController extends Controller
         $checklist = [];
 
         $hotellist = ['hilton','marriott', 'grand hyatt', 'hyatt', 
-        'Baccarat','Cassa','Conrad','Courtyard','Doubletree','even','Denihan','Fitzpatrick',
-        'Hilton Garden','Hilton Fashion','Indigo','NYMA','Plaza Athenee','wales','ink48','InterContinental','Kimpton','Kitano','Mandarin Oriental',
+        'Baccarat','Conrad','Courtyard','Doubletree','Denihan','Fitzpatrick',
+        'Hilton Garden','Hilton Fashion','NYMA','Plaza Athenee','ink48','InterContinental','Kimpton','Kitano','Mandarin Oriental',
         'Paramount','Berkshire','Park Lane','Peninsula','Ritz Carlton','Ritz-Carlton','Renaissance',
-        'Shelburne','Sheraton','Stewart','Rosewood','Carlyle','Dominick','Benjamin','Maxwell','Michelangelo','Pierre','taj','Wyndham',
+        'Shelburne','Sheraton','Rosewood','Carlyle','Dominick','Michelangelo','Pierre','Wyndham',
         'St. Regis','Redbury','Surrey','Sherry-Netherland','Westin','Viceroy','Warwick','WestHouse','warwick','Yotel'];
         $hotellist_upper = array_map('strtoupper', $hotellist); 
         $hotellist_lower = array_map('strtolower', $hotellist);

@@ -23,7 +23,7 @@
         </div>
 
         <div >
-           <label>Start Judging</label>
+           <label>Start First Round Judging</label>
             <toggle-button 
             :value="false" 
             color="#82C7EB" 
@@ -34,7 +34,18 @@
             @change="StatusChange"
             />
         </div>
-    
+        <div >
+           <label>Start Final Judging</label>
+            <toggle-button 
+            :value="false" 
+            color="#82C7EB" 
+            :sync="true" 
+            :labels="true" 
+            :font-size=14 
+            v-model="setting.final_judge_on"
+            @change="StatusChange"
+            />
+        </div>
       </div>
     </div>
   </div>
@@ -54,6 +65,7 @@
         setting: {
             application_on:'',
             judge_on:'',
+            final_judge_on:''
         }
       }
     },
@@ -75,7 +87,8 @@
             var newSetting = 
               {
                 "application_on" : app.setting.application_on,
-                "judge_on": app.setting.judge_on
+                "judge_on": app.setting.judge_on,
+                "final_judge_on":app.setting.final_judge_on,
             }
             axios.post('/api/v1/setting/update', newSetting)
             .then(resp =>{

@@ -7,8 +7,11 @@
             {{ nomination.q1 }}
         </p>
         <div>
-            <label for="range-1"><i>Give your score by scrolling the bar below</i></label>
-            <b-form-input id="range-1" v-model="score.q1" type="range" min="0" max="5"></b-form-input>
+            <!-- <label for="range-1"><i variant="warning">Give your score by using the slider below</i></label> -->
+            
+            <b-badge variant="info">Give your score by using the slider below</b-badge>
+            <br />
+            <b-form-input id="range-1" v-model="score.q1" type="range" min="0" max="10"></b-form-input>
             <div class="mt-2">Score: {{ score.q1 }}</div>
         </div>
         
@@ -20,8 +23,11 @@
             {{ nomination.q2 }}
         </p>
         <div>
-            <label for="range-2">Give your score by scrolling the bar below</label>
-            <b-form-input id="range-2" v-model="score.q2" type="range" min="0" max="5"></b-form-input>
+            <!-- <label for="range-1"><i variant="warning">Give your score by using the slider below</i></label> -->
+            
+            <b-badge variant="info">Give your score by using the slider below</b-badge>
+            <br />
+            <b-form-input id="range-2" v-model="score.q2" type="range" min="0" max="10"></b-form-input>
             <div class="mt-2">Score: {{ score.q2 }}</div>
         </div>
     </b-card>
@@ -32,8 +38,11 @@
             {{ nomination.q3 }}
         </p>
         <div>
-            <label for="range-3">Give your score by scrolling the bar below</label>
-            <b-form-input id="range-3" v-model="score.q3" type="range" min="0" max="5"></b-form-input>
+            <!-- <label for="range-1"><i variant="warning">Give your score by using the slider below</i></label> -->
+            
+            <b-badge variant="info">Give your score by using the slider below</b-badge>
+            <br />
+            <b-form-input id="range-3" v-model="score.q3" type="range" min="0" max="10"></b-form-input>
             <div class="mt-2">Score: {{ score.q3 }}</div>
         </div>
     </b-card>
@@ -44,8 +53,11 @@
             {{ nomination.q4 }}
         </p>
         <div>
-            <label for="range-4">Give your score by scrolling the bar below</label>
-            <b-form-input id="range-4" v-model="score.q4" type="range" min="0" max="5"></b-form-input>
+            <!-- <label for="range-1"><i variant="warning">Give your score by using the slider below</i></label> -->
+            
+            <b-badge variant="info">Give your score by using the slider below</b-badge>
+            <br />
+            <b-form-input id="range-4" v-model="score.q4" type="range" min="0" max="10"></b-form-input>
             <div class="mt-2">Score: {{ score.q4 }}</div>
         </div>
     </b-card>
@@ -56,8 +68,11 @@
             {{ nomination.q5 }}
         </p>
         <div>
-            <label for="range-5">Give your score by scrolling the bar below</label>
-            <b-form-input  id="range-5" v-model="score.q5" type="range" min="0" max="5"></b-form-input>
+            <!-- <label for="range-1"><i variant="warning">Give your score by using the slider below</i></label> -->
+            
+            <b-badge variant="info">Give your score by using the slider below</b-badge>
+            <br />
+            <b-form-input  id="range-5" v-model="score.q5" type="range" min="0" max="10"></b-form-input>
             <div class="mt-2">Score: {{ score.q5 }}</div>
         </div>
     </b-card>

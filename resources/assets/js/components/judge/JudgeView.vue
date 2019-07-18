@@ -1,6 +1,6 @@
 <template>
     <div class="container" >
-        <div v-if="!lastPage && setting.judge_on">
+        <div v-if="!lastPage && setting.judge_on ">
             <b-card no-body >
             <b-tabs pills card vertical ref="tabs">
                 <div v-for="nomination in nominations" v-bind:key="nomination.id">
@@ -122,6 +122,7 @@ export default {
                     if (key == 'id' | key =='updated_at' | key =='created_at') continue;
                     app.setting[key] = app.setting[key] == 0 ? false : true
                     }
+
 
                 })
                 .catch(function (resp) {

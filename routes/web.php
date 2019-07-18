@@ -233,11 +233,14 @@ Route::post('/update', 'ScoreController@updateAll');
 
 
 Route::get('/year', function(){
-    $judge = \App\Judge::find(83);
-    $judge->RemoveNominations();
-
+    // $judge = \App\Judge::find(83);
+    // $judge->RemoveNominations();
+    // $nominations = \App\Nomination::doesntHave('judge')->whereYear('created_at',date('Y'))->orderBy('category','desc')->get();
+    // return $nominations;
 
 });
+
+
 
 
 
