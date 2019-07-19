@@ -61272,6 +61272,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -61566,109 +61576,91 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.nomination.q4.length !== 0
-        ? _c(
-            "b-card",
-            {
-              staticClass: "mt-1",
-              attrs: {
-                "sub-title":
-                  "4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
-              }
-            },
+      _c(
+        "b-card",
+        {
+          staticClass: "mt-1",
+          attrs: {
+            "sub-title":
+              "4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
+          }
+        },
+        [
+          _c("p", { staticClass: "card-text" }, [
+            _vm._v("\n            " + _vm._s(_vm.nomination.q4) + "\n        ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
             [
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v(
-                  "\n            " + _vm._s(_vm.nomination.q4) + "\n        "
-                )
+              _c("b-badge", { attrs: { variant: "info" } }, [
+                _vm._v("Give your score by using the slider below")
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                [
-                  _c("b-badge", { attrs: { variant: "info" } }, [
-                    _vm._v("Give your score by using the slider below")
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("b-form-input", {
-                    attrs: {
-                      id: "range-4",
-                      type: "range",
-                      min: "0",
-                      max: "10"
-                    },
-                    model: {
-                      value: _vm.score.q4,
-                      callback: function($$v) {
-                        _vm.$set(_vm.score, "q4", $$v)
-                      },
-                      expression: "score.q4"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "mt-2" }, [
-                    _vm._v("Score: " + _vm._s(_vm.score.q4))
-                  ])
-                ],
-                1
-              )
-            ]
+              _c("br"),
+              _vm._v(" "),
+              _c("b-form-input", {
+                attrs: { id: "range-4", type: "range", min: "0", max: "10" },
+                model: {
+                  value: _vm.score.q4,
+                  callback: function($$v) {
+                    _vm.$set(_vm.score, "q4", $$v)
+                  },
+                  expression: "score.q4"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-2" }, [
+                _vm._v("Score: " + _vm._s(_vm.score.q4))
+              ])
+            ],
+            1
           )
-        : _vm._e(),
+        ]
+      ),
       _vm._v(" "),
-      _vm.nomination.q5.length !== 0
-        ? _c(
-            "b-card",
-            {
-              staticClass: "mt-1",
-              attrs: {
-                "sub-title":
-                  "5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards."
-              }
-            },
+      _c(
+        "b-card",
+        {
+          staticClass: "mt-1",
+          attrs: {
+            "sub-title":
+              "5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards."
+          }
+        },
+        [
+          _c("p", { staticClass: "card-text" }, [
+            _vm._v("\n            " + _vm._s(_vm.nomination.q5) + "\n        ")
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
             [
-              _c("p", { staticClass: "card-text" }, [
-                _vm._v(
-                  "\n            " + _vm._s(_vm.nomination.q5) + "\n        "
-                )
+              _c("b-badge", { attrs: { variant: "info" } }, [
+                _vm._v("Give your score by using the slider below")
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                [
-                  _c("b-badge", { attrs: { variant: "info" } }, [
-                    _vm._v("Give your score by using the slider below")
-                  ]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("b-form-input", {
-                    attrs: {
-                      id: "range-5",
-                      type: "range",
-                      min: "0",
-                      max: "10"
-                    },
-                    model: {
-                      value: _vm.score.q5,
-                      callback: function($$v) {
-                        _vm.$set(_vm.score, "q5", $$v)
-                      },
-                      expression: "score.q5"
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "mt-2" }, [
-                    _vm._v("Score: " + _vm._s(_vm.score.q5))
-                  ])
-                ],
-                1
-              )
-            ]
+              _c("br"),
+              _vm._v(" "),
+              _c("b-form-input", {
+                attrs: { id: "range-5", type: "range", min: "0", max: "10" },
+                model: {
+                  value: _vm.score.q5,
+                  callback: function($$v) {
+                    _vm.$set(_vm.score, "q5", $$v)
+                  },
+                  expression: "score.q5"
+                }
+              }),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-2" }, [
+                _vm._v("Score: " + _vm._s(_vm.score.q5))
+              ])
+            ],
+            1
           )
-        : _vm._e(),
+        ]
+      ),
       _vm._v(" "),
       _c(
         "b-alert",

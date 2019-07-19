@@ -10,11 +10,11 @@ class ScoreController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'q1' => 'nullable|numeric|min:0|max:5',
-            'q2' => 'nullable|numeric|min:0|max:5',
-            'q3' => 'nullable|numeric|min:0|max:5',
-            'q4' => 'nullable|numeric|min:0|max:5',
-            'q5' => 'nullable|numeric|min:0|max:5',
+            'q1' => 'nullable|numeric|min:0|max:10',
+            'q2' => 'nullable|numeric|min:0|max:10',
+            'q3' => 'nullable|numeric|min:0|max:10',
+            'q4' => 'nullable|numeric|min:0|max:10',
+            'q5' => 'nullable|numeric|min:0|max:10',
             'publish_at' => 'nullable|date',
         ]);
 

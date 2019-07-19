@@ -16,7 +16,7 @@
             
             <b-badge variant="info">Give your score by using the slider below</b-badge>
             <br />
-            <b-form-input id="range-1" v-model="score.q1" type="range" min="0" max="10"></b-form-input>
+            <b-form-input id="range-1" v-model="score.q1" type="range" min="0" max="10" ></b-form-input>
             <div class="mt-2">Score: {{ score.q1 }}</div>
         </div>
         
@@ -55,7 +55,7 @@
         </div>
     </b-card>
 
-    <b-card v-if="nomination.q4.length !== 0" class="mt-1" sub-title="4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
+    <b-card class="mt-1" sub-title="4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
             >
         <p class="card-text">
             {{ nomination.q4 }}
@@ -70,7 +70,17 @@
         </div>
     </b-card>
 
-    <b-card  v-if="nomination.q5.length !== 0" class="mt-1" sub-title="5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards."
+    <!-- <b-card v-else class="mt-1" sub-title="4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
+            >
+        <div>
+            <br />
+            <b-form-input id="range-4" v-model="score.q4" type="range" min="0" max="10" placeholder="0"></b-form-input>
+            <div class="mt-2">Score: 0</div>
+        </div>
+    </b-card> -->
+
+
+    <b-card  class="mt-1" sub-title="5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards."
             >
         <p class="card-text">
             {{ nomination.q5 }}
