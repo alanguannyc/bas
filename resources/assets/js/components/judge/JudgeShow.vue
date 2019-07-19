@@ -2,7 +2,7 @@
     <div>
         
       
-   <b-card  v-if="nomination.q1.length !== 0" class="mt-1"  sub-title="1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example."> 
+   <b-card  class="mt-1"  sub-title="1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example."> 
                     <div  class="box"></div>
     <!-- <img src="/images/completed.png" v-show="completed" class="center" alt="..." /> -->
     
@@ -25,7 +25,7 @@
         
    
 
-    <b-card v-if="nomination.q2.length !== 0" class="mt-1" sub-title="2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples."
+    <b-card class="mt-1" sub-title="2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples."
             >
         <p class="card-text">
             {{ nomination.q2 }}
@@ -40,7 +40,7 @@
         </div>
     </b-card>
 
-    <b-card v-if="nomination.q3.length !== 0" class="mt-1" sub-title="3.    Describe the interaction of the employee with guests. Please cite specific examples of the employee’s positive impact on the guest experience at your hotel."
+    <b-card class="mt-1" sub-title="3.    Describe the interaction of the employee with guests. Please cite specific examples of the employee’s positive impact on the guest experience at your hotel."
             >
         <p class="card-text">
             {{ nomination.q3 }}
