@@ -37335,7 +37335,23 @@ var _ = __webpack_require__(20);
 
         this.debouncedGetAnswer = _.debounce(this.getUpdate, 1500);
     },
+    beforeMount: function beforeMount() {
+        axios.get('/api/v1/judge/').then(function (resp) {
 
+            var id = parseInt(url.segment(-1));
+            app.totalRecord = resp.data.length;
+            app.totalJudges = resp.data;
+            app.pageIndex = app.totalJudges.map(function (x) {
+                return x.id;
+            }).indexOf(id);
+
+            if (uid == resp.data.length) {
+                app.pageIndex = 0;
+            }
+        }).catch(function (resp) {
+            console.log(resp);
+        });
+    },
     mounted: function mounted() {
         var app = this;
         var url = purl(window.location.href);
@@ -37359,24 +37375,6 @@ var _ = __webpack_require__(20);
         }).catch(function (resp) {
             console.log(resp);
             // alert("Could not load nominations");
-        });
-
-        axios.get('/api/v1/judge/').then(function (resp) {
-            // console.log(resp.data[key])
-
-            // app.pageIndex = parseInt(url.segment(-1))
-            var id = parseInt(url.segment(-1));
-            app.totalRecord = resp.data.length;
-            app.totalJudges = resp.data;
-            app.pageIndex = app.totalJudges.map(function (x) {
-                return x.id;
-            }).indexOf(id);
-
-            if (uid == resp.data.length) {
-                app.pageIndex = 0;
-            }
-        }).catch(function (resp) {
-            console.log(resp);
         });
     },
 
@@ -37409,12 +37407,12 @@ var _ = __webpack_require__(20);
             var app = this;
             var url = purl(window.location.href);
             var id = parseInt(url.segment(-1));
-            // var uid = app.totalJudges[parseInt(url.segment(-1)) - 1].id 
+            var uid = app.totalJudges[app.pageIndex - 1].id;
             var elementPos = app.totalJudges.map(function (x) {
                 return x.id;
             }).indexOf(id);
             var objectFound = app.totalJudges[app.pageIndex];
-            var uid = app.totalJudges[app.pageIndex - 1].id;
+
             window.location.href = uid;
         },
         updateJudge: function updateJudge(variable) {

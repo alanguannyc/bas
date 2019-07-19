@@ -395,7 +395,7 @@
                                     console.log(resp);
                                 });
                 }
-          },
+          }, 
           updateJudge(variable) {
 
               var app = this
