@@ -31843,7 +31843,7 @@ function format(d) {
 $(document).ready(function () {
 
     var member_table = $('#member_table').DataTable({
-        "order": [[7, "desc"]],
+        "order": [[8, "desc"]],
         "ajax": { "url": "/api/v1/member", "dataSrc": "" },
         "columnDefs": [{
             "targets": 0,
@@ -31985,7 +31985,6 @@ $(document).ready(function () {
         "columnDefs": [{
             "targets": 0,
             "render": function render(data, type, row, meta) {
-                // console.log(meta)
                 return '<a href="' + '/admin/judge/' + data.id + '">View</a>';
             }
 
@@ -32001,11 +32000,13 @@ $(document).ready(function () {
             "render": function render(data, type, row, meta) {
 
                 var completed = "Completed";
+                if (data.length == 0) {
+                    completed = "Not Completed";
+                }
                 data.map(function (score) {
                     for (var i = 1; i < 6; i++) {
 
                         if (score['q' + i] == null) {
-
                             completed = "Not Completed";
                         }
                     }
