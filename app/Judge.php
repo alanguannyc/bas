@@ -33,7 +33,7 @@ class Judge extends Model
         //Assign 10
         $total_unassigned_nominations = $nominations->count();
         $nominations_to_be_assigned = [];
-        for ($i = 0;$i < ($total_unassigned_nominations >9 ? 10 : $total_unassigned_nominations); $i ++)
+        for ($i = 0;$i < ($total_unassigned_nominations >5 ? 6 : $total_unassigned_nominations); $i ++)
         {
             $random_number = rand(0, $total_unassigned_nominations-1);
             array_push($nominations_to_be_assigned, $nominations[$i]);
