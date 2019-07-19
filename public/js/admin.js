@@ -31843,7 +31843,7 @@ function format(d) {
 $(document).ready(function () {
 
     var member_table = $('#member_table').DataTable({
-        "order": [[8, "desc"]],
+        "order": [[7, "desc"]],
         "ajax": { "url": "/api/v1/member", "dataSrc": "" },
         "columnDefs": [{
             "targets": 0,
@@ -31883,7 +31883,7 @@ $(document).ready(function () {
     //     }
     // } );
     var nomination_table = $('#nomination_table').DataTable({
-        "order": [[7, "desc"]],
+        "order": [[8, "desc"]],
         "ajax": { "url": "/api/v1/member/nominations", "dataSrc": "" },
         "columnDefs": [{
 
