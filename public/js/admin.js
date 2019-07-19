@@ -37300,7 +37300,7 @@ var _ = __webpack_require__(20);
             profile: '',
             detail: '',
             role: '',
-            totalJudges: '',
+            totalJudges: [],
             judge: ''
 
         };
@@ -37405,6 +37405,25 @@ var _ = __webpack_require__(20);
             var uid = app.totalJudges[app.pageIndex + 1].id;
 
             window.location.href = uid;
+
+            // var url = purl(window.location.href)
+            // var id = parseInt(url.segment(-1))
+            // var uid= parseInt(url.segment(-1)) + 1
+            // axios.get(`/api/v1/judge/`)
+            // .then(function (resp) {
+            //    var index = resp.data.findIndex(function(e) {
+            //                 return e.id == id;
+            //                 })
+            //     if (index == resp.data.length) {
+            //         this.lastPage = true
+            //     }
+
+            //     var index = index - 1
+            //     var uid = resp.data[index].id
+
+            //     window.location.href = uid
+            // })
+
         },
         previousPage: function previousPage() {
             var app = this;
@@ -37417,6 +37436,23 @@ var _ = __webpack_require__(20);
             var objectFound = app.totalJudges[app.pageIndex];
 
             window.location.href = uid;
+
+            // var url = purl(window.location.href)
+            // var id = parseInt(url.segment(-1))
+            // axios.get(`/api/v1/judge/`)
+            // .then(function (resp) {
+            //    var index = resp.data.findIndex(function(e) {
+            //                 return e.id == id;
+            //                 })
+            //     if (index == resp.data.length) {
+            //         this.lastPage = true
+            //     }
+
+            //     var index = index + 1
+            //     var uid = resp.data[index].id
+
+            //     window.location.href = uid
+            // })
         },
         updateJudge: function updateJudge(variable) {
 

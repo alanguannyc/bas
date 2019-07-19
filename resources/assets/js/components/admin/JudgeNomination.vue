@@ -101,7 +101,7 @@ import NominationDetail from './NominationDetail.vue'
                 profile:'',
                 detail:'',
                 role:'',
-                totalJudges:'',
+                totalJudges:[],
                 judge:'',
 
 
@@ -222,6 +222,24 @@ import NominationDetail from './NominationDetail.vue'
 
                 window.location.href = uid
                 
+
+                // var url = purl(window.location.href)
+                // var id = parseInt(url.segment(-1))
+                // var uid= parseInt(url.segment(-1)) + 1
+                // axios.get(`/api/v1/judge/`)
+                // .then(function (resp) {
+                //    var index = resp.data.findIndex(function(e) {
+                //                 return e.id == id;
+                //                 })
+                //     if (index == resp.data.length) {
+                //         this.lastPage = true
+                //     }
+                   
+                //     var index = index - 1
+                //     var uid = resp.data[index].id
+                    
+                //     window.location.href = uid
+                // })
                 
                 
             },
@@ -234,6 +252,24 @@ import NominationDetail from './NominationDetail.vue'
                 var objectFound = app.totalJudges[app.pageIndex];
                 
                 window.location.href = uid
+
+
+                // var url = purl(window.location.href)
+                // var id = parseInt(url.segment(-1))
+                // axios.get(`/api/v1/judge/`)
+                // .then(function (resp) {
+                //    var index = resp.data.findIndex(function(e) {
+                //                 return e.id == id;
+                //                 })
+                //     if (index == resp.data.length) {
+                //         this.lastPage = true
+                //     }
+                   
+                //     var index = index + 1
+                //     var uid = resp.data[index].id
+                    
+                //     window.location.href = uid
+                // })
                 
             },
         
