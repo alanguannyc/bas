@@ -37339,21 +37339,6 @@ var _ = __webpack_require__(20);
         var app = this;
         var url = purl(window.location.href);
         var uid = url.segment(-1);
-        axios.get('/api/v1/judge/').then(function (resp) {
-
-            var id = parseInt(url.segment(-1));
-            app.totalRecord = resp.data.length;
-            app.totalJudges = resp.data;
-            app.pageIndex = app.totalJudges.map(function (x) {
-                return x.id;
-            }).indexOf(id);
-
-            if (uid == resp.data.length) {
-                app.pageIndex = 0;
-            }
-        }).catch(function (resp) {
-            console.log(resp);
-        });
     },
     mounted: function mounted() {
         var app = this;
@@ -37378,6 +37363,21 @@ var _ = __webpack_require__(20);
         }).catch(function (resp) {
             console.log(resp);
             // alert("Could not load nominations");
+        });
+        axios.get('/api/v1/judge/').then(function (resp) {
+
+            var id = parseInt(url.segment(-1));
+            app.totalRecord = resp.data.length;
+            app.totalJudges = resp.data;
+            app.pageIndex = app.totalJudges.map(function (x) {
+                return x.id;
+            }).indexOf(id);
+
+            if (uid == resp.data.length) {
+                app.pageIndex = 0;
+            }
+        }).catch(function (resp) {
+            console.log(resp);
         });
     },
 
