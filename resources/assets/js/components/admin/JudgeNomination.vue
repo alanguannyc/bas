@@ -141,6 +141,9 @@ import NominationDetail from './NominationDetail.vue'
     this.debouncedGetAnswer = _.debounce(this.getUpdate, 1500)
     },
     beforeMount() {
+        var app = this;
+            var url = purl(window.location.href)
+            var uid=url.segment(-1)
         axios.get(`/api/v1/judge/`)
                 .then(function (resp) {
                   

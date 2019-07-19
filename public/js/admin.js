@@ -37336,6 +37336,9 @@ var _ = __webpack_require__(20);
         this.debouncedGetAnswer = _.debounce(this.getUpdate, 1500);
     },
     beforeMount: function beforeMount() {
+        var app = this;
+        var url = purl(window.location.href);
+        var uid = url.segment(-1);
         axios.get('/api/v1/judge/').then(function (resp) {
 
             var id = parseInt(url.segment(-1));
