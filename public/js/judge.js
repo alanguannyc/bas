@@ -50970,7 +50970,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\nb-card[data-v-0485da56] {\n        margin-top:5px;\n}\n.left[data-v-0485da56] {\n    position: relative;\n    bottom: 1px;\n    left: 0;\n    width: auto;\n    float: left;\n}\n.right[data-v-0485da56] {\n        position: relative;\n        bottom: 1px;\n        right: 0;\n        width: auto;\n        float: right;\n}\nimg[data-v-0485da56] {\n    width: 40%;\n        opacity: 0.7;\n        z-index: 1000;\n        position: absolute;\n\n        right: 0;\n        top: 2px;\n        height: 180px;\n        width: auto;\n}\n.center[data-v-0485da56] {\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n    width: 50%;\n}\n\n\n\n\n    ", ""]);
+exports.push([module.i, "\nb-card[data-v-0485da56] {\n        margin-top:5px;\n}\n.left[data-v-0485da56] {\n    position: relative;\n    bottom: 1px;\n    left: 0;\n    width: auto;\n    float: left;\n}\n.right[data-v-0485da56] {\n        position: relative;\n        bottom: 1px;\n        right: 0;\n        width: auto;\n        float: right;\n}\nimg[data-v-0485da56] {\n    width: 40%;\n        opacity: 0.7;\n        z-index: 1000;\n        position: absolute;\n\n        right: 0;\n        top: 2px;\n        height: 180px;\n        width: auto;\n}\n.center[data-v-0485da56] {\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n    width: 50%;\n}\n.answer[data-v-0485da56] {\n    white-space: pre-line;\n}\n\n\n\n    ", ""]);
 
 // exports
 
@@ -51252,7 +51252,7 @@ var render = function() {
           _c("div", { staticClass: "box" }),
           _vm._v(" "),
           _c("div", {
-            staticClass: "card-text",
+            staticClass: "card-text answer",
             domProps: { innerHTML: _vm._s(_vm.nomination.q1) }
           }),
           _vm._v(" "),
@@ -51296,7 +51296,7 @@ var render = function() {
         },
         [
           _c("div", {
-            staticClass: "card-text",
+            staticClass: "card-text answer",
             domProps: { innerHTML: _vm._s(_vm.nomination.q2) }
           }),
           _vm._v(" "),
@@ -51340,7 +51340,7 @@ var render = function() {
         },
         [
           _c("div", {
-            staticClass: "card-text",
+            staticClass: "card-text answer",
             domProps: { innerHTML: _vm._s(_vm.nomination.q3) }
           }),
           _vm._v(" "),
@@ -51384,7 +51384,7 @@ var render = function() {
         },
         [
           _c("div", {
-            staticClass: "card-text",
+            staticClass: "card-text answer",
             domProps: { innerHTML: _vm._s(_vm.nomination.q4) }
           }),
           _vm._v(" "),
@@ -51428,7 +51428,7 @@ var render = function() {
         },
         [
           _c("div", {
-            staticClass: "card-text",
+            staticClass: "card-text answer",
             domProps: { innerHTML: _vm._s(_vm.nomination.q5) }
           }),
           _vm._v(" "),

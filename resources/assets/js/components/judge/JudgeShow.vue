@@ -6,7 +6,7 @@
                     <div  class="box"></div>
     <!-- <img src="/images/completed.png" v-show="completed" class="center" alt="..." /> -->
     
-        <div class="card-text" v-html="nomination.q1">
+        <div class="card-text answer" v-html="nomination.q1" >
 
         </div>
         
@@ -27,7 +27,7 @@
 
     <b-card class="mt-1" sub-title="2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples."
             >
-        <div class="card-text" v-html="nomination.q2">
+        <div class="card-text answer" v-html="nomination.q2" >
 
         </div>
         <div>
@@ -42,7 +42,7 @@
 
     <b-card class="mt-1" sub-title="3.    Describe the interaction of the employee with guests. Please cite specific examples of the employee’s positive impact on the guest experience at your hotel."
             >
-        <div class="card-text" v-html="nomination.q3">
+        <div class="card-text answer" v-html="nomination.q3">
 
         </div>
         <div>
@@ -57,7 +57,7 @@
 
     <b-card class="mt-1" sub-title="4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
             >
-        <div class="card-text" v-html="nomination.q4">
+        <div class="card-text answer" v-html="nomination.q4">
 
         </div>
         <div>
@@ -82,7 +82,7 @@
 
     <b-card  class="mt-1" sub-title="5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards."
             >
-        <div class="card-text" v-html="nomination.q5">
+        <div class="card-text answer" v-html="nomination.q5">
 
         </div>
         <!-- <div class="score" v-on:click="showScore()">
@@ -296,7 +296,9 @@ import _ from 'lodash'
     margin-right: auto;
     width: 50%;
 }
-
+.answer {
+    white-space: pre-line;
+}
 
 
 
