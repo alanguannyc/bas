@@ -51251,9 +51251,10 @@ var render = function() {
         [
           _c("div", { staticClass: "box" }),
           _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q1) + "\n        ")
-          ]),
+          _c("div", {
+            staticClass: "card-text",
+            domProps: { innerHTML: _vm._s(_vm.nomination.q1) }
+          }),
           _vm._v(" "),
           _c(
             "div",
@@ -51294,9 +51295,10 @@ var render = function() {
           }
         },
         [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q2) + "\n        ")
-          ]),
+          _c("div", {
+            staticClass: "card-text",
+            domProps: { innerHTML: _vm._s(_vm.nomination.q2) }
+          }),
           _vm._v(" "),
           _c(
             "div",
@@ -51337,9 +51339,10 @@ var render = function() {
           }
         },
         [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q3) + "\n        ")
-          ]),
+          _c("div", {
+            staticClass: "card-text",
+            domProps: { innerHTML: _vm._s(_vm.nomination.q3) }
+          }),
           _vm._v(" "),
           _c(
             "div",
@@ -51380,9 +51383,10 @@ var render = function() {
           }
         },
         [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q4) + "\n        ")
-          ]),
+          _c("div", {
+            staticClass: "card-text",
+            domProps: { innerHTML: _vm._s(_vm.nomination.q14) }
+          }),
           _vm._v(" "),
           _c(
             "div",
@@ -51423,9 +51427,10 @@ var render = function() {
           }
         },
         [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q5) + "\n        ")
-          ]),
+          _c("div", {
+            staticClass: "card-text",
+            domProps: { innerHTML: _vm._s(_vm.nomination.q5) }
+          }),
           _vm._v(" "),
           _c(
             "div",
@@ -52215,9 +52220,10 @@ var render = function() {
         [
           _c("div", { staticClass: "box" }),
           _vm._v(" "),
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q1) + "\n        ")
-          ]),
+          _c("div", {
+            staticClass: "card-text",
+            domProps: { innerHTML: _vm._s(_vm.nomination.q1) }
+          }),
           _vm._v(" "),
           _c(
             "div",
@@ -52258,9 +52264,10 @@ var render = function() {
           }
         },
         [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q2) + "\n        ")
-          ]),
+          _c("div", {
+            staticClass: "card-text",
+            domProps: { innerHTML: _vm._s(_vm.nomination.q2) }
+          }),
           _vm._v(" "),
           _c(
             "div",
@@ -52301,9 +52308,10 @@ var render = function() {
           }
         },
         [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q3) + "\n        ")
-          ]),
+          _c("div", {
+            staticClass: "card-text",
+            domProps: { innerHTML: _vm._s(_vm.nomination.q3) }
+          }),
           _vm._v(" "),
           _c(
             "div",
@@ -52344,9 +52352,10 @@ var render = function() {
           }
         },
         [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q4) + "\n        ")
-          ]),
+          _c("div", {
+            staticClass: "card-text",
+            domProps: { innerHTML: _vm._s(_vm.nomination.q4) }
+          }),
           _vm._v(" "),
           _c(
             "div",
@@ -52387,9 +52396,10 @@ var render = function() {
           }
         },
         [
-          _c("p", { staticClass: "card-text" }, [
-            _vm._v("\n            " + _vm._s(_vm.nomination.q5) + "\n        ")
-          ]),
+          _c("div", {
+            staticClass: "card-text",
+            domProps: { innerHTML: _vm._s(_vm.nomination.q5) }
+          }),
           _vm._v(" "),
           _c(
             "div",

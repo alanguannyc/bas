@@ -3,9 +3,9 @@
     <b-card class="mt-1"  sub-title="1.  Describe the employee’s overall job performance and dedication to his/her profession and to your Hotel.  Please be specific and cite at least one example."> 
                     <div  class="box"></div>
     <!-- <img src="/images/completed.png" v-show="completed" class="center" alt="..." /> -->
-        <p class="card-text">
-            {{ nomination.q1 }}
-        </p>
+        <div class="card-text" v-html="nomination.q1">
+
+        </div>
         <div>
             <!-- <label for="range-1"><i variant="warning">Give your score by using the slider below</i></label> -->
             
@@ -19,9 +19,9 @@
 
     <b-card class="mt-1" sub-title="2.    Describe the interaction of the employee with his/her co-workers. Please cite specific examples."
             >
-        <p class="card-text">
-            {{ nomination.q2 }}
-        </p>
+       <div class="card-text" v-html="nomination.q2">
+
+        </div>
         <div>
             <!-- <label for="range-1"><i variant="warning">Give your score by using the slider below</i></label> -->
             
@@ -34,9 +34,9 @@
 
     <b-card class="mt-1" sub-title="3.    Describe the interaction of the employee with guests. Please cite specific examples of the employee’s positive impact on the guest experience at your hotel."
             >
-        <p class="card-text">
-            {{ nomination.q3 }}
-        </p>
+        <div class="card-text" v-html="nomination.q3">
+
+        </div>
         <div>
             <!-- <label for="range-1"><i variant="warning">Give your score by using the slider below</i></label> -->
             
@@ -49,9 +49,9 @@
 
     <b-card class="mt-1" sub-title="4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
             >
-        <p class="card-text">
-            {{ nomination.q4 }}
-        </p>
+        <div class="card-text" v-html="nomination.q4">
+
+        </div>
         <div>
             <!-- <label for="range-1"><i variant="warning">Give your score by using the slider below</i></label> -->
             
@@ -64,9 +64,9 @@
 
     <b-card class="mt-1" sub-title="5.   Please list any other reasons for nominating this employee for the Big Apple Stars Awards."
             >
-        <p class="card-text">
-            {{ nomination.q5 }}
-        </p>
+        <div class="card-text" v-html="nomination.q5">
+
+        </div>
         <div>
             <!-- <label for="range-1"><i variant="warning">Give your score by using the slider below</i></label> -->
             
