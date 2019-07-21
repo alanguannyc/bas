@@ -17,6 +17,7 @@
               <th>Judge Nominations</th>
               
               <th>Status</th>
+              <th>Completed / Total </th>
           </tr>
       </thead>
       

@@ -295,25 +295,59 @@ $(document).ready(function(){
                     "render": function ( data, type, row, meta ) {
 
                             var completed = "Completed"
-                            if (data.length == 0) {
-                                completed = "Not Completed"
-                            }
-                            data.map( score => {
-                                for (var i=1;i<6;i++){
-
-                                    if (score['q'+i] == null) {
-                                        completed = "Not Completed"
-                                        
-                                        }
+                            
+                            var totalNominationsToJudge = data.length
+                            var finishedNominations = 0
+                            
+                                data.map( nomination => {
+                                    if (nomination.score != null)
+                                    {
+                                        for (var i=1;i<6;i++){
+    
+                                            if (nomination.score['q'+i] == null) {
+                                                finishedNominations = finishedNominations + 0
+                                                
+                                                }
+                                            }
+                                        finishedNominations = finishedNominations + 1
                                     }
-
                                     
-                                })
+                                    })
+                                if ( finishedNominations != totalNominationsToJudge ) {
+                                    completed = "Not Completed"
+                                }
                                 
                                 return completed
                         }
         
+                    },
+                    {
+                        "targets": 5,
+                        "render": function ( data, type, row, meta ) {
+                            var totalNominationsToJudge = data.length
+                            var finishedNominations = 0
+                            
+                                data.map( nomination => {
+                                    if (nomination.score != null)
+                                    {
+                                        for (var i=1;i<6;i++){
+    
+                                            if (nomination.score['q'+i] == null) {
+                                                finishedNominations = finishedNominations + 0
+                                                
+                                                }
+                                            }
+                                        finishedNominations = finishedNominations + 1
+                                    }
+                                    
+                                    })
+                            
+                                return (finishedNominations + " / " + data.length)
+                            }
+            
                     }
+
+
               ],
             
             columns: [
@@ -328,7 +362,9 @@ $(document).ready(function(){
                 { data: 'nominations',
                 "defaultContent": "<i>Not set</i>" },
                 
-                { data: 'scores',
+                { data: 'nominations',
+                "defaultContent": "<i>Not set</i>" },
+                { data: 'nominations',
                 "defaultContent": "<i>Not set</i>" },
             ]
         }

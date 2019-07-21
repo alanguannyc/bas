@@ -147,7 +147,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         //     $query->where('name', 'judge');
         // })->orderBy('created_at', 'desc')->get();
         $users = \App\Judge::has('nominations')
-        ->with('nominations','profile','scores')
+        ->with('nominations','profile','scores','nominations.score')
         ->orderBy('created_at', 'desc')->get();
         return $users;
     });
