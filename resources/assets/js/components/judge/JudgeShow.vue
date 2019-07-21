@@ -57,7 +57,7 @@
 
     <b-card class="mt-1" sub-title="4.    Please list any awards or recognition that the employee has received from the Hotel, management, guests, award organizations and/or peers."
             >
-        <div class="card-text" v-html="nomination.q14">
+        <div class="card-text" v-html="nomination.q4">
 
         </div>
         <div>

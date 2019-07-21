@@ -51385,7 +51385,7 @@ var render = function() {
         [
           _c("div", {
             staticClass: "card-text",
-            domProps: { innerHTML: _vm._s(_vm.nomination.q14) }
+            domProps: { innerHTML: _vm._s(_vm.nomination.q4) }
           }),
           _vm._v(" "),
           _c(
