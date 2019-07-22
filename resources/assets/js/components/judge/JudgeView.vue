@@ -1,6 +1,9 @@
 <template>
     <div class="container" >
         <div v-if="!lastPage && setting.judge_on ">
+            <b-card>
+                Thank you for being a judge for the 2019 Big Apple Stars Awards!
+                You have a total of <span style="font-weight:bold">{{nominations.length}}</span> nominations to judge and you have completed <span style="color:green;font-weight:bold">{{finishedNominations}}</span>.</b-card>
             <b-card no-body >
             <b-tabs pills card vertical ref="tabs">
                 <div v-for="nomination in nominations" v-bind:key="nomination.id">
@@ -58,6 +61,7 @@ export default {
         return {
             completed:false,
             nominations:'',
+            finishedNominations:0,
             score:'',
             lastPage:false,
             setting:{
@@ -99,8 +103,10 @@ export default {
                             for (var i=1;i<6;i++){
                                 if (nomination.score['q'+i] == null) {
                                     completed = false
+                                    app.finishedNominations = app.finishedNominations + 0
                                 }
                             }
+                            app.finishedNominations = app.finishedNominations + 1
                         }
                         
                         nomination['completed'] = completed
@@ -181,6 +187,7 @@ export default {
                 //             })
                 
                 var app = this;
+                app.finishedNominations = app.finishedNominations + 1
                 axios.get(`/api/v1/judgepanel/`)
                 .then(function (resp) {
 
@@ -191,8 +198,10 @@ export default {
                             
                             if (nomination.score['q'+i] == null) {
                                 completed = false
+
                             }
                         }
+                        
                         nomination['completed'] = completed
 
                         return nomination

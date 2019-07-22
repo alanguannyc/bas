@@ -39884,6 +39884,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -39897,6 +39900,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
         return {
             completed: false,
             nominations: '',
+            finishedNominations: 0,
             score: '',
             lastPage: false,
             setting: {
@@ -39937,8 +39941,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
                     for (var i = 1; i < 6; i++) {
                         if (nomination.score['q' + i] == null) {
                             completed = false;
+                            app.finishedNominations = app.finishedNominations + 0;
                         }
                     }
+                    app.finishedNominations = app.finishedNominations + 1;
                 }
 
                 nomination['completed'] = completed;
@@ -40004,6 +40010,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
             //             })
 
             var app = this;
+            app.finishedNominations = app.finishedNominations + 1;
             axios.get('/api/v1/judgepanel/').then(function (resp) {
 
                 app.nominations = resp.data.nominations;
@@ -40015,6 +40022,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_boot
                             completed = false;
                         }
                     }
+
                     nomination['completed'] = completed;
 
                     return nomination;
@@ -50774,6 +50782,22 @@ var render = function() {
       ? _c(
           "div",
           [
+            _c("b-card", [
+              _vm._v(
+                "\n            Thank you for being a judge for the 2019 Big Apple Stars Awards!\n            You have a total of "
+              ),
+              _c("span", { staticStyle: { "font-weight": "bold" } }, [
+                _vm._v(_vm._s(_vm.nominations.length))
+              ]),
+              _vm._v(" nominations to judge and you have completed "),
+              _c(
+                "span",
+                { staticStyle: { color: "green", "font-weight": "bold" } },
+                [_vm._v(_vm._s(_vm.finishedNominations))]
+              ),
+              _vm._v(".")
+            ]),
+            _vm._v(" "),
             _c(
               "b-card",
               { attrs: { "no-body": "" } },
@@ -51991,7 +52015,7 @@ exports = module.exports = __webpack_require__(6)(false);
 
 
 // module
-exports.push([module.i, "\nb-card[data-v-0c729634] {\n        margin-top:5px;\n}\n.left[data-v-0c729634] {\n    position: relative;\n    bottom: 1px;\n    left: 0;\n    width: auto;\n    float: left;\n}\n.right[data-v-0c729634] {\n        position: relative;\n        bottom: 1px;\n        right: 0;\n        width: auto;\n        float: right;\n}\nimg[data-v-0c729634] {\n    width: 40%;\n        opacity: 0.7;\n        z-index: 1000;\n        position: absolute;\n\n        right: 0;\n        top: 2px;\n        height: 180px;\n        width: auto;\n}\n.center[data-v-0c729634] {\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n    width: 50%;\n}\n\n\n\n\n    ", ""]);
+exports.push([module.i, "\nb-card[data-v-0c729634] {\n        margin-top:5px;\n}\n.left[data-v-0c729634] {\n    position: relative;\n    bottom: 1px;\n    left: 0;\n    width: auto;\n    float: left;\n}\n.right[data-v-0c729634] {\n        position: relative;\n        bottom: 1px;\n        right: 0;\n        width: auto;\n        float: right;\n}\nimg[data-v-0c729634] {\n    width: 40%;\n        opacity: 0.7;\n        z-index: 1000;\n        position: absolute;\n\n        right: 0;\n        top: 2px;\n        height: 180px;\n        width: auto;\n}\n.center[data-v-0c729634] {\n    display: block;\n    margin-left: auto;\n    margin-right: auto;\n    width: 50%;\n}\n.answer[data-v-0c729634] {\n    white-space: pre-line;\n}\n\n\n\n\n\n    ", ""]);
 
 // exports
 
@@ -52221,7 +52245,7 @@ var render = function() {
           _c("div", { staticClass: "box" }),
           _vm._v(" "),
           _c("div", {
-            staticClass: "card-text",
+            staticClass: "card-text answer",
             domProps: { innerHTML: _vm._s(_vm.nomination.q1) }
           }),
           _vm._v(" "),
@@ -52265,7 +52289,7 @@ var render = function() {
         },
         [
           _c("div", {
-            staticClass: "card-text",
+            staticClass: "card-text answer",
             domProps: { innerHTML: _vm._s(_vm.nomination.q2) }
           }),
           _vm._v(" "),
@@ -52309,7 +52333,7 @@ var render = function() {
         },
         [
           _c("div", {
-            staticClass: "card-text",
+            staticClass: "card-text answer",
             domProps: { innerHTML: _vm._s(_vm.nomination.q3) }
           }),
           _vm._v(" "),
@@ -52353,7 +52377,7 @@ var render = function() {
         },
         [
           _c("div", {
-            staticClass: "card-text",
+            staticClass: "card-text answer",
             domProps: { innerHTML: _vm._s(_vm.nomination.q4) }
           }),
           _vm._v(" "),
@@ -52397,7 +52421,7 @@ var render = function() {
         },
         [
           _c("div", {
-            staticClass: "card-text",
+            staticClass: "card-text answer",
             domProps: { innerHTML: _vm._s(_vm.nomination.q5) }
           }),
           _vm._v(" "),
