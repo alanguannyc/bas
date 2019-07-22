@@ -16,7 +16,7 @@
             I'm the default title!
           </slot> -->
         {{ data.category }}
-         <h5 >Total Score: {{ score.q5 + score.q4 + score.q3 + score.q2 + score.q1 }}</h5>
+         <h5 >Total Score: {{ Number(score.q5) + Number(score.q4) + Number(score.q3) + Number(score.q2) + Number(score.q1) }}</h5>
         
           
           </h5>
