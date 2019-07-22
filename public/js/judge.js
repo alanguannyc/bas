@@ -39887,6 +39887,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -50783,8 +50786,13 @@ var render = function() {
           "div",
           [
             _c("b-card", [
+              _c("p", [
+                _vm._v(
+                  "\nThank you for being a judge for the 2019 Big Apple Stars Awards!\n                "
+                )
+              ]),
               _vm._v(
-                "\n            Thank you for being a judge for the 2019 Big Apple Stars Awards!\n            You have a total of "
+                "\n                \n                You have a total of "
               ),
               _c("span", { staticStyle: { "font-weight": "bold" } }, [
                 _vm._v(_vm._s(_vm.nominations.length))
@@ -50795,7 +50803,7 @@ var render = function() {
                 { staticStyle: { color: "green", "font-weight": "bold" } },
                 [_vm._v(_vm._s(_vm.finishedNominations))]
               ),
-              _vm._v(".")
+              _vm._v(" of them.")
             ]),
             _vm._v(" "),
             _c(
@@ -50816,9 +50824,9 @@ var render = function() {
                           [
                             _c("template", { slot: "title" }, [
                               _vm._v(
-                                "\n                 " +
+                                "\n                     " +
                                   _vm._s(nomination.category) +
-                                  " \n                 "
+                                  " \n                     "
                               ),
                               nomination.completed
                                 ? _c(
@@ -50865,7 +50873,7 @@ var render = function() {
                   },
                   [
                     _c("i", { staticClass: "material-icons" }, [
-                      _vm._v("\n        navigate_before\n        ")
+                      _vm._v("\n            navigate_before\n            ")
                     ])
                   ]
                 ),
@@ -50883,7 +50891,7 @@ var render = function() {
                   },
                   [
                     _c("i", { staticClass: "material-icons" }, [
-                      _vm._v("\n        navigate_next\n        ")
+                      _vm._v("\n            navigate_next\n            ")
                     ])
                   ]
                 )

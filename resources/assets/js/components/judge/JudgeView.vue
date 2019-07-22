@@ -2,8 +2,11 @@
     <div class="container" >
         <div v-if="!lastPage && setting.judge_on ">
             <b-card>
-                Thank you for being a judge for the 2019 Big Apple Stars Awards!
-                You have a total of <span style="font-weight:bold">{{nominations.length}}</span> nominations to judge and you have completed <span style="color:green;font-weight:bold">{{finishedNominations}}</span>.</b-card>
+                <p>
+Thank you for being a judge for the 2019 Big Apple Stars Awards!
+                </p>
+                
+                You have a total of <span style="font-weight:bold">{{nominations.length}}</span> nominations to judge and you have completed <span style="color:green;font-weight:bold">{{finishedNominations}}</span> of them.</b-card>
             <b-card no-body >
             <b-tabs pills card vertical ref="tabs">
                 <div v-for="nomination in nominations" v-bind:key="nomination.id">
