@@ -18,7 +18,7 @@ window.Vue = require('vue');
 //  * or customize the JavaScript scaffolding to fit your unique needs.
 //  */
 $.fn.editable.defaults.mode = 'inline';
-
+import Notifications from 'vue-notification'
 Vue.component('messenge-vue', require('./components/admin/Messenge.vue'));
 Vue.component('member-nomination', require('./components/admin/MemberNomination.vue'));
 Vue.component('nomination-detail', require('./components/admin/NominationDetail.vue'));
@@ -30,6 +30,7 @@ Vue.component('setting', require('./components/admin/setting.vue'));
 Vue.component('select-judge', require('./components/admin/SelectJudge.vue'));
 import { ToggleButton } from 'vue-js-toggle-button'
 Vue.component('ToggleButton', ToggleButton)
+Vue.use(Notifications)
 const app = new Vue({
     el: '#admin'
     

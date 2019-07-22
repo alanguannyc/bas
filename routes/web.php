@@ -90,7 +90,7 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         Route::post('/judge_off', 'SettingController@JudgeOff');
 
         Route::post('/update', 'SettingController@Update');
-
+        Route::post('/scores', 'ScoreController@updateAll');
         Route::get('/','SettingController@all');
     });
 
@@ -227,7 +227,7 @@ Route::group(['middleware' => ['auth','final_judge']], function () {
 
 });
 
-Route::post('/update', 'ScoreController@updateAll');
+
 
 
 

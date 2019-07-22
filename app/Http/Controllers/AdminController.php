@@ -16,8 +16,10 @@ class AdminController extends WinnersController
 
     public function index() 
     {
-        $winners = WinnersController::winner();
+        // $winners = WinnersController::winner();
+        $winners = [];
         return view('layouts.admin.index')->with('winners', $winners);
+
     }
 
     public function winners()

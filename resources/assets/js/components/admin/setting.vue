@@ -46,17 +46,23 @@
             @change="StatusChange"
             />
         </div>
+        <div>
+          <label>Update scores (give 0 score to empty answers)</label>
+          <button v-on:click="updateScores" class="btn btn-primary btn-sm">UPDATE</button>
+        </div>
       </div>
     </div>
   </div>
         
     
     </div>
+    <notifications group="successinfo" position='bottom right' />
     </div>
+    
   </template>
 
   <script>
-
+import Notifications from 'vue-notification'
 
 
   export default {
@@ -99,7 +105,55 @@
         judgeChange: function(){
           
             this.setting.judge_on ? axios.post('/api/v1/setting/judge_on') : axios.post('/api/v1/setting/judge_off')
+        },
+        updateScores: function(){
+          
+          axios.post(`/api/v1/setting/scores`)
+          .then(resp => {
+              this.showSuccessAlert()
+          })
+          // axios.get(`/api/v1/member/nominations/`)
+          //    .then(resp =>  {    
+          //      resp.data.map(nomination =>{
+          //        for(var i=1; i <=5; i ++){
+          //          if(nomination['q'+i].length == 0){
+                     
+          //            console.log(nomination.id)
+          //          } 
+          //        }
+                 
+          //      })
+               
+          //   })
+          //    .catch(function (err) {
+          //        console.log(err);
+          //   })
+        },
+
+        showSuccessAlert: function(){
+          this.$notify({
+
+            group: 'successinfo',
+
+            type: 'info',
+
+            title: 'Scores have been updated',
+
+            duration: 1000,
+
+            speed: 500
+
+          })
         }
     }
   }
 </script>
+<style>
+.vue-notification {
+  
+
+  font-size: 15px;
+
+  
+}
+</style>
