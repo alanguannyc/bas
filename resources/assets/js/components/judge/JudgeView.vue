@@ -91,31 +91,41 @@ export default {
     //         }, 1000)
     //     },
     // },
+
+
  
     mounted() {
             var app = this;
             axios.get(`/api/v1/judgepanel/`)
                 .then(function (resp) {
 
-                    // app.nominations = resp.data.nominations;
+
+                    
                     app.nominations = resp.data.nominations.map(nomination=>{
                         var completed = true
+                        var completedNominations = 0
                         if (nomination.score == null) {
                             completed = false
                         } else {
-                            for (var i=1;i<6;i++){
-                                if (nomination.score['q'+i] == null) {
+                            for (var i=1;i<=5;i++){
+                                if (nomination.score['q'+i]  == null) {
                                     completed = false
-                                    app.finishedNominations = app.finishedNominations + 0
+                                    // app.finishedNominations = app.finishedNominations + 0
                                 }
                             }
-                            app.finishedNominations = app.finishedNominations + 1
+                            // app.finishedNominations = app.finishedNominations + 1
+                            
                         }
-                        
                         nomination['completed'] = completed
+                        
+                        
 
                         return nomination
                     })
+                    
+
+                    var completedNo = app.nominations.filter(nomination=>nomination.completed == true).length
+                    app.finishedNominations = completedNo
 
 
                 })
@@ -145,6 +155,7 @@ export default {
         
     },
     methods:{
+
             nextTab(){
                 
                 var lastLi = $('body').find('li').last()[0]
