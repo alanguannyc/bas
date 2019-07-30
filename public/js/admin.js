@@ -32002,27 +32002,34 @@ $(document).ready(function () {
             "targets": 4,
             "render": function render(data, type, row, meta) {
 
-                var completed = "Completed";
+                var completed = true;
 
                 var totalNominationsToJudge = data.length;
                 var finishedNominations = 0;
 
                 data.map(function (nomination) {
-                    if (nomination.score != null) {
-                        for (var i = 1; i < 6; i++) {
+                    if (nomination.score == null) {
+                        completed = false;
+                    } else {
+                        for (var i = 1; i <= 5; i++) {
 
                             if (nomination.score['q' + i] == null) {
-                                finishedNominations = finishedNominations + 0;
+                                completed = false;
+
+                                // finishedNominations = finishedNominations + 0
                             }
                         }
-                        finishedNominations = finishedNominations + 1;
+                        // finishedNominations = finishedNominations + 1
                     }
                 });
-                if (finishedNominations != totalNominationsToJudge) {
-                    completed = "Not Completed";
+                // if ( finishedNominations != totalNominationsToJudge ) {
+                //     completed = "Not Completed"
+                // }
+                if (completed) {
+                    return "Completed";
+                } else {
+                    return "Not Completed";
                 }
-
-                return completed;
             }
 
         }, {
@@ -32032,18 +32039,27 @@ $(document).ready(function () {
                 var finishedNominations = 0;
 
                 data.map(function (nomination) {
-                    if (nomination.score != null) {
-                        for (var i = 1; i < 6; i++) {
-
+                    var completed = true;
+                    if (nomination.score == null) {
+                        completed = false;
+                    } else {
+                        for (var i = 1; i <= 5; i++) {
                             if (nomination.score['q' + i] == null) {
-                                finishedNominations = finishedNominations + 0;
+                                completed = false;
+                                // app.finishedNominations = app.finishedNominations + 0
                             }
                         }
-                        finishedNominations = finishedNominations + 1;
-                    }
-                });
 
-                return finishedNominations + " / " + data.length;
+                        // app.finishedNominations = app.finishedNominations + 1
+                    }
+                    nomination['completed'] = completed;
+                });
+                console.log(data.filter(function (nomination) {
+                    return nomination.completed == true;
+                }).length);
+                return data.filter(function (nomination) {
+                    return nomination.completed == true;
+                }).length + " / " + data.length;
             }
 
         }],

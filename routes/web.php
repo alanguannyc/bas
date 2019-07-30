@@ -150,7 +150,8 @@ Route::group(['prefix' => 'api/v1', 'middleware' => ['auth']], function(){
         ->with('nominations','profile','scores','nominations.score')
         ->orderBy('created_at', 'desc')->get();
         return $users;
-    });
+    })->middleware('judge');
+    
     Route::get('/judge/{id}', function($id){
 
             $judge = \App\Judge::with(['nominations','nominations.user', 'nominations.user.profile','profile','nominations.score'])
