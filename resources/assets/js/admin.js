@@ -478,7 +478,7 @@ $(document).ready(function(){
         }
     } );
 
-    let finalJudges = ['Alan Steel','Bjorn Hanson, Ph.D.','Almerinda Forte','Larry Lawrence']
+    let finalJudges = ['Alan Steel','Bjorn Hanson, Ph.D.','Almerinda Forte','Larry Momo', 'Nicolas Graf, Ph.D.']
     var winner_list_table = $('#winner_list_table').DataTable(
         {
             "pagingType": "full_numbers",
@@ -554,6 +554,21 @@ $(document).ready(function(){
                             }
         
                         },
+                        {
+                            "targets": 8,
+                            "render": function ( data, type, row, meta ) {
+                                var newArray = data.filter((query)=>{
+                                    return query.final_judge.name == finalJudges[4]
+                                })
+    
+                                if(newArray[0]){
+                                    return newArray[0].total
+                                } else {
+                                    return 0
+                                }
+                                }
+            
+                            },
               ],
               dom: 'fBrtip',
               buttons: [
@@ -568,7 +583,8 @@ $(document).ready(function(){
                 { data: 'final_scores' },
                 { data: 'final_scores'},
                 { data: 'final_scores'},
-                { data: 'final_scores' }
+                { data: 'final_scores' },
+                { data: 'final_scores' },
             ]
         }
     );

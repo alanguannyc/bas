@@ -32122,7 +32122,7 @@ $(document).ready(function () {
         }
     });
 
-    var finalJudges = ['Alan Steel', 'Bjorn Hanson, Ph.D.', 'Almerinda Forte', 'Larry Lawrence'];
+    var finalJudges = ['Alan Steel', 'Bjorn Hanson, Ph.D.', 'Almerinda Forte', 'Larry Momo', 'Nicolas Graf, Ph.D.'];
     var winner_list_table = $('#winner_list_table').DataTable({
         "pagingType": "full_numbers",
         "order": [[0, "desc"]],
@@ -32189,10 +32189,24 @@ $(document).ready(function () {
                 }
             }
 
+        }, {
+            "targets": 8,
+            "render": function render(data, type, row, meta) {
+                var newArray = data.filter(function (query) {
+                    return query.final_judge.name == finalJudges[4];
+                });
+
+                if (newArray[0]) {
+                    return newArray[0].total;
+                } else {
+                    return 0;
+                }
+            }
+
         }],
         dom: 'fBrtip',
         buttons: ['csv', 'excel'],
-        columns: [{ data: 'category' }, { data: 'name' }, { data: 'title' }, { data: 'user.profile.company' }, { data: 'final_scores' }, { data: 'final_scores' }, { data: 'final_scores' }, { data: 'final_scores' }]
+        columns: [{ data: 'category' }, { data: 'name' }, { data: 'title' }, { data: 'user.profile.company' }, { data: 'final_scores' }, { data: 'final_scores' }, { data: 'final_scores' }, { data: 'final_scores' }, { data: 'final_scores' }]
     });
 });
 

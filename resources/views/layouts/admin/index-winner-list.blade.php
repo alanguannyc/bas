@@ -58,7 +58,8 @@
               <th>Alan Steel</th>
               <th>Bjorn Hanson, Ph.D.</th>
               <th>Almerinda Forte</th>
-              <th>Larry's Lawrence</th>
+              <th>Larry Momo</th>
+              <th>Nicolas Graf, Ph.D.</th>
           </tr>
       </thead>
       
