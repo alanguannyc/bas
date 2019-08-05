@@ -399,7 +399,7 @@ $(document).ready(function(){
                 '</tr>'+
                 '<tr>'+
                     '<td>Hotel:</td>'+
-                    '<td>'+d.company+'</td>'+
+                    '<td>'+d.profile.company+'</td>'+
                 '</tr>'+
                 '<tr>'+
                     '<td>Q1:</td>'+
