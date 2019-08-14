@@ -19,7 +19,7 @@
               <th>Hotel</th>
               <th>Nominated by</th>
               <th>Judged by</th>
-              <th>Nominated on</th>
+              <th>Contact Email</th>
           </tr>
       </thead>
       
