@@ -218,7 +218,7 @@ $(document).ready(function(){
                 { data: 'user'},
                 { data: 'judge', 
                 "defaultContent": "<i>Not set</i>"},
-                { data: 'user.profile.email',
+                { data: 'user.email',
                 "defaultContent": "<i>Not set</i>" },
             ],
             dom: 'Bfrtip',

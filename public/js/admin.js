@@ -31943,7 +31943,7 @@ $(document).ready(function () {
             "defaultContent": 'view'
         }, { data: 'category' }, { data: 'name' }, { data: 'title' }, { data: 'score' }, { data: 'user.profile.company',
             "defaultContent": "<i>Not set</i>" }, { data: 'user' }, { data: 'judge',
-            "defaultContent": "<i>Not set</i>" }, { data: 'user.profile.email',
+            "defaultContent": "<i>Not set</i>" }, { data: 'user.email',
             "defaultContent": "<i>Not set</i>" }],
         dom: 'Bfrtip',
         buttons: ['copy', 'csv', 'excel', 'pdf']
